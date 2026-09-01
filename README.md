@@ -6,7 +6,9 @@ Foster (COO) and Keith (CFO) open it in Safari or Chrome at the production URL. 
 
 ## Open the books
 
-Use the Vercel production URL for project **soastal-books** on the Soastal team. Office PIN login (Foster · office lane, Keith · CFO lane). Ask Foster for the PIN if you do not have it.
+Use the Vercel production URL for this app: **https://soastal-accrual-books.vercel.app**
+
+This is a standalone Soastal Books project on the Soastal team — not `soastal-fernhill` and not a zip.
 
 The app never writes Keith’s live spreadsheet.
 
