@@ -3,7 +3,6 @@
   "framework": "vite",
   "installCommand": "npm install",
   "buildCommand": "npx vite build",
-  "outputDirectory": "dist",
   "rewrites": [{ "source": "/((?!api/).*)", "destination": "/index.html" }],
   "headers": [
     {
@@ -12,3 +11,4 @@
     }
   ]
 }
+
