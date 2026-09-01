@@ -4,7 +4,17 @@ Office accrual books for **Soastal LLC**. This is Keith’s company workbook as 
 
 Open it in a browser. Left nav: Inbox, Transactions, Bills (AP), Invoices (AR), Jobs, Vendors, Reports, Setup.
 
-Demo journal is seeded (Fern Hill, Sandy Run, N/A - Overhead, Vulcan AP, a `-PMT`, STYO AR, T&T waiting on Foster). Keith’s live file `Documents/Finance/Acounting spreadshseet.xlsx` is denylisted. Copies only.
+Local (this is the working site):
+
+```bash
+npm install
+npm test
+npm run dev
+```
+
+App: `http://127.0.0.1:43173` — HTML includes the ledger (Vulcan, Fern Hill, Foster inbox), not a title stub.
+
+`https://soastal-accrual-books.vercel.app` is a dead Vite shell (~463 bytes, empty `#root`). This workspace token cannot overwrite that project. After you create/connect the repo in the soastal Vercel team, assign production to a `soastal-*-books.vercel.app` hostname and this Next export (`output: 'export'`, `out/`) is what should go live.
 
 There is **no shared database** with the field app.
 
