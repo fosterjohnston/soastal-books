@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 43173",
     "build": "tsc -b && vite build",
-    "build:vercel": "vite build",
+    "vercel-build": "vite build",
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "oxlint",
@@ -51,5 +51,8 @@
     "oxlint": "^1.79.0",
     "typescript": "~6.0.2",
     "vitest": "^4.1.11"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
