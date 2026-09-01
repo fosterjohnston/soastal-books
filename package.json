@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "next dev --hostname 127.0.0.1 --port 43173",
     "build": "next build",
-    "start": "next start --hostname 127.0.0.1 --port 43173",
+    "start": "npx --yes serve out --listen tcp://127.0.0.1:43173",
     "test": "vitest run",
     "test:watch": "vitest"
   },

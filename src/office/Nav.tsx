@@ -25,7 +25,7 @@ export function OfficeNav() {
       </div>
       <nav className="flex gap-1 overflow-x-auto p-2 md:flex-col md:overflow-visible">
         {NAV.map((item) => {
-          const active = path === item.href
+          const active = path === item.href || (item.href === '/transactions' && (path === '/' || path === ''))
           return (
             <Link
               key={item.href}

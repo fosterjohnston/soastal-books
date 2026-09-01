@@ -1,5 +1,6 @@
-import { redirect } from 'next/navigation'
+import { SeedLedgerTable } from '@/office/SeedLedgerTable'
+import { TransactionsView } from '@/office/TransactionsView'
 
-export default function Home() {
-  redirect('/transactions')
+export default function HomePage() {
+  return <TransactionsView seedTable={<SeedLedgerTable />} />
 }
