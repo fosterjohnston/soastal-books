@@ -1,21 +1,10 @@
 {
-  "version": 2,
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
   "installCommand": "npm install",
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": { "distDir": "dist" }
-    },
-    { "src": "api/session.js", "use": "@vercel/node" },
-    { "src": "api/books.js", "use": "@vercel/node" }
-  ],
-  "routes": [
-    { "src": "/api/session", "dest": "/api/session.js" },
-    { "src": "/api/books", "dest": "/api/books.js" },
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/index.html" }
-  ],
+  "buildCommand": "npx vite build",
+  "outputDirectory": "dist",
+  "rewrites": [{ "source": "/((?!api/).*)", "destination": "/index.html" }],
   "headers": [
     {
       "source": "/api/(.*)",
