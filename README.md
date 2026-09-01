@@ -1,16 +1,41 @@
 # Soastal Books
 
-Office **accrual** accounting for **Soastal LLC**. Keith’s company workbook as a standalone web app — not QuickBooks, not the field site (`soastal-fernhill`).
+Office **accrual** accounting for **Soastal LLC**. Keith’s company workbook as a standalone app — not QuickBooks, not the field site (`soastal-fernhill`).
 
-Foster (COO) and Keith (CFO) open it in Safari or Chrome at the production URL. There is **no shared database** with the field app and **no live sync** of jobs, timesheets, or budgets.
+Foster (COO) and Keith (CFO) can use the web app or a **Mac .dmg**. There is **no shared database** with the field app and **no live sync** of jobs, timesheets, or budgets. This software never writes Keith’s live spreadsheet.
 
-## Open the books
+## Web app
 
-Use the Vercel production URL for this app: **https://soastal-accrual-books.vercel.app**
+**https://soastal-accrual-books.vercel.app**
 
-This is a standalone Soastal Books project on the Soastal team — not `soastal-fernhill` and not a zip.
+Standalone Soastal Books on the Soastal Vercel team — not `soastal-fernhill`.
 
-The app never writes Keith’s live spreadsheet.
+## Mac installable (.dmg)
+
+The installable for Foster and Keith is a **Mac disk image**, not a Windows `.exe`.
+
+This Linux build agent **cannot produce a signed, usable `.dmg`**. There is no `hdiutil`, no Apple signing identity, and Gatekeeper will not treat a Linux-built unsigned image as a normal Mac app. Do not use the Windows `Soastal-Books-Setup.exe` as the office deliverable.
+
+On **Foster’s or Keith’s Mac** (macOS, Node 20+):
+
+```bash
+npm install
+npm run dist:mac
+```
+
+The disk image is written to `release/Soastal-Books-1.0.0-mac.dmg`. Open it and drag **Soastal Books** to Applications.
+
+The Mac app stores copies only under `Documents/Finance/Soastal Books/` (`soastal-books.json` and `Soastal Books Export.xlsx`). It **refuses** to write Keith’s live original:
+
+`Documents/Finance/Acounting spreadshseet.xlsx`
+
+(filename is misspelled — that exact name is blocked).
+
+To smoke-test the desktop shell before packaging:
+
+```bash
+npm run electron:dev
+```
 
 ## Accrual posting
 
@@ -26,13 +51,10 @@ Formula columns are computed (never typed): Suggested Account, Final Account, To
 
 ## Where books persist
 
-App-owned cloud store only (Soastal Books JSON via `/api/books`), plus an Excel **copy** you can download from the Files page. Optional Graph/OneDrive copy-save under `Documents/Finance/Soastal Books/` is fine from the browser.
+- **Mac app:** `Documents/Finance/Soastal Books/` (app-owned JSON + Excel copy).
+- **Web:** app-owned store via `/api/books`, plus an Excel copy from the Files page. Optional Graph/OneDrive copy-save under `Documents/Finance/Soastal Books/` is fine from the browser.
 
-**Hard denylist:** never write Keith’s live original
-
-`Documents/Finance/Acounting spreadshseet.xlsx`
-
-(filename is misspelled — that exact name is blocked). Import is allowed only from a **copy**.
+**Hard denylist:** never write Keith’s live original. Import is allowed only from a **copy**.
 
 ## Local development
 
@@ -43,8 +65,6 @@ npm run dev
 ```
 
 Opens `http://127.0.0.1:43173`. Same PIN gate. Vite serves the UI; `/api/session` and `/api/books` run in the same process.
-
-Optional env (see `.env.example`): `FOSTER_PIN`, `KEITH_PIN`, `SESSION_SECRET`, `BLOB_READ_WRITE_TOKEN`. Production uses Vercel Blob for the shared books JSON.
 
 ## Standalone
 

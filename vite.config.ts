@@ -35,7 +35,7 @@ function officeApi(): Plugin {
 
 export default defineConfig({
   plugins: [react(), tailwindcss(), officeApi()],
-  base: '/',
+  base: process.env.ELECTRON === '1' ? './' : '/',
   resolve: {
     alias: {
       '@': path.resolve(root, 'src'),

@@ -84,14 +84,6 @@ export function BooksProvider({ children }: { children: ReactNode }) {
     let cancelled = false
     void (async () => {
       try {
-        const cloud = await loadFromCloud()
-        if (cloud?.books) {
-          if (!cancelled) {
-            setBooksState(cloud.books)
-            setSavePath(cloud.store)
-          }
-          return
-        }
         const electron = api()
         if (electron?.load) {
           const disk = await electron.load()
@@ -100,6 +92,14 @@ export function BooksProvider({ children }: { children: ReactNode }) {
             if (electron.booksDir) setSavePath(await electron.booksDir())
             return
           }
+        }
+        const cloud = await loadFromCloud()
+        if (cloud?.books) {
+          if (!cancelled) {
+            setBooksState(cloud.books)
+            setSavePath(cloud.store)
+          }
+          return
         }
         const seed = createEmptyBooks()
         if (!cancelled) {

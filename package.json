@@ -2,17 +2,22 @@
   "name": "soastal-books",
   "private": true,
   "version": "1.0.0",
-  "description": "Soastal LLC office accounting — standalone accrual web app. Copies only. Not the field site.",
+  "description": "Soastal LLC office accounting — standalone accrual books. Copies only. Not the field site.",
   "author": "Soastal LLC",
   "type": "module",
+  "main": "electron/main.mjs",
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 43173",
     "build": "tsc -b && vite build",
+    "build:electron": "tsc -b && ELECTRON=1 vite build",
     "vercel-build": "vite build",
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "oxlint",
-    "preview": "vite preview --host 127.0.0.1 --port 43173"
+    "preview": "vite preview --host 127.0.0.1 --port 43173",
+    "electron:dev": "concurrently -k \"npm run dev\" \"wait-on http://127.0.0.1:43173 && electron .\"",
+    "dist:mac": "npm run build:electron && electron-builder --mac --publish never",
+    "dist:win": "npm run build:electron && CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --win --x64 --publish never"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.3.11",
@@ -50,9 +55,54 @@
     "jsdom": "^29.1.1",
     "oxlint": "^1.79.0",
     "typescript": "~6.0.2",
-    "vitest": "^4.1.11"
+    "vitest": "^4.1.11",
+    "concurrently": "^10.0.5",
+    "electron": "^44.1.1",
+    "electron-builder": "^26.15.3",
+    "wait-on": "^9.1.0"
   },
   "engines": {
     "node": ">=20"
+  },
+  "build": {
+    "appId": "llc.soastal.books",
+    "productName": "Soastal Books",
+    "copyright": "Copyright © Soastal LLC",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "extraMetadata": {
+      "main": "electron/main.mjs"
+    },
+    "asar": true,
+    "publish": null,
+    "mac": {
+      "category": "public.app-category.finance",
+      "icon": "build/icon.png",
+      "target": ["dmg"],
+      "artifactName": "Soastal-Books-${version}-mac.${ext}",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false
+    },
+    "win": {
+      "icon": "build/icon.ico",
+      "signAndEditExecutable": false,
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "artifactName": "Soastal-Books-Setup.exe"
+    },
+    "dmg": {
+      "artifactName": "Soastal-Books-${version}-mac.${ext}"
+    }
   }
 }

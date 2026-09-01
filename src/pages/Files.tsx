@@ -4,7 +4,7 @@ import { Button, Card } from '../components/ui'
 import { useRef } from 'react'
 
 export function Files() {
-  const { books, savePath, lastError, saveNow, exportCopy, importCopy, resetDemo } = useBooks()
+  const { books, savePath, lastError, saveNow, exportCopy, importCopy, resetDemo, isElectron } = useBooks()
   const fileRef = useRef<HTMLInputElement>(null)
 
   return (
@@ -21,7 +21,11 @@ export function Files() {
         <dl className="grid gap-2 text-sm md:grid-cols-2">
           <div>
             <dt className="text-xs uppercase tracking-wide text-ink-2">Mode</dt>
-            <dd>Soastal Books cloud store (app-owned). Not the field app. Not Keith&apos;s live xlsx.</dd>
+            <dd>
+              {isElectron
+                ? 'Mac app copy folder (Documents/Finance/Soastal Books). Not Keith’s live xlsx.'
+                : 'Soastal Books cloud store (app-owned). Not the field app. Not Keith’s live xlsx.'}
+            </dd>
           </div>
           <div>
             <dt className="text-xs uppercase tracking-wide text-ink-2">Current path</dt>
