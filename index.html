@@ -4,14 +4,35 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://graph.microsoft.com https://login.microsoftonline.com"
-    />
-    <title>Soastal Books</title>
+    <title>Soastal Books — Soastal LLC office accrual</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div style="min-height:100vh;display:flex;flex-direction:column;background:#0c1f2e;color:#f4efe6;font-family:Georgia,serif">
+        <div style="display:flex;flex:1;flex-wrap:wrap">
+          <aside style="width:14rem;padding:1.25rem 1rem;border-right:1px solid rgba(255,255,255,.12)">
+            <div style="font-size:10px;letter-spacing:.2em;color:#c4a574;font-family:system-ui,sans-serif">SOASTAL LLC</div>
+            <div style="font-size:1.5rem;margin-top:.15rem">Books</div>
+            <p style="font-size:12px;opacity:.65;margin:.35rem 0 1rem">Accrual · copies only</p>
+            <nav style="font-family:system-ui,sans-serif;font-size:14px;line-height:1.9;opacity:.9">
+              Books<br />Enter<br />Ledger<br />Foster<br />AP / AR<br />Reports<br />Setup
+            </nav>
+          </aside>
+          <main style="flex:1;padding:2rem 1.5rem">
+            <p style="font-size:11px;letter-spacing:.18em;color:#148f7a;font-family:system-ui,sans-serif">SOASTAL LLC · OFFICE BOOKS</p>
+            <h1 style="font-size:2rem;margin:.35rem 0">Soastal Books</h1>
+            <p style="max-width:40rem;opacity:.8;font-family:system-ui,sans-serif;font-size:14px">
+              Office accrual ledger — not the field app. Demo journal (Vulcan AP, Fern Hill AR, Foster coding confirm) is loading.
+            </p>
+          </main>
+        </div>
+      </div>
+    </div>
+    <noscript>
+      <p style="padding:1rem;font-family:system-ui,sans-serif">
+        Soastal Books needs JavaScript for the ledger, unpaid-bill wizard, Foster inbox, aging, and P&amp;L.
+      </p>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

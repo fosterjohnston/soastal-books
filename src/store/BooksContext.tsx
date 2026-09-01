@@ -18,18 +18,6 @@ function api(): BooksAPI | undefined {
   return (window as unknown as { booksAPI?: BooksAPI }).booksAPI
 }
 
-async function loadFromCloud(): Promise<{ books: CompanyBooks | null; store: string } | null> {
-  try {
-    const res = await fetch('/api/books', { credentials: 'include' })
-    if (res.status === 401) return null
-    if (!res.ok) return null
-    const data = (await res.json()) as { books?: CompanyBooks | null; store?: string }
-    return { books: data.books ?? null, store: data.store || 'soastal-books-store' }
-  } catch {
-    return null
-  }
-}
-
 async function saveToCloud(books: CompanyBooks): Promise<string | null> {
   try {
     const res = await fetch('/api/books', {
@@ -73,9 +61,22 @@ type Ctx = {
 
 const BooksContext = createContext<Ctx | null>(null)
 
+function readStoredBooks(): CompanyBooks {
+  if (typeof localStorage === 'undefined') return createEmptyBooks()
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (!raw) return createEmptyBooks()
+    const parsed = JSON.parse(raw) as CompanyBooks
+    if (Array.isArray(parsed?.transactions) && parsed.transactions.length > 0) return parsed
+  } catch {
+    /* corrupt store — fall back to demo journal */
+  }
+  return createEmptyBooks()
+}
+
 export function BooksProvider({ children }: { children: ReactNode }) {
-  const [books, setBooksState] = useState<CompanyBooks>(createEmptyBooks)
-  const [loading, setLoading] = useState(true)
+  const [books, setBooksState] = useState<CompanyBooks>(readStoredBooks)
+  const [loading] = useState(false)
   const [savePath, setSavePath] = useState('soastal-books-store')
   const [lastError, setLastError] = useState('')
   const isElectron = Boolean(api()?.isElectron)
@@ -83,36 +84,16 @@ export function BooksProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     let cancelled = false
     void (async () => {
+      const electron = api()
+      if (!electron?.load) return
       try {
-        const electron = api()
-        if (electron?.load) {
-          const disk = await electron.load()
-          if (disk && !cancelled) {
-            setBooksState(disk)
-            if (electron.booksDir) setSavePath(await electron.booksDir())
-            return
-          }
-        }
-        const cloud = await loadFromCloud()
-        if (cloud?.books) {
-          if (!cancelled) {
-            setBooksState(cloud.books)
-            setSavePath(cloud.store)
-          }
-          return
-        }
-        const seed = createEmptyBooks()
-        if (!cancelled) {
-          setBooksState(seed)
-          if (cloud) {
-            const path = await saveToCloud(seed).catch(() => null)
-            if (path) setSavePath(path)
-          }
+        const disk = await electron.load()
+        if (disk?.transactions?.length && !cancelled) {
+          setBooksState(disk)
+          if (electron.booksDir) setSavePath(await electron.booksDir())
         }
       } catch (err) {
         if (!cancelled) setLastError(err instanceof Error ? err.message : String(err))
-      } finally {
-        if (!cancelled) setLoading(false)
       }
     })()
     return () => {

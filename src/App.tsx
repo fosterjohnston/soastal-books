@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Component, type ErrorInfo, type ReactNode, useState } from 'react'
 import {
   BookOpen,
   ClipboardCheck,
@@ -21,7 +21,6 @@ import { Reports } from './pages/Reports'
 import { Close } from './pages/Close'
 import { Setup } from './pages/Setup'
 import { Files } from './pages/Files'
-import { Login } from './pages/Login'
 import { cn } from './lib/utils'
 
 const NAV = [
@@ -38,10 +37,32 @@ const NAV = [
 
 type NavId = (typeof NAV)[number]['id']
 
+class OfficeErrorBoundary extends Component<{ children: ReactNode }, { err: string }> {
+  state = { err: '' }
+  static getDerivedStateFromError(error: Error) {
+    return { err: error.message }
+  }
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    console.error('Soastal Books render failed', error, info.componentStack)
+  }
+  render() {
+    if (this.state.err) {
+      return (
+        <div className="min-h-svh bg-paper p-8 text-ink">
+          <h1 className="font-serif text-3xl">Soastal Books</h1>
+          <p className="mt-2 text-sm text-danger">The office UI hit an error: {this.state.err}</p>
+          <p className="mt-2 text-sm text-ink-2">Reload the page. Demo books are still in this app; Keith’s live xlsx is never written.</p>
+        </div>
+      )
+    }
+    return this.props.children
+  }
+}
+
 function Shell() {
   const [view, setView] = useState<NavId>('books')
   const { books, loading } = useBooks()
-  const { session, logout } = useAuth()
+  const { session } = useAuth()
   const fosterN = books.fosterQueue.filter((f) => f.decision === 'pending').length
 
   return (
@@ -78,9 +99,6 @@ function Shell() {
             {session?.name} · {session?.title}
           </div>
           <div className="mt-1">Keith owns the live sheet. This app never writes it.</div>
-          <button className="mt-2 text-sand underline" onClick={() => void logout()}>
-            Sign out
-          </button>
         </div>
       </aside>
       <main className="flex-1 p-4 md:p-8">
@@ -106,25 +124,12 @@ function Shell() {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <Gate />
-    </AuthProvider>
-  )
-}
-
-function Gate() {
-  const { session, loading } = useAuth()
-  if (loading) {
-    return (
-      <div className="flex min-h-svh items-center justify-center bg-ink text-paper">
-        Opening Soastal Books…
-      </div>
-    )
-  }
-  if (!session) return <Login />
-  return (
-    <BooksProvider>
-      <Shell />
-    </BooksProvider>
+    <OfficeErrorBoundary>
+      <AuthProvider>
+        <BooksProvider>
+          <Shell />
+        </BooksProvider>
+      </AuthProvider>
+    </OfficeErrorBoundary>
   )
 }

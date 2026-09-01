@@ -3,7 +3,7 @@ import { computeLedger, computeRow, money } from './formulas'
 import { canPost, emptyDraft, markPaid, postDocument, upsertTransactions } from './posting'
 import { apAging, arAging, jobCosting, trialBalances } from './reports'
 import { AP_ACCOUNT, AR_ACCOUNT } from './types'
-import { createMasterDataOnly } from '../seed'
+import { createEmptyBooks, createMasterDataOnly } from '../seed'
 
 function books() {
   return createMasterDataOnly()
@@ -264,5 +264,18 @@ describe('posting gates', () => {
     expect(() => markPaid(b, ['p'], '', '')).toThrow(/payment date/)
     b = markPaid(b, ['p'], '2026-09-01', 'ACH-9')
     expect(b.transactions[0].approvalStatus).toBe('Paid')
+  })
+})
+
+describe('demo seed', () => {
+  it('ships a journal so the office app is not empty', () => {
+    const b = createEmptyBooks()
+    expect(b.transactions.length).toBeGreaterThan(3)
+    expect(b.jobs.some((j) => j.jobName === 'Fern Hill')).toBe(true)
+    expect(b.vendors.length).toBeGreaterThan(0)
+    expect(b.chartOfAccounts.some((a) => a.number === '2000')).toBe(true)
+    expect(b.fosterQueue.some((f) => f.decision === 'pending')).toBe(true)
+    expect(b.transactions.some((t) => t.paymentMethod === 'Unpaid / AP')).toBe(true)
+    expect(b.transactions.some((t) => t.paymentMethod === 'Billed / AR')).toBe(true)
   })
 })
