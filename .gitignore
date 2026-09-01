@@ -12,6 +12,7 @@ dist-ssr
 release
 .data
 agent-tools
+.next
 .vercel
 
 .DS_Store

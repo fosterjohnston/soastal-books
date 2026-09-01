@@ -1,5 +1,4 @@
 export { assertImportSourceAllowed, assertWritablePath, isLiveWorkbookFilename, isLiveWorkbookPath, LIVE_WRITE_REFUSED } from './denylist'
-export { exportWorkbook, importWorkbookCopy, EXPORT_FILENAME, DB_FILENAME } from './excel'
 export {
   computeLedger,
   computeRow,
