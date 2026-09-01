@@ -1,0 +1,11 @@
+electron
+release
+agent-tools
+.data
+.git
+.vercel
+*.xlsx
+Acounting spreadshseet.xlsx
+.env
+.env.*
+.env.example

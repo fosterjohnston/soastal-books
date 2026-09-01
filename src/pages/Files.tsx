@@ -4,7 +4,7 @@ import { Button, Card } from '../components/ui'
 import { useRef } from 'react'
 
 export function Files() {
-  const { books, savePath, lastError, isElectron, saveNow, exportCopy, importCopy, resetDemo } = useBooks()
+  const { books, savePath, lastError, saveNow, exportCopy, importCopy, resetDemo } = useBooks()
   const fileRef = useRef<HTMLInputElement>(null)
 
   return (
@@ -21,7 +21,7 @@ export function Files() {
         <dl className="grid gap-2 text-sm md:grid-cols-2">
           <div>
             <dt className="text-xs uppercase tracking-wide text-ink-2">Mode</dt>
-            <dd>{isElectron ? 'Desktop (Electron)' : 'Browser preview — localStorage, plus downloads'}</dd>
+            <dd>Soastal Books cloud store (app-owned). Not the field app. Not Keith&apos;s live xlsx.</dd>
           </div>
           <div>
             <dt className="text-xs uppercase tracking-wide text-ink-2">Current path</dt>
@@ -33,7 +33,7 @@ export function Files() {
           </div>
           <div>
             <dt className="text-xs uppercase tracking-wide text-ink-2">Company OneDrive folder</dt>
-            <dd>{BOOKS_RELATIVE_DIR}/soastal-books.json and Soastal Books Export.xlsx</dd>
+            <dd>{BOOKS_RELATIVE_DIR}/ copy export is optional. Live original is denylisted.</dd>
           </div>
         </dl>
         {lastError ? <p className="mt-3 text-sm text-danger">{lastError}</p> : null}

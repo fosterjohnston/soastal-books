@@ -10,8 +10,10 @@ node_modules
 dist
 dist-ssr
 release
+.data
 agent-tools
-*.local
+.vercel
+
 .DS_Store
 
 # Editor

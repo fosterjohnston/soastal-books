@@ -11,6 +11,7 @@ import {
   Table2,
 } from 'lucide-react'
 import { BooksProvider, useBooks } from './store/BooksContext'
+import { AuthProvider, useAuth } from './store/AuthContext'
 import { Dashboard } from './pages/Dashboard'
 import { Ledger } from './pages/Ledger'
 import { Wizards } from './pages/Wizards'
@@ -20,6 +21,7 @@ import { Reports } from './pages/Reports'
 import { Close } from './pages/Close'
 import { Setup } from './pages/Setup'
 import { Files } from './pages/Files'
+import { Login } from './pages/Login'
 import { cn } from './lib/utils'
 
 const NAV = [
@@ -39,6 +41,7 @@ type NavId = (typeof NAV)[number]['id']
 function Shell() {
   const [view, setView] = useState<NavId>('books')
   const { books, loading } = useBooks()
+  const { session, logout } = useAuth()
   const fosterN = books.fosterQueue.filter((f) => f.decision === 'pending').length
 
   return (
@@ -70,8 +73,14 @@ function Shell() {
             )
           })}
         </nav>
-        <div className="mt-auto hidden px-4 py-4 text-[11px] text-paper/50 md:block">
-          Keith owns the live sheet. This app never writes it.
+        <div className="mt-auto px-4 py-4 text-[11px] text-paper/50">
+          <div>
+            {session?.name} · {session?.title}
+          </div>
+          <div className="mt-1">Keith owns the live sheet. This app never writes it.</div>
+          <button className="mt-2 text-sand underline" onClick={() => void logout()}>
+            Sign out
+          </button>
         </div>
       </aside>
       <main className="flex-1 p-4 md:p-8">
@@ -96,6 +105,23 @@ function Shell() {
 }
 
 export default function App() {
+  return (
+    <AuthProvider>
+      <Gate />
+    </AuthProvider>
+  )
+}
+
+function Gate() {
+  const { session, loading } = useAuth()
+  if (loading) {
+    return (
+      <div className="flex min-h-svh items-center justify-center bg-ink text-paper">
+        Opening Soastal Books…
+      </div>
+    )
+  }
+  if (!session) return <Login />
   return (
     <BooksProvider>
       <Shell />

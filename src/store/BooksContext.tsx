@@ -18,19 +18,32 @@ function api(): BooksAPI | undefined {
   return (window as unknown as { booksAPI?: BooksAPI }).booksAPI
 }
 
-async function readLocal(): Promise<CompanyBooks> {
-  const electron = api()
-  if (electron?.load) {
-    const disk = await electron.load()
-    if (disk) return disk
-  }
+async function loadFromCloud(): Promise<{ books: CompanyBooks | null; store: string } | null> {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY)
-    if (raw) return JSON.parse(raw) as CompanyBooks
+    const res = await fetch('/api/books', { credentials: 'include' })
+    if (res.status === 401) return null
+    if (!res.ok) return null
+    const data = (await res.json()) as { books?: CompanyBooks | null; store?: string }
+    return { books: data.books ?? null, store: data.store || 'soastal-books-store' }
   } catch {
-    /* ignore */
+    return null
   }
-  return createEmptyBooks()
+}
+
+async function saveToCloud(books: CompanyBooks): Promise<string | null> {
+  try {
+    const res = await fetch('/api/books', {
+      method: 'PUT',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ books }),
+    })
+    const data = (await res.json().catch(() => ({}))) as { path?: string; error?: string }
+    if (!res.ok) throw new Error(data.error || 'Could not save books.')
+    return data.path || 'soastal-books-store'
+  } catch (err) {
+    throw err
+  }
 }
 
 async function writeLocal(books: CompanyBooks): Promise<string> {
@@ -41,7 +54,8 @@ async function writeLocal(books: CompanyBooks): Promise<string> {
     const { path } = await electron.save(books)
     return path
   }
-  return `browser:${STORAGE_KEY}`
+  const cloud = await saveToCloud(books).catch(() => null)
+  return cloud || `browser:${STORAGE_KEY}`
 }
 
 type Ctx = {
@@ -62,7 +76,7 @@ const BooksContext = createContext<Ctx | null>(null)
 export function BooksProvider({ children }: { children: ReactNode }) {
   const [books, setBooksState] = useState<CompanyBooks>(createEmptyBooks)
   const [loading, setLoading] = useState(true)
-  const [savePath, setSavePath] = useState(STORAGE_KEY)
+  const [savePath, setSavePath] = useState('soastal-books-store')
   const [lastError, setLastError] = useState('')
   const isElectron = Boolean(api()?.isElectron)
 
@@ -70,10 +84,30 @@ export function BooksProvider({ children }: { children: ReactNode }) {
     let cancelled = false
     void (async () => {
       try {
-        const loaded = await readLocal()
+        const cloud = await loadFromCloud()
+        if (cloud?.books) {
+          if (!cancelled) {
+            setBooksState(cloud.books)
+            setSavePath(cloud.store)
+          }
+          return
+        }
+        const electron = api()
+        if (electron?.load) {
+          const disk = await electron.load()
+          if (disk && !cancelled) {
+            setBooksState(disk)
+            if (electron.booksDir) setSavePath(await electron.booksDir())
+            return
+          }
+        }
+        const seed = createEmptyBooks()
         if (!cancelled) {
-          setBooksState(loaded)
-          if (api()?.booksDir) setSavePath(await api()!.booksDir!())
+          setBooksState(seed)
+          if (cloud) {
+            const path = await saveToCloud(seed).catch(() => null)
+            if (path) setSavePath(path)
+          }
         }
       } catch (err) {
         if (!cancelled) setLastError(err instanceof Error ? err.message : String(err))
@@ -104,9 +138,11 @@ export function BooksProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (loading) return
     const t = window.setTimeout(() => {
-      void writeLocal(books).then(setSavePath).catch((err: unknown) => {
-        setLastError(err instanceof Error ? err.message : String(err))
-      })
+      void writeLocal(books)
+        .then(setSavePath)
+        .catch((err: unknown) => {
+          setLastError(err instanceof Error ? err.message : String(err))
+        })
     }, 400)
     return () => window.clearTimeout(t)
   }, [books, loading])
