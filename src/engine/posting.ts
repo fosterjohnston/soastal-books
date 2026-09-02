@@ -243,13 +243,25 @@ export function decideFoster(
           ? { ...t, approvalStatus: 'Ready for Accountant', poStatus: t.poStatus === 'Missing - Get Approval' ? 'No PO Required' : t.poStatus }
           : t,
       ),
+      documents: (next.documents ?? []).map((d) =>
+        d.fosterItemId === fosterId || d.transactionIds.some((id) => item.transactionIds.includes(id))
+          ? { ...d, status: 'confirmed' }
+          : d,
+      ),
     }
+    const gate = canPost(next, item.transactionIds)
+    if (!gate.ok) return next
     return postDocument(next, item.transactionIds)
   }
   return {
     ...next,
     transactions: next.transactions.map((t) =>
       item.transactionIds.includes(t.id) ? { ...t, approvalStatus: 'Hold / Dispute', posted: false } : t,
+    ),
+    documents: (next.documents ?? []).map((d) =>
+      d.fosterItemId === fosterId || d.transactionIds.some((id) => item.transactionIds.includes(id))
+        ? { ...d, status: 'held' }
+        : d,
     ),
   }
 }

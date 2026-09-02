@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { assertWritablePath, isLiveWorkbookFilename, isLiveWorkbookPath, LIVE_WRITE_REFUSED } from './denylist'
+import { assertCopyDestination, assertWritablePath, isLiveWorkbookFilename, isLiveWorkbookPath, LIVE_WRITE_REFUSED } from './denylist'
 import { LIVE_WORKBOOK_FILENAME, LIVE_WORKBOOK_RELATIVE } from './types'
 
 describe('live workbook denylist', () => {
@@ -23,5 +23,10 @@ describe('live workbook denylist', () => {
     expect(() =>
       assertWritablePath('/onedrive/Documents/Finance/Soastal Books/Soastal Books Export.xlsx'),
     ).not.toThrow()
+  })
+
+  it('requires copy destinations to stay under Soastal Books', () => {
+    expect(() => assertCopyDestination('Documents/Finance/Acounting spreadshseet.xlsx')).toThrow()
+    expect(() => assertCopyDestination('Documents/Finance/Soastal Books/inbox/bill.pdf')).not.toThrow()
   })
 })

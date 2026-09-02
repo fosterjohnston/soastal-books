@@ -262,6 +262,53 @@ export type FosterItem = {
   paymentRef: string
 }
 
+export type DocumentKind = 'bill' | 'po' | 'ap' | 'other'
+export type IntakeSource = 'office-scan' | 'ingest-api'
+export type ProposalConfidence = 'high' | 'medium' | 'low'
+
+export type CodingProposal = {
+  summary: string
+  vendor: string
+  invoiceNumber: string
+  jobName: string
+  costType: CostType
+  lineItem: string
+  paymentMethod: PaymentMethod
+  sourceType: SourceType
+  amount: number
+  poStatus: PoStatus
+  poNumber: string
+  overrideAccount: string
+  suggestedAccount: string
+  offsetAccount: string
+  confidence: ProposalConfidence
+  reasons: string[]
+}
+
+export type ScannedDocument = {
+  id: string
+  createdAt: string
+  originalName: string
+  storedPath: string
+  mimeType: string
+  size: number
+  kind: DocumentKind
+  source: IntakeSource
+  proposal: CodingProposal
+  transactionIds: string[]
+  fosterItemId: string
+  status: 'proposed' | 'confirmed' | 'held' | 'denied'
+}
+
+export type CopyRecord = {
+  id: string
+  createdAt: string
+  relativePath: string
+  kind: 'books-json' | 'scan' | 'export'
+  originalName: string
+  bytes: number
+}
+
 export type PeriodClose = {
   id: string
   period: string
@@ -286,6 +333,8 @@ export type CompanyBooks = {
   openingBalances: OpeningBalance[]
   fosterQueue: FosterItem[]
   periodCloses: PeriodClose[]
+  documents: ScannedDocument[]
+  copies: CopyRecord[]
 }
 
 export type PostingEntry = {

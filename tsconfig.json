@@ -43,12 +43,8 @@
     "electron",
     "src/App.tsx",
     "src/main.tsx",
-    "src/screens/Login.tsx",
-    "src/screens/Dashboard.tsx",
-    "src/screens/Files.tsx",
     "src/screens/Close.tsx",
     "src/screens/Wizards.tsx",
-    "src/store/AuthContext.tsx",
     "vite.config.ts"
   ]
 }

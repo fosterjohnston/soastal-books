@@ -508,6 +508,8 @@ export function createEmptyBooks(): CompanyBooks {
     openingBalances: demo.openingBalances,
     fosterQueue: demo.fosterQueue,
     periodCloses: [],
+    documents: [],
+    copies: [],
   }
 }
 
@@ -519,5 +521,7 @@ export function createMasterDataOnly(): CompanyBooks {
     fosterQueue: [],
     equipmentAllocations: [],
     openingBalances: [],
+    documents: [],
+    copies: [],
   }
 }

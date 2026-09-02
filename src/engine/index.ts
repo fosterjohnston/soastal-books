@@ -1,4 +1,23 @@
-export { assertImportSourceAllowed, assertWritablePath, isLiveWorkbookFilename, isLiveWorkbookPath, LIVE_WRITE_REFUSED } from './denylist'
+export {
+  assertCopyDestination,
+  assertImportSourceAllowed,
+  assertWritablePath,
+  isLiveWorkbookFilename,
+  isLiveWorkbookPath,
+  isSoastalBooksDir,
+  LIVE_WRITE_REFUSED,
+} from './denylist'
+export { hydrateBooks } from './hydrate'
+export { applyScanIntake, type ScanIntakeInput, type ScanIntakeResult } from './intake'
+export {
+  booksCopyPath,
+  copyRelativePath,
+  detectKind,
+  draftFromProposal,
+  proposeCoding,
+  safeCopyFilename,
+  type IntakeHints,
+} from './propose'
 export {
   computeLedger,
   computeRow,

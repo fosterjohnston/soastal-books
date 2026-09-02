@@ -4,10 +4,13 @@ import { useState } from 'react'
 import { decideFoster, markPaid } from '../engine'
 import { formatDate, formatNative } from '../lib/utils'
 import { useBooks } from '../store/BooksContext'
+import { useAuth } from '../store/AuthContext'
 import { Badge, Button, Card, Field, Input, Textarea } from '../components/ui'
 
 export function FosterInbox() {
   const { books, setBooks } = useBooks()
+  const { session } = useAuth()
+  const canConfirm = session?.role === 'foster'
   const [note, setNote] = useState('')
   const [payDate, setPayDate] = useState('')
   const [payRef, setPayRef] = useState('')
@@ -46,22 +49,28 @@ export function FosterInbox() {
                   <Badge tone="sand">pending</Badge>
                 </div>
                 <Textarea className="mt-2" placeholder="Foster note" value={note} onChange={(e) => setNote(e.target.value)} />
-                <div className="mt-2 flex gap-2">
-                  <Button
-                    onClick={() => {
-                      try {
-                        setBooks(decideFoster(books, f.id, 'yes', note))
-                        setNote('')
-                      } catch (err) {
-                        window.alert(err instanceof Error ? err.message : String(err))
-                      }
-                    }}
-                  >
-                    Yes — post
-                  </Button>
-                  <Button variant="ghost" onClick={() => setBooks(decideFoster(books, f.id, 'no', note))}>
-                    No — hold
-                  </Button>
+                <div className="mt-2 flex flex-wrap items-center gap-2">
+                  {canConfirm ? (
+                    <>
+                      <Button
+                        onClick={() => {
+                          try {
+                            setBooks(decideFoster(books, f.id, 'yes', note))
+                            setNote('')
+                          } catch (err) {
+                            window.alert(err instanceof Error ? err.message : String(err))
+                          }
+                        }}
+                      >
+                        Yes — post
+                      </Button>
+                      <Button variant="ghost" onClick={() => setBooks(decideFoster(books, f.id, 'no', note))}>
+                        No — hold
+                      </Button>
+                    </>
+                  ) : (
+                    <p className="text-sm text-ink-2">Foster is the only person who can confirm coding.</p>
+                  )}
                 </div>
               </li>
             ))}

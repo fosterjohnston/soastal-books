@@ -40,5 +40,20 @@ export function assertImportSourceAllowed(filePathOrName: string): void {
 
 export function isSoastalBooksDir(filePath: string): boolean {
   const n = normalizeFsPath(filePath)
-  return n.includes('/documents/finance/soastal books') || n.endsWith('/soastal books') || n.includes('/soastal books/')
+  return (
+    n.includes('documents/finance/soastal books') ||
+    n.includes('/soastal books/') ||
+    n.endsWith('/soastal books') ||
+    n.endsWith('soastal books')
+  )
+}
+
+/** Copies must live under the app folder, never Keith's live workbook. */
+export function assertCopyDestination(filePath: string): void {
+  assertWritablePath(filePath)
+  if (!isSoastalBooksDir(filePath) && !normalizeFsPath(filePath).includes('soastal books')) {
+    throw new Error(
+      `Refused: copies persist only under Documents/Finance/Soastal Books/. Got ${filePath}`,
+    )
+  }
 }
