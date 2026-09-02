@@ -32,8 +32,23 @@ App: `http://127.0.0.1:43173`
 
 Set `FOSTER_PIN`, `KEITH_PIN`, `SESSION_SECRET`, and optionally `INGEST_KEY` in `.env.local`. Leave them blank to use the office v1 defaults in the **server** API only. The login screen never displays a PIN.
 
-## Vercel
+## Vercel (Foster)
 
-This is a Next.js App Router app (API routes for session, books, ingest). In the soastal Vercel team, import the GitHub repo `foster-johnston/Soastal_books` (or the Origin books repo) as project **soastal-books**. Turn **off** Vercel Authentication so Keith opens the hostname and uses the office PIN.
+This is a Next.js App Router app (`app/`, Route Handlers for session, books, ingest). Vercel Connect will detect Next.js.
+
+**GitHub:** this agent could not create `foster-johnston/Soastal_books`. There is no GitHub token or SSH key in this environment, and that repo does not exist yet. Origin remains the books source.
+
+In GitHub (Foster’s account), create **Soastal_books** (private is fine), then:
+
+```bash
+git clone <origin-books-url>
+cd Soastal_books
+git remote add github https://github.com/foster-johnston/Soastal_books.git
+git push -u github main
+```
+
+In the **soastal** Vercel team: **Add New… → Project → Import** that GitHub repo. Use the existing project name **soastal-books** if it is already in the team (do not create extra empty project names). Framework: Next.js. Production hostname should be one `*.vercel.app` URL.
+
+Turn **off Deployment Protection / Vercel Authentication** so Keith opens the hostname and uses the office PIN on the Books login screen — not a Vercel login.
 
 Do not deploy the field-report repo as this product.
