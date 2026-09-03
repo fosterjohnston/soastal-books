@@ -100,8 +100,8 @@ export function Ledger() {
         <div>
           <h1 className="font-serif text-3xl">Transactions</h1>
           <p className="max-w-2xl text-sm text-ink-2">
-            Keith’s ledger. Already paid uses Check / ACH / debit and hits cash. Unpaid / AP sits on 2000. Formula
-            columns autofill. Invoice Total on the first split only. Foster does not have to approve a post.
+            Keith’s ledger. What it is and Payment Method come from the workbook lists. Payment Method sets the
+            offset. Formula columns autofill. Invoice Total on the first split only. Foster does not have to approve.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">

@@ -10,7 +10,7 @@ Working tabs (left nav):
 
 - **Inbox** — Keith scans / uploads. Books proposes a draft on Transactions.
 - **Review** — only rows Keith flags. Foster answers. Not a gate to post.
-- **Transactions** — enter already-paid (cash/ACH/check) or unpaid AP. Keith posts. Ledger from the workbook copy. Dropdowns match `_Lists` + Line Item Map.
+- **Transactions** — Enter a transaction, then pick what it is from the workbook list (bill, check, ACH, payroll, deposit, …). Payment Method sets the offset. Keith posts.
 - **Equipment Allocation** — working tab for field hours by machine and job. Memo only — not a report, not a second Transactions expense. The copy had no hour rows yet.
 - **Job Line Items** — schedule of values. Contract value = qty × unit price. Mapped? checks Setup.
 - **Cost Codes** — pick a job; Labor / Equipment / Materials accounts autofill from the map
