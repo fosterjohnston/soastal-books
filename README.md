@@ -12,10 +12,10 @@ Working tabs (left nav):
 - **Review** — only rows Keith flags. Foster answers. Not a gate to post.
 - **Transactions** — Enter a transaction, then pick what it is from the workbook list (bill, check, ACH, payroll, deposit, …). Payment Method sets the offset. Keith posts.
 - **Equipment Allocation** — working tab for field hours by machine and job. Memo only — not a report, not a second Transactions expense. The copy had no hour rows yet.
-- **Job Line Items** — schedule of values. Contract value = qty × unit price. Mapped? checks Setup.
-- **Cost Codes** — pick a job; Labor / Equipment / Materials accounts autofill from the map
+- **Job Line Items** — schedule of values. Upload a whole bid Excel/CSV to add every row at once (job-name fill-down). Contract value = qty × unit price. Unmapped names have **ADD TO MAP**.
+- **Cost Codes** — pick a job; Labor / Equipment / Materials accounts autofill from the Line Item Map (the cost-code / crosscode map). Add missing names here.
 - **Opening Balances** — as-of date + balance-sheet accounts (native sign)
-- **Setup** — jobs, equipment, vendors, line item map, payment-method offsets
+- **Setup** — add jobs, equipment, vendors, and Line Item Map rows. Equipment hours still go on Equipment Allocation.
 - **Run Report** — Job Costing through Walkthrough / Chart of Accounts
 - **Files** — JSON copies only. Never Keith’s live `Acounting spreadshseet.xlsx`
 

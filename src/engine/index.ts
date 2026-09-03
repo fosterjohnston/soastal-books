@@ -83,5 +83,26 @@ export {
   sovContractValue,
 } from './workbook-reports'
 export { computeEquipmentAllocations, computeEquipmentRow, networkDays } from './equipment'
+export {
+  mergeJobLineItems,
+  parseBidScheduleFile,
+  parseBidScheduleSource,
+  parseBidScheduleTable,
+  parseDelimitedText,
+  type BidScheduleIncoming,
+  type BidScheduleMergeResult,
+  type BidScheduleParseResult,
+} from './bid-schedule'
+export {
+  DEFAULT_EQUIPMENT_ACCOUNT,
+  DEFAULT_LABOR_ACCOUNT,
+  DEFAULT_MATERIALS_ACCOUNT,
+  addLineItemToMap,
+  emptyEquipment,
+  emptyLineItemMapRow,
+  lineItemAlreadyMapped,
+  patchEquipment,
+  patchLineItemMap,
+} from './masters'
 export { REPORTS, type ReportId } from './lists'
 export * from './types'

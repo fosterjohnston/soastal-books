@@ -1,6 +1,6 @@
 'use client'
 
-import { newId, type Job, type Vendor } from '../engine'
+import { emptyEquipment, newId, patchEquipment, type Job, type Vendor } from '../engine'
 import { FUEL_USD_PER_GALLON, WORKING_DAYS_PER_MONTH } from '../engine/types'
 import {
   EQUIPMENT_TYPE_LIST,
@@ -11,6 +11,7 @@ import {
 } from '../engine/lists'
 import { useBooks } from '../store/BooksContext'
 import { Button, Card, Field, Input } from '../components/ui'
+import { AccountPick, LineItemMapEditor } from '../components/LineItemMapEditor'
 import { SheetTitle } from '../components/Sheet'
 
 export function Setup() {
@@ -20,7 +21,7 @@ export function Setup() {
     <div className="flex flex-col gap-6">
       <SheetTitle
         title="Setup"
-        blurb="Maintain jobs, vendors, equipment, and the line-item-to-account map. Equipment here is permanent facts only — hours go on the Equipment Allocation working tab. Amounts in U.S. dollars."
+        blurb="Maintain jobs, vendors, equipment, and the Line Item Map (cost-code / crosscode map). Equipment here is permanent facts only — hours go on the Equipment Allocation working tab. Amounts in U.S. dollars."
       />
 
       <Card
@@ -159,7 +160,14 @@ export function Setup() {
         </div>
       </Card>
 
-      <Card title="Equipment Master">
+      <Card
+        title="Equipment Master"
+        action={
+          <Button variant="ghost" onClick={() => setBooks({ ...books, equipment: [...books.equipment, emptyEquipment()] })}>
+            Add equipment
+          </Button>
+        }
+      >
         <p className="mb-2 text-sm text-ink-2">
           Monthly cost / internal rate is the owned-machine cost. Allocation divides it by {books.settings.workingDaysPerMonth || WORKING_DAYS_PER_MONTH} working days. Fuel ~$
           {(books.settings.fuelPricePerGallon || FUEL_USD_PER_GALLON).toFixed(2)}/gal. Hours belong on Equipment Allocation (memo).
@@ -196,17 +204,79 @@ export function Setup() {
               </tr>
             </thead>
             <tbody>
-              {books.equipment.map((e) => (
-                <tr key={e.id}>
-                  <td>{e.name}</td>
-                  <td>{e.unitNumber || '—'}</td>
-                  <td>{e.type}</td>
-                  <td>{e.ownership}</td>
-                  <td>{e.monthlyRate}</td>
-                  <td>{e.burnGalPerHour || '—'}</td>
-                  <td className="formula-cell">{e.defaultAccount}</td>
+              {books.equipment.length === 0 ? (
+                <tr>
+                  <td colSpan={7} className="text-sm text-ink-2">
+                    No machines yet. Add equipment here, then put hours on Equipment Allocation.
+                  </td>
                 </tr>
-              ))}
+              ) : (
+                books.equipment.map((e) => (
+                  <tr key={e.id}>
+                    <td>
+                      <input
+                        className="min-w-[120px] border-0 bg-transparent"
+                        value={e.name}
+                        onChange={(ev) => setBooks(patchEquipment(books, e.id, { name: ev.target.value }))}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        className="w-20 border-0 bg-transparent"
+                        value={e.unitNumber}
+                        onChange={(ev) => setBooks(patchEquipment(books, e.id, { unitNumber: ev.target.value }))}
+                      />
+                    </td>
+                    <td>
+                      <select
+                        className="border-0 bg-transparent"
+                        value={e.type}
+                        onChange={(ev) => setBooks(patchEquipment(books, e.id, { type: ev.target.value }))}
+                      >
+                        {EQUIPMENT_TYPE_LIST.map((t) => (
+                          <option key={t}>{t}</option>
+                        ))}
+                        {e.type && !(EQUIPMENT_TYPE_LIST as readonly string[]).includes(e.type) ? <option>{e.type}</option> : null}
+                      </select>
+                    </td>
+                    <td>
+                      <select
+                        className="border-0 bg-transparent"
+                        value={e.ownership}
+                        onChange={(ev) =>
+                          setBooks(patchEquipment(books, e.id, { ownership: ev.target.value as typeof e.ownership }))
+                        }
+                      >
+                        {OWNERSHIP_LIST.map((o) => (
+                          <option key={o}>{o}</option>
+                        ))}
+                      </select>
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        className="w-24 border-0 bg-transparent"
+                        value={e.monthlyRate}
+                        onChange={(ev) => setBooks(patchEquipment(books, e.id, { monthlyRate: Number(ev.target.value) }))}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        className="w-20 border-0 bg-transparent"
+                        value={e.burnGalPerHour}
+                        onChange={(ev) => setBooks(patchEquipment(books, e.id, { burnGalPerHour: Number(ev.target.value) }))}
+                      />
+                    </td>
+                    <td>
+                      <AccountPick
+                        value={e.defaultAccount}
+                        onChange={(defaultAccount) => setBooks(patchEquipment(books, e.id, { defaultAccount }))}
+                      />
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
@@ -318,35 +388,7 @@ export function Setup() {
         </div>
       </Card>
 
-      <Card title="Line Item Map">
-        <p className="mb-2 text-sm text-ink-2">
-          Suggested Account on Transactions uses this list. Labor / Equipment / Materials look up the line item name. Subcontractor, Overhead, and Revenue still need Override Account.
-        </p>
-        <div className="overflow-x-auto" style={{ maxHeight: 420 }}>
-          <table className="ledger-table w-full">
-            <thead>
-              <tr>
-                <th>Line item</th>
-                <th>COA category</th>
-                <th>Labor acct</th>
-                <th>Equipment acct</th>
-                <th>Materials acct</th>
-              </tr>
-            </thead>
-            <tbody>
-              {books.lineItemMap.map((m) => (
-                <tr key={m.id}>
-                  <td>{m.activity}</td>
-                  <td>{m.category || '—'}</td>
-                  <td className="formula-cell">{m.laborAccount}</td>
-                  <td className="formula-cell">{m.equipmentAccount}</td>
-                  <td className="formula-cell">{m.materialsAccount}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </Card>
+      <LineItemMapEditor />
 
       <Card title="Payment Method → Offset Account">
         <p className="mb-2 text-sm text-ink-2">Offset Account autofills from Payment Method. Unpaid / AP → 2000. Billed / AR → 1100. Check / Debit / ACH / Wire / Deposit → 1000.</p>

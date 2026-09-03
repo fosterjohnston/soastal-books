@@ -54,7 +54,23 @@ export const APPROVAL_STATUS_LIST = [
   'Entered Only',
 ] as const
 
-export const OWNERSHIP_LIST = ['Owned', 'Rented', 'RPO'] as const
+export const OWNERSHIP_LIST = ['Owned', 'Leased', 'Rented', 'RPO'] as const
+
+/** COA categories on the Line Item Map (cost-code / crosscode map). */
+export const LINE_ITEM_CATEGORY_LIST = [
+  'Site Clearing',
+  'Earthwork',
+  'Erosion Control',
+  'Sanitary Sewer',
+  'Storm Drainage',
+  'Water Main',
+  'Aggregate & Stone',
+  'Concrete & Structures',
+  'Grease Trap',
+  'Sewer',
+  'Payroll',
+  'Other',
+] as const
 
 export const EQUIPMENT_TYPE_LIST = [
   'Excavator',
