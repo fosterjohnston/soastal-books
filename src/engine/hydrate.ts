@@ -54,6 +54,13 @@ function hydrateSov(s: JobLineItem): JobLineItem {
   }
 }
 
+function mergeMissingBy<T>(stored: T[], seedRows: T[], key: (row: T) => string): T[] {
+  const have = new Set(stored.map(key))
+  if (!have.size) return seedRows
+  const extra = seedRows.filter((row) => !have.has(key(row)))
+  return extra.length ? [...stored, ...extra] : stored
+}
+
 export function hydrateBooks(raw: unknown): CompanyBooks {
   const seed = createEmptyBooks()
   if (!raw || typeof raw !== 'object') return seed
@@ -69,7 +76,7 @@ export function hydrateBooks(raw: unknown): CompanyBooks {
   const storedTx = Array.isArray(b.transactions) ? b.transactions : []
   const hasWorkbookJournal = storedTx.some((t) => t.id.startsWith('txn_wb_'))
   const transactions = hasWorkbookJournal
-    ? storedTx
+    ? mergeMissingBy(storedTx, seed.transactions, (t) => t.id)
     : [
         ...seed.transactions,
         ...storedTx.filter((t) => !t.id.startsWith('txn_demo_') && !t.id.startsWith('txn_wb_')),
@@ -89,17 +96,19 @@ export function hydrateBooks(raw: unknown): CompanyBooks {
       workingDaysPerMonth: b.settings?.workingDaysPerMonth ?? seed.settings.workingDaysPerMonth,
       fuelPricePerGallon: b.settings?.fuelPricePerGallon ?? seed.settings.fuelPricePerGallon,
     },
-    chartOfAccounts: useMasterLists ? seed.chartOfAccounts : b.chartOfAccounts,
+    chartOfAccounts: useMasterLists
+      ? seed.chartOfAccounts
+      : mergeMissingBy(b.chartOfAccounts, seed.chartOfAccounts, (a) => a.number),
     jobs:
       Array.isArray(b.jobs) && b.jobs.length && !useMasterLists
-        ? b.jobs
+        ? mergeMissingBy(b.jobs, seed.jobs, (j) => j.jobName)
         : [
             ...seed.jobs,
             ...(Array.isArray(b.jobs) ? b.jobs.filter((j) => !seed.jobs.some((s) => s.jobName === j.jobName)) : []),
           ],
     vendors:
       Array.isArray(b.vendors) && b.vendors.length && !useMasterLists
-        ? b.vendors.map(hydrateVendor)
+        ? mergeMissingBy(b.vendors.map(hydrateVendor), seed.vendors, (v) => v.name)
         : [
             ...seed.vendors,
             ...(Array.isArray(b.vendors)
@@ -108,16 +117,18 @@ export function hydrateBooks(raw: unknown): CompanyBooks {
           ],
     equipment:
       Array.isArray(b.equipment) && b.equipment.length && !useMasterLists
-        ? b.equipment
+        ? mergeMissingBy(b.equipment, seed.equipment, (e) => e.name)
         : [
             ...seed.equipment,
             ...(Array.isArray(b.equipment) ? b.equipment.filter((e) => !seed.equipment.some((s) => s.name === e.name)) : []),
           ],
     lineItemMap:
-      Array.isArray(b.lineItemMap) && b.lineItemMap.length && !useMasterLists ? b.lineItemMap : seed.lineItemMap,
+      Array.isArray(b.lineItemMap) && b.lineItemMap.length && !useMasterLists
+        ? mergeMissingBy(b.lineItemMap, seed.lineItemMap, (m) => m.activity)
+        : seed.lineItemMap,
     jobLineItems:
       Array.isArray(b.jobLineItems) && b.jobLineItems.length && !useMasterLists
-        ? b.jobLineItems.map(hydrateSov)
+        ? mergeMissingBy(b.jobLineItems.map(hydrateSov), seed.jobLineItems, (s) => `${s.jobName}::${s.description}`)
         : seed.jobLineItems,
     paymentMethodMap: (() => {
       const stored = Array.isArray(b.paymentMethodMap) ? b.paymentMethodMap : []
@@ -129,7 +140,7 @@ export function hydrateBooks(raw: unknown): CompanyBooks {
     equipmentAllocations,
     openingBalances:
       Array.isArray(b.openingBalances) && b.openingBalances.length && storedCoaOk && storedListsOk
-        ? b.openingBalances
+        ? mergeMissingBy(b.openingBalances, seed.openingBalances, (o) => o.accountNumber)
         : seed.openingBalances,
     fosterQueue,
     periodCloses: b.periodCloses ?? [],

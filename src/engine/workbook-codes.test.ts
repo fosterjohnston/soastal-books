@@ -84,6 +84,26 @@ describe('workbook codes and autofill', () => {
     expect(next.vendors.length).toBeGreaterThan(15)
   })
 
+  it('fills missing copy journal rows instead of keeping a partial ledger', () => {
+    const seed = createEmptyBooks()
+    const payroll = seed.transactions.find((t) => t.invoiceNumber === 'Payroll 8.28.26')
+    expect(payroll).toBeTruthy()
+    const stored = {
+      ...seed,
+      transactions: [
+        { ...seed.transactions[0], id: 'txn_wb_10', vendor: 'Seacoast' },
+        { ...seed.transactions[0], id: 'txn_keith_new', vendor: 'Keith added' },
+      ],
+    }
+    const next = hydrateBooks(stored)
+    expect(next.transactions.some((t) => t.invoiceNumber === 'Payroll 8.28.26')).toBe(true)
+    expect(next.transactions.some((t) => t.id === 'txn_wb_10')).toBe(true)
+    expect(next.transactions.some((t) => t.id === 'txn_keith_new')).toBe(true)
+    expect(next.transactions.filter((t) => t.id.startsWith('txn_wb_')).length).toBe(
+      seed.transactions.length,
+    )
+  })
+
   it('fills ACH / Wire on an old payment-method map so cash posts have an offset', () => {
     const seed = createEmptyBooks()
     const stored = {

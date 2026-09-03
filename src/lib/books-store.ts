@@ -14,9 +14,18 @@ function denied(target: string): boolean {
 }
 
 async function persistCopyIfNeeded(raw: unknown, books: CompanyBooks): Promise<CompanyBooks> {
-  const parsed = raw && typeof raw === 'object' ? (raw as { transactions?: { id?: string }[] }) : null
-  const already = hasWorkbookCopyJournal(parsed?.transactions)
-  if (already || !hasWorkbookCopyJournal(books.transactions)) return books
+  const parsed =
+    raw && typeof raw === 'object'
+      ? (raw as { savedAt?: string | null; transactions?: { id?: string }[] })
+      : null
+  const storedTx = parsed?.transactions || []
+  const storedWb = storedTx.filter((t) => String(t.id || '').startsWith('txn_wb_')).length
+  const booksWb = books.transactions.filter((t) => t.id.startsWith('txn_wb_')).length
+  const complete =
+    hasWorkbookCopyJournal(storedTx) &&
+    storedWb >= booksWb &&
+    Boolean(parsed?.savedAt)
+  if (complete || !hasWorkbookCopyJournal(books.transactions)) return books
   try {
     await saveBooksJson(books)
   } catch {
