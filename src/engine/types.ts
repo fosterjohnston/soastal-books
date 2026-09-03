@@ -287,7 +287,7 @@ export type FosterDecision = 'pending' | 'yes' | 'no'
 export type FosterItem = {
   id: string
   createdAt: string
-  kind: 'coding-confirm' | 'payment-info'
+  kind: 'coding-confirm' | 'payment-info' | 'keith-review'
   transactionIds: string[]
   vendor: string
   invoiceNumber: string
@@ -397,6 +397,23 @@ export type ValidationIssue = {
   level: 'error' | 'warning'
   field?: string
   message: string
+}
+
+/** Already-paid methods — cash (or card) moved. Offset is not 2000. */
+export const PAID_PAYMENT_METHODS = [
+  'Check',
+  'Debit Card',
+  'ACH / Wire',
+  'ACH',
+  'Wire',
+  'Auto-Pay',
+  'Cash',
+  'Credit Card',
+  'Deposit',
+] as const
+
+export function isPaidPaymentMethod(method: PaymentMethod): boolean {
+  return (PAID_PAYMENT_METHODS as readonly string[]).includes(method)
 }
 
 export const CASH_OFFSET_ACCOUNTS = ['1000', '1010', '1050'] as const

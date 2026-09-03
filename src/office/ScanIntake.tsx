@@ -7,7 +7,7 @@ import { isLiveWorkbookFilename, type CompanyBooks } from '@/engine'
 import type { DocumentKind } from '@/engine/types'
 
 export function ScanIntake() {
-  const { setBooks } = useBooks()
+  const { books, setBooks } = useBooks()
   const [file, setFile] = useState<File | null>(null)
   const [kind, setKind] = useState<DocumentKind>('bill')
   const [notes, setNotes] = useState('')
@@ -46,7 +46,7 @@ export function ScanIntake() {
         return
       }
       if (data.books) setBooks(data.books)
-      setProposal(data.proposal?.summary || data.message || 'Queued for Foster.')
+      setProposal(data.proposal?.summary || data.message || 'Draft is on Transactions. Keith posts it.')
       setFile(null)
       setNotes('')
     } catch (err) {
@@ -59,8 +59,9 @@ export function ScanIntake() {
   return (
     <Card title="Scan / upload">
       <p className="mb-3 text-sm text-ink-2">
-        Drop a bill, PO, or AP scan. Books proposes coding — “this is where I think it goes.” Foster confirms, then it
-        posts. Copies land in Documents/Finance/Soastal Books/inbox/. The live workbook is denylisted.
+        Keith uploads a bill, PO, or AP scan. Books proposes coding — “this is where I think it goes.” A draft lands on
+        Transactions. Keith posts it. If the coding is unclear, ask Foster from that row — Review is not a gate to post.
+        Copies land in Documents/Finance/Soastal Books/inbox/. The live workbook is denylisted.
       </p>
       <form onSubmit={(e) => void onSubmit(e)} className="grid gap-3 md:grid-cols-3">
         <Field label="Document">
@@ -90,6 +91,21 @@ export function ScanIntake() {
       </form>
       {error ? <p className="mt-3 text-sm text-danger">{error}</p> : null}
       {proposal ? <p className="mt-3 text-sm text-teal">{proposal}</p> : null}
+      {(books.documents ?? []).length > 0 ? (
+        <ul className="mt-4 space-y-2 border-t border-line pt-3 text-sm">
+          {(books.documents ?? []).slice(0, 8).map((d) => (
+            <li key={d.id}>
+              <span className="font-semibold">{d.originalName}</span>
+              <span className="text-ink-2">
+                {' '}
+                · {d.proposal.vendor} {d.proposal.invoiceNumber} — draft on Transactions
+              </span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="mt-4 text-sm text-ink-2">No scans yet.</p>
+      )}
     </Card>
   )
 }

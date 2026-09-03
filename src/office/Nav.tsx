@@ -7,6 +7,7 @@ import { useBooks } from '@/store/BooksContext'
 
 const NAV = [
   { href: '/inbox', label: 'Inbox' },
+  { href: '/review', label: 'Review' },
   { href: '/transactions', label: 'Transactions' },
   { href: '/equipment-allocation', label: 'Equipment Allocation' },
   { href: '/job-line-items', label: 'Job Line Items' },
@@ -47,7 +48,7 @@ export function OfficeNav() {
               }`}
             >
               <span>{item.label}</span>
-              {item.href === '/inbox' && pending > 0 ? (
+              {item.href === '/review' && pending > 0 ? (
                 <span className="ml-2 rounded-full bg-sand px-1.5 text-[10px] font-bold text-ink">{pending}</span>
               ) : null}
             </Link>

@@ -2,14 +2,15 @@
 
 Office accrual books for **Soastal LLC**. Keith’s company workbook as a website — standalone accounting, not the field site, not QuickBooks.
 
-Foster and Keith sign in with an **office PIN** (not Vercel, OneDrive, or GitHub). Scan or upload a bill, PO, or AP file. Books proposes coding (“this is where I think it goes”). Foster confirms, then it posts.
+Foster and Keith sign in with an **office PIN** (not Vercel, OneDrive, or GitHub). **Keith** enters transactions, uploads bills, and posts. Books proposes coding on a scan (“this is where I think it goes”). Foster does not have to approve. If Keith is unsure, he sends that row to **Review** for Foster.
 
 ## Sheets
 
 Working tabs (left nav):
 
-- **Inbox** — scan / propose / Foster yes
-- **Transactions** — the ledger from the Soastal Books workbook copy (Payroll, Ferguson, job bills, etc.). Dropdowns match `_Lists` + Line Item Map. Suggested Account, Final Account, Offset, Difference autofill.
+- **Inbox** — Keith scans / uploads. Books proposes a draft on Transactions.
+- **Review** — only rows Keith flags. Foster answers. Not a gate to post.
+- **Transactions** — enter already-paid (cash/ACH/check) or unpaid AP. Keith posts. Ledger from the workbook copy. Dropdowns match `_Lists` + Line Item Map.
 - **Equipment Allocation** — working tab for field hours by machine and job. Memo only — not a report, not a second Transactions expense. The copy had no hour rows yet.
 - **Job Line Items** — schedule of values. Contract value = qty × unit price. Mapped? checks Setup.
 - **Cost Codes** — pick a job; Labor / Equipment / Materials accounts autofill from the map
@@ -29,7 +30,7 @@ AI coding is later. This base is the workbook: codes, dropdowns, autofills.
 - Vendor bill: Unpaid / AP hits job cost and AP immediately. Pay later: invoice `-PMT`, Job blank, Liability, override 2000.
 - Invoice Total is a control total on the first split only. Difference must be 0.
 - Formula columns are computed, never typed.
-- Foster is the only human for invoice coding confirms.
+- Keith posts. Foster reviews only when Keith asks.
 
 ## Copies and denylist
 

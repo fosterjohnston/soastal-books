@@ -7,7 +7,7 @@ import './globals.css'
 
 export const metadata = {
   title: 'Soastal Books — Soastal LLC office accrual',
-  description: 'Company workbook: scan bills, propose coding, Foster confirms, post. Copies only. Not the field site.',
+  description: 'Company workbook: Keith enters and posts. Ask Foster on Review only when a row is unclear. Copies only.',
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {

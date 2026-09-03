@@ -22,7 +22,7 @@ describe('scan coding proposal', () => {
     expect(proposal.summary.toLowerCase()).toContain('this is where i think it goes')
   })
 
-  it('flags missing PO so Foster must confirm before post', () => {
+  it('flags missing PO on the proposal — Keith can still post', () => {
     const books = createMasterDataOnly()
     const proposal = proposeCoding(books, { filename: 'T&T storm pipe invoice.pdf' })
     expect(proposal.poStatus).toBe('Missing - Get Approval')
@@ -38,7 +38,7 @@ describe('scan coding proposal', () => {
 })
 
 describe('scan intake', () => {
-  it('writes a copy under Soastal Books, never the live xlsx, and queues Foster', () => {
+  it('writes a copy under Soastal Books, never the live xlsx, and leaves a draft for Keith', () => {
     const books = createMasterDataOnly()
     const result = applyScanIntake(books, {
       filename: 'Vulcan Fern Hill ABC stone VM-88 $1000.pdf',
@@ -48,7 +48,7 @@ describe('scan intake', () => {
     })
     expect(result.document.storedPath).toMatch(/^Documents\/Finance\/Soastal Books\/inbox\//)
     expect(isLiveWorkbookPath(result.document.storedPath)).toBe(false)
-    expect(result.books.fosterQueue[0]?.decision).toBe('pending')
+    expect(result.books.fosterQueue.filter((f) => f.decision === 'pending')).toHaveLength(0)
     expect(result.books.transactions.some((t) => t.vendor === 'Vulcan Materials' && !t.posted)).toBe(true)
     expect(result.books.documents[0]?.status).toBe('proposed')
   })

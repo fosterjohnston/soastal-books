@@ -2,12 +2,11 @@
 
 import { useMemo, useState } from 'react'
 import {
+  askFosterReview,
   canPost,
   computeLedger,
   emptyDraft,
-  enqueueFosterCoding,
   FORMULA_COLUMNS,
-  needsFosterCoding,
   postDocument,
   removeTransactions,
   type TransactionDraft,
@@ -35,6 +34,7 @@ export function Ledger() {
   const [jobFilter, setJobFilter] = useState('')
   const [q, setQ] = useState('')
   const [onlyOpen, setOnlyOpen] = useState(false)
+  const [reviewQuestion, setReviewQuestion] = useState('')
 
   const rows = useMemo(() => {
     return ledger.filter((r) => {
@@ -81,10 +81,6 @@ export function Ledger() {
       (t) => t.vendor === selected.vendor && t.invoiceNumber === selected.invoiceNumber,
     )
     const ids = group.map((g) => g.id)
-    if (group.some(needsFosterCoding)) {
-      setBooks(enqueueFosterCoding(books, ids, 'No PO / Missing - Get Approval. Waiting on Foster yes/no before post.'))
-      return
-    }
     const gate = canPost(books, ids)
     if (!gate.ok) {
       window.alert(gate.issues.filter((i) => i.level === 'error').map((i) => i.message).join('\n'))
@@ -104,9 +100,8 @@ export function Ledger() {
         <div>
           <h1 className="font-serif text-3xl">Transactions</h1>
           <p className="max-w-2xl text-sm text-ink-2">
-            The ledger. One row per allocation. You never type {LOCKED.size} formula columns — Suggested Account,
-            Final Account, Total Allocated, Difference, Invoice Key, Offset, Line Item on This Job?, categories.
-            Invoice Total on the first split only.
+            Keith’s ledger. Already paid uses Check / ACH / debit and hits cash. Unpaid / AP sits on 2000. Formula
+            columns autofill. Invoice Total on the first split only. Foster does not have to approve a post.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -218,7 +213,9 @@ export function Ledger() {
               <Button variant="ghost" onClick={() => setBooks(removeTransactions(books, [selected.id]))}>
                 Delete
               </Button>
-              <Button onClick={onPost}>{needsFosterCoding(selected) ? 'Send to Foster' : 'Post document'}</Button>
+              <Button onClick={onPost} disabled={selected.posted}>
+                {selected.posted ? 'Posted' : 'Post document'}
+              </Button>
             </div>
           }
         >
@@ -375,6 +372,9 @@ export function Ledger() {
                 ))}
               </Select>
             </Field>
+            <Field label="Paid date" hint="Date cash moved. Blank on unpaid AP.">
+              <Input type="date" value={selected.paidDate} onChange={(e) => patch({ paidDate: e.target.value })} />
+            </Field>
             <Field label="Total Allocated">
               <Input readOnly value={computed.totalAllocated} className="bg-paper-2" />
             </Field>
@@ -418,9 +418,32 @@ export function Ledger() {
           ) : (
             <p className="mt-3 text-sm text-teal">Document checks clean. Difference {computed.difference.toFixed(2)}.</p>
           )}
-          <p className="mt-2 text-xs text-ink-2">
-            Posted rows re-open as unposted if you edit them so Foster can re-confirm coding.
-          </p>
+          <div className="mt-4 rounded-lg border border-line bg-paper p-3">
+            <p className="text-sm font-semibold">Ask Foster if this row is unclear</p>
+            <p className="mt-1 text-xs text-ink-2">
+              Optional. Keith still posts. Foster answers on the Review tab.
+            </p>
+            <Textarea
+              className="mt-2"
+              placeholder="What’s unclear — job, account, PO, amount…"
+              value={reviewQuestion}
+              onChange={(e) => setReviewQuestion(e.target.value)}
+            />
+            <Button
+              className="mt-2"
+              variant="sand"
+              onClick={() => {
+                const group = books.transactions.filter(
+                  (t) => t.vendor === selected.vendor && t.invoiceNumber === selected.invoiceNumber,
+                )
+                setBooks(askFosterReview(books, group.map((g) => g.id), reviewQuestion))
+                setReviewQuestion('')
+              }}
+            >
+              Send to Review
+            </Button>
+          </div>
+          <p className="mt-2 text-xs text-ink-2">Editing a posted row re-opens it as unposted so you can fix and post again.</p>
         </Card>
       ) : null}
     </div>

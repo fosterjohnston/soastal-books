@@ -1,6 +1,6 @@
 import { assertImportSourceAllowed, assertCopyDestination, assertWritablePath } from './denylist'
 import { copyRelativePath, detectKind, draftFromProposal, proposeCoding, type IntakeHints } from './propose'
-import { enqueueFosterCoding, newId, upsertTransactions } from './posting'
+import { newId, upsertTransactions } from './posting'
 import type { CompanyBooks, CopyRecord, DocumentKind, IntakeSource, ScannedDocument } from './types'
 
 export type ScanIntakeInput = IntakeHints & {
@@ -36,9 +36,6 @@ export function applyScanIntake(books: CompanyBooks, input: ScanIntakeInput): Sc
   })
   const draft = draftFromProposal(proposal)
   let next = upsertTransactions(books, [draft])
-  const reason = `${proposal.summary} Foster yes, then post.`
-  next = enqueueFosterCoding(next, [draft.id], reason)
-  const foster = next.fosterQueue[0]
   const kind: DocumentKind = detectKind(input.originalName, input.kind)
   const document: ScannedDocument = {
     id,
@@ -51,7 +48,7 @@ export function applyScanIntake(books: CompanyBooks, input: ScanIntakeInput): Sc
     source: input.source ?? 'office-scan',
     proposal,
     transactionIds: [draft.id],
-    fosterItemId: foster?.id ?? '',
+    fosterItemId: '',
     status: 'proposed',
   }
   const copy: CopyRecord = {

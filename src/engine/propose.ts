@@ -193,7 +193,7 @@ export function proposeCoding(books: CompanyBooks, hints: IntakeHints): CodingPr
   if (jobHit.reason) reasons.push(jobHit.reason)
   if (lineItem) reasons.push(`Line item ${lineItem} on ${jobName}`)
   if (computed.finalAccount) reasons.push(`Suggested ${computed.finalAccount} / offset ${computed.offsetAccount}`)
-  if (poStatus === 'Missing - Get Approval') reasons.push('No PO on the scan — Foster must confirm coding before post')
+  if (poStatus === 'Missing - Get Approval') reasons.push('No PO on the scan — Keith can still post, or ask Foster if the coding is unclear')
   else reasons.push(`PO ${poNumber} matched`)
   reasons.push('Money out is positive. Money in is negative. Unpaid / AP offsets 2000.')
 

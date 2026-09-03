@@ -1,7 +1,7 @@
 import { LIVE_WRITE_REFUSED } from './denylist'
 import { computeLedger, computeRow, isPaymentDocument, money, overrideIsRequired, overrideShouldBeBlank } from './formulas'
 import type { CompanyBooks, FosterItem, LedgerRow, TransactionDraft, ValidationIssue } from './types'
-import { AP_ACCOUNT } from './types'
+import { AP_ACCOUNT, isPaidPaymentMethod } from './types'
 
 export function validateRow(books: CompanyBooks, row: TransactionDraft): ValidationIssue[] {
   const issues: ValidationIssue[] = []
@@ -83,18 +83,18 @@ export function validateRow(books: CompanyBooks, row: TransactionDraft): Validat
       message: 'Revenue is money IN (negative allocation).',
     })
   }
-  if (row.approvalStatus === 'Paid' && !row.paidDate) {
+  if ((row.approvalStatus === 'Paid' || isPaidPaymentMethod(row.paymentMethod)) && !row.paidDate && !row.postingDate) {
     issues.push({
       level: 'error',
       field: 'paidDate',
-      message: 'Mark Paid only when Foster sends the payment date and check/ACH number.',
+      message: 'Paid transactions need the date cash moved (posting date is fine).',
     })
   }
-  if (row.approvalStatus === 'Paid' && !row.checkRef.trim() && row.paymentMethod !== 'Cash' && row.paymentMethod !== 'Credit Card') {
+  if (row.approvalStatus === 'Paid' && row.paymentMethod === 'Check' && !row.checkRef.trim()) {
     issues.push({
       level: 'error',
       field: 'checkRef',
-      message: 'Paid rows need the check / ACH number Foster sent.',
+      message: 'A paid check needs the check number.',
     })
   }
   return issues
@@ -158,7 +158,12 @@ export function postDocument(books: CompanyBooks, transactionIds: string[]): Com
         ? {
             ...t,
             posted: true,
-            approvalStatus: t.approvalStatus === 'Entered Only' ? 'Ready for Accountant' : t.approvalStatus,
+            approvalStatus: isPaidPaymentMethod(t.paymentMethod)
+              ? 'Paid'
+              : t.approvalStatus === 'Entered Only' || t.approvalStatus === 'Needs Approval'
+                ? 'Ready for Accountant'
+                : t.approvalStatus,
+            paidDate: isPaidPaymentMethod(t.paymentMethod) ? t.paidDate || t.postingDate : t.paidDate,
           }
         : t,
     ),
@@ -171,8 +176,8 @@ export function markPaid(
   paidDate: string,
   paymentRef: string,
 ): CompanyBooks {
-  if (!paidDate) throw new Error('Mark Paid only when Foster sends the payment date.')
-  if (!paymentRef.trim()) throw new Error('Mark Paid only when Foster sends the check / ACH number.')
+  if (!paidDate) throw new Error('Payment date is required.')
+  if (!paymentRef.trim()) throw new Error('Check / ACH number is required.')
   return {
     ...books,
     savedAt: new Date().toISOString(),
@@ -184,14 +189,19 @@ export function markPaid(
   }
 }
 
-export function enqueueFosterCoding(books: CompanyBooks, transactionIds: string[], reason: string): CompanyBooks {
+/** Keith asks Foster to look — does not block posting and does not unpost. */
+export function askFosterReview(books: CompanyBooks, transactionIds: string[], question: string): CompanyBooks {
   const rows = books.transactions.filter((t) => transactionIds.includes(t.id))
   if (rows.length === 0) return books
+  const already = books.fosterQueue.some(
+    (f) => f.decision === 'pending' && f.transactionIds.some((id) => transactionIds.includes(id)),
+  )
+  if (already) return books
   const first = rows[0]
   const item: FosterItem = {
-    id: newId('foster'),
+    id: newId('review'),
     createdAt: new Date().toISOString(),
-    kind: 'coding-confirm',
+    kind: 'keith-review',
     transactionIds,
     vendor: first.vendor,
     invoiceNumber: first.invoiceNumber,
@@ -200,7 +210,7 @@ export function enqueueFosterCoding(books: CompanyBooks, transactionIds: string[
       (r) => `${r.finalAccount} / offset ${r.offsetAccount}`,
     ),
     amount: money(rows.reduce((s, r) => s + r.allocationAmount, 0)),
-    reason,
+    reason: question.trim() || 'Keith asked Foster to look at this transaction.',
     decision: 'pending',
     decidedAt: '',
     fosterNote: '',
@@ -209,11 +219,18 @@ export function enqueueFosterCoding(books: CompanyBooks, transactionIds: string[
   }
   return {
     ...books,
+    savedAt: new Date().toISOString(),
     fosterQueue: [item, ...books.fosterQueue],
     transactions: books.transactions.map((t) =>
-      transactionIds.includes(t.id) ? { ...t, approvalStatus: 'Needs Approval', posted: false } : t,
+      transactionIds.includes(t.id) && t.approvalStatus !== 'Paid'
+        ? { ...t, approvalStatus: 'Needs Approval' }
+        : t,
     ),
   }
+}
+
+export function enqueueFosterCoding(books: CompanyBooks, transactionIds: string[], reason: string): CompanyBooks {
+  return askFosterReview(books, transactionIds, reason)
 }
 
 export function decideFoster(
@@ -236,11 +253,15 @@ export function decideFoster(
     fosterQueue: books.fosterQueue.map((f) => (f.id === fosterId ? decided : f)),
   }
   if (decision === 'yes') {
-    next = {
+    return {
       ...next,
       transactions: next.transactions.map((t) =>
         item.transactionIds.includes(t.id)
-          ? { ...t, approvalStatus: 'Ready for Accountant', poStatus: t.poStatus === 'Missing - Get Approval' ? 'No PO Required' : t.poStatus }
+          ? {
+              ...t,
+              approvalStatus: t.approvalStatus === 'Paid' || isPaidPaymentMethod(t.paymentMethod) ? t.approvalStatus : 'Ready for Accountant',
+              poStatus: t.poStatus === 'Missing - Get Approval' ? 'No PO Required' : t.poStatus,
+            }
           : t,
       ),
       documents: (next.documents ?? []).map((d) =>
@@ -249,14 +270,11 @@ export function decideFoster(
           : d,
       ),
     }
-    const gate = canPost(next, item.transactionIds)
-    if (!gate.ok) return next
-    return postDocument(next, item.transactionIds)
   }
   return {
     ...next,
     transactions: next.transactions.map((t) =>
-      item.transactionIds.includes(t.id) ? { ...t, approvalStatus: 'Hold / Dispute', posted: false } : t,
+      item.transactionIds.includes(t.id) ? { ...t, approvalStatus: 'Hold / Dispute' } : t,
     ),
     documents: (next.documents ?? []).map((d) =>
       d.fosterItemId === fosterId || d.transactionIds.some((id) => item.transactionIds.includes(id))

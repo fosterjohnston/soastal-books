@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { computeLedger, computeRow, money } from './formulas'
-import { canPost, emptyDraft, markPaid, postDocument, upsertTransactions } from './posting'
+import { askFosterReview, canPost, decideFoster, emptyDraft, markPaid, postDocument, upsertTransactions } from './posting'
 import { apAging, arAging, jobCosting, trialBalances } from './reports'
 import { AP_ACCOUNT, AR_ACCOUNT } from './types'
 import { createEmptyBooks, createMasterDataOnly } from '../seed'
@@ -224,7 +224,7 @@ describe('split Difference = 0', () => {
 })
 
 describe('posting gates', () => {
-  it('refuses Paid without Foster payment date and check number', () => {
+  it('refuses a paid check without a check number', () => {
     let b = books()
     const row = emptyDraft({
       id: 'p',
@@ -261,9 +261,62 @@ describe('posting gates', () => {
     })
     b = upsertTransactions(b, [row])
     b = postDocument(b, ['p'])
-    expect(() => markPaid(b, ['p'], '', '')).toThrow(/payment date/)
+    expect(() => markPaid(b, ['p'], '', '')).toThrow(/Payment date/)
     b = markPaid(b, ['p'], '2026-09-01', 'ACH-9')
     expect(b.transactions[0].approvalStatus).toBe('Paid')
+  })
+})
+
+describe('already-paid posts and optional Foster review', () => {
+  it('posts an ACH that already cleared cash, not AP', () => {
+    let b = books()
+    const row = emptyDraft({
+      id: 'paid1',
+      vendor: 'Office Supplier',
+      invoiceNumber: 'OS-PAID',
+      sourceType: 'Cash Purchase',
+      paymentMethod: 'ACH / Wire',
+      invoiceTotal: 214.88,
+      allocationAmount: 214.88,
+      jobName: 'N/A - Overhead',
+      costType: 'Overhead',
+      overrideAccount: '6120',
+    })
+    b = upsertTransactions(b, [row])
+    expect(canPost(b, ['paid1']).ok).toBe(true)
+    b = postDocument(b, ['paid1'])
+    const posted = b.transactions.find((t) => t.id === 'paid1')!
+    const ledger = computeLedger(b).find((t) => t.id === 'paid1')
+    expect(posted.posted).toBe(true)
+    expect(posted.approvalStatus).toBe('Paid')
+    expect(posted.paidDate).toBe(posted.postingDate)
+    expect(ledger?.offsetAccount).toBe('1000')
+  })
+
+  it('lets Keith ask Foster without blocking post', () => {
+    let b = books()
+    const row = emptyDraft({
+      id: 'ask1',
+      vendor: 'Ferguson',
+      invoiceNumber: 'F-9',
+      paymentMethod: 'Unpaid / AP',
+      invoiceTotal: 100,
+      allocationAmount: 100,
+      jobName: 'Fern Hill',
+      costType: 'Materials',
+      lineItem: 'ABC stone',
+    })
+    b = upsertTransactions(b, [row])
+    b = askFosterReview(b, ['ask1'], 'Is this Fern Hill or Sandy Run?')
+    expect(b.fosterQueue[0]?.kind).toBe('keith-review')
+    expect(b.fosterQueue[0]?.reason).toMatch(/Fern Hill/)
+    expect(canPost(b, ['ask1']).ok).toBe(true)
+    b = postDocument(b, ['ask1'])
+    expect(b.transactions[0].posted).toBe(true)
+    b = decideFoster(b, b.fosterQueue[0]!.id, 'yes', 'Yes, Fern Hill.')
+    expect(b.transactions[0].posted).toBe(true)
+    expect(b.fosterQueue[0]?.decision).toBe('yes')
+    expect(b.fosterQueue[0]?.fosterNote).toMatch(/Fern Hill/)
   })
 })
 

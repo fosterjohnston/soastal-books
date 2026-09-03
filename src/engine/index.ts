@@ -40,6 +40,7 @@ export {
   normLabel,
 } from './formulas'
 export {
+  askFosterReview,
   canPost,
   decideFoster,
   emptyDraft,
