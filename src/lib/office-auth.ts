@@ -15,15 +15,25 @@ const ROLE_META: Record<OfficeRole, Omit<OfficeSession, 'role'>> = {
   keith: { name: 'Keith Bunting', title: 'CFO' },
 }
 
+function isHosted(): boolean {
+  return process.env.VERCEL === '1' || process.env.NODE_ENV === 'production'
+}
+
+function localFallback(value: string): string {
+  return isHosted() ? '' : value
+}
+
 function sessionSecret(): string {
-  return process.env.SESSION_SECRET || 'soastal-books-office-v1'
+  return process.env.SESSION_SECRET || localFallback('soastal-books-office-v1')
 }
 
 export function pinTable(): Record<string, OfficeSession> {
-  return {
-    [process.env.FOSTER_PIN || '2468']: { role: 'foster', ...ROLE_META.foster },
-    [process.env.KEITH_PIN || '8642']: { role: 'keith', ...ROLE_META.keith },
-  }
+  const table: Record<string, OfficeSession> = {}
+  const foster = process.env.FOSTER_PIN || localFallback('2468')
+  const keith = process.env.KEITH_PIN || localFallback('8642')
+  if (foster) table[foster] = { role: 'foster', ...ROLE_META.foster }
+  if (keith) table[keith] = { role: 'keith', ...ROLE_META.keith }
+  return table
 }
 
 export function lookupPin(pin: string): OfficeSession | null {
@@ -32,7 +42,7 @@ export function lookupPin(pin: string): OfficeSession | null {
 }
 
 export function ingestKey(): string {
-  return process.env.INGEST_KEY || 'soastal-field-ingest-v1'
+  return process.env.INGEST_KEY || localFallback('soastal-field-ingest-v1')
 }
 
 export function ingestKeyMatches(provided: string | null | undefined): boolean {

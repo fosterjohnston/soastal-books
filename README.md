@@ -30,27 +30,15 @@ npm run dev
 
 App: `http://127.0.0.1:43173`
 
-Set `FOSTER_PIN`, `KEITH_PIN`, `SESSION_SECRET`, and optionally `INGEST_KEY` in `.env.local`. Leave them blank to use the office v1 defaults in the **server** API only. The login screen never displays a PIN.
+Set `FOSTER_PIN`, `KEITH_PIN`, `SESSION_SECRET`, and optionally `INGEST_KEY` in `.env.local`. Leave them blank locally to use the office v1 defaults in the **server** API only. Hosted/Vercel has no PIN fallback — set the env vars there. The login screen never displays a PIN.
 
 ## Vercel (Foster)
 
-This is a Next.js App Router app (`app/`, Route Handlers for session, books, ingest). Vercel Connect will detect Next.js.
+Source: https://github.com/fosterjohnston/soastal-books  
+This is a Next.js App Router app (`app/`, Route Handlers for session, books, ingest).
 
-**GitHub:** https://github.com/fosterjohnston/soastal-books exists (public). This agent still cannot push to it (no GitHub login) and Vercel cannot Import it until the [Vercel GitHub App](https://github.com/apps/vercel) is installed on `fosterjohnston`. Origin remains the books source.
+Install the [Vercel GitHub App](https://github.com/apps/vercel) on `fosterjohnston` and allow `soastal-books`. In the **soastal** Vercel team, Import that repo into the existing **soastal-books** project (do not create another empty name). Framework: Next.js.
 
-From a machine logged into GitHub as **fosterjohnston**:
-
-```bash
-git clone <origin-books-url> soastal-books-src
-cd soastal-books-src
-git remote add github https://github.com/fosterjohnston/soastal-books.git
-git push github main --force
-```
-
-(`--force` replaces the empty GitHub “Initial commit” README with this Next.js app.)
-
-In the **soastal** Vercel team: Import `fosterjohnston/soastal-books` into the existing **soastal-books** project (do not create another empty name). Framework: Next.js.
-
-Turn **off Deployment Protection / Vercel Authentication** so Keith opens the hostname and uses the office PIN on the Books login screen — not a Vercel login.
+Set `FOSTER_PIN`, `KEITH_PIN`, and `SESSION_SECRET` on the Vercel project. Turn **off Deployment Protection / Vercel Authentication** so Keith opens the hostname and uses the office PIN on the Books login screen — not a Vercel login.
 
 Do not deploy the field-report repo as this product.

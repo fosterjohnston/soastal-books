@@ -20,4 +20,31 @@ describe('office PIN (server only)', () => {
     expect(ingestKeyMatches('soastal-field-ingest-v1')).toBe(true)
     expect(ingestKeyMatches('nope')).toBe(false)
   })
+
+  it('does not fall back to local office defaults on Vercel', () => {
+    const prev = {
+      VERCEL: process.env.VERCEL,
+      FOSTER_PIN: process.env.FOSTER_PIN,
+      KEITH_PIN: process.env.KEITH_PIN,
+      INGEST_KEY: process.env.INGEST_KEY,
+    }
+    process.env.VERCEL = '1'
+    delete process.env.FOSTER_PIN
+    delete process.env.KEITH_PIN
+    delete process.env.INGEST_KEY
+    try {
+      expect(lookupPin('2468')).toBeNull()
+      expect(lookupPin('8642')).toBeNull()
+      expect(ingestKeyMatches('soastal-field-ingest-v1')).toBe(false)
+    } finally {
+      if (prev.VERCEL === undefined) delete process.env.VERCEL
+      else process.env.VERCEL = prev.VERCEL
+      if (prev.FOSTER_PIN === undefined) delete process.env.FOSTER_PIN
+      else process.env.FOSTER_PIN = prev.FOSTER_PIN
+      if (prev.KEITH_PIN === undefined) delete process.env.KEITH_PIN
+      else process.env.KEITH_PIN = prev.KEITH_PIN
+      if (prev.INGEST_KEY === undefined) delete process.env.INGEST_KEY
+      else process.env.INGEST_KEY = prev.INGEST_KEY
+    }
+  })
 })
