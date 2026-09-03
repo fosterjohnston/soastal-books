@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { computeRow, suggestedAccountForRow } from './formulas'
+import { computeRow, offsetForPaymentMethod, suggestedAccountForRow } from './formulas'
 import { costCodesForJob, networkDays } from './index'
 import { emptyDraft } from './posting'
 import { createEmptyBooks, createMasterDataOnly } from '../seed'
@@ -67,5 +67,15 @@ describe('workbook codes and autofill', () => {
     expect(next.transactions.some((t) => t.invoiceNumber === 'Payroll 8.28.26')).toBe(true)
     expect(next.transactions.some((t) => t.id.startsWith('txn_demo_'))).toBe(false)
     expect(next.transactions.some((t) => t.id === 'txn_scan_keep')).toBe(true)
+  })
+
+  it('fills ACH / Wire on an old payment-method map so cash posts have an offset', () => {
+    const seed = createEmptyBooks()
+    const stored = {
+      ...seed,
+      paymentMethodMap: seed.paymentMethodMap.filter((r) => r.paymentMethod !== 'ACH / Wire'),
+    }
+    const next = hydrateBooks(stored)
+    expect(offsetForPaymentMethod(next, 'ACH / Wire').number).toBe('1000')
   })
 })

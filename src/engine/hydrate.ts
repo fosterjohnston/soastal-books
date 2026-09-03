@@ -79,8 +79,12 @@ export function hydrateBooks(raw: unknown): CompanyBooks {
       Array.isArray(b.jobLineItems) && b.jobLineItems.length && !useMasterLists
         ? b.jobLineItems.map(hydrateSov)
         : seed.jobLineItems,
-    paymentMethodMap:
-      Array.isArray(b.paymentMethodMap) && b.paymentMethodMap.length ? b.paymentMethodMap : seed.paymentMethodMap,
+    paymentMethodMap: (() => {
+      const stored = Array.isArray(b.paymentMethodMap) ? b.paymentMethodMap : []
+      if (!stored.length) return seed.paymentMethodMap
+      const have = new Set(stored.map((r) => r.paymentMethod))
+      return [...stored, ...seed.paymentMethodMap.filter((r) => !have.has(r.paymentMethod))]
+    })(),
     transactions,
     equipmentAllocations,
     openingBalances:
