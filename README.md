@@ -58,6 +58,7 @@ Then on that project:
 5. **Settings → Environment Variables** — add `FOSTER_PIN`, `KEITH_PIN`, and `SESSION_SECRET`. Hosted has no PIN fallback.
 6. **Settings → Deployment Protection** — turn **Vercel Authentication** off so Keith uses the office PIN on the Books login screen, not a Vercel login.
 
-After deploy, https://soastal-books.vercel.app should show the navy sidebar + cream ledger (Inbox, Transactions, Files). The old build that printed a PIN on `/login` must be gone.
+Live Import hostname: https://soastal-books-2.vercel.app  
+After deploy, that URL should show the navy sidebar + cream ledger (Inbox, Transactions, Files). The old `soastal-books.vercel.app` `/login` build is leftover — ignore it.
 
 Ignore leftover empty names such as `soastal-books-main`. Do not deploy the field-report repo as this product.
