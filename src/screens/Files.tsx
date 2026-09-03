@@ -21,23 +21,23 @@ export function Files() {
         </p>
       </div>
 
-      <Card title="Where books save">
-        <dl className="grid gap-2 text-sm md:grid-cols-2">
-          <div>
-            <dt className="text-xs uppercase tracking-wide text-ink-2">Mode</dt>
-            <dd>Soastal Books cloud store (app-owned). Not the field app. Not Keith&apos;s live xlsx.</dd>
+      <Card title="Where books live">
+        <dl className="grid gap-3 text-sm sm:grid-cols-2">
+          <div className="rounded-lg bg-paper px-3 py-2">
+            <dt className="text-[11px] font-semibold uppercase tracking-wide text-ink-2/70">Mode</dt>
+            <dd className="mt-0.5">Cloud store — app-owned copies only</dd>
           </div>
-          <div>
-            <dt className="text-xs uppercase tracking-wide text-ink-2">Current path</dt>
-            <dd className="break-all font-mono text-xs">{savePath}</dd>
+          <div className="rounded-lg bg-paper px-3 py-2">
+            <dt className="text-[11px] font-semibold uppercase tracking-wide text-ink-2/70">Last saved</dt>
+            <dd className="mt-0.5">{books.savedAt ?? 'Not yet saved this session'}</dd>
           </div>
-          <div>
-            <dt className="text-xs uppercase tracking-wide text-ink-2">Last saved</dt>
-            <dd>{books.savedAt ?? 'Not yet saved this session'}</dd>
+          <div className="rounded-lg bg-paper px-3 py-2">
+            <dt className="text-[11px] font-semibold uppercase tracking-wide text-ink-2/70">Current path</dt>
+            <dd className="mt-0.5 break-all font-mono text-xs">{savePath}</dd>
           </div>
-          <div>
-            <dt className="text-xs uppercase tracking-wide text-ink-2">Company folder</dt>
-            <dd>{BOOKS_RELATIVE_DIR}/ — scans, JSON copies. Live original is denylisted.</dd>
+          <div className="rounded-lg bg-paper px-3 py-2">
+            <dt className="text-[11px] font-semibold uppercase tracking-wide text-ink-2/70">Company folder</dt>
+            <dd className="mt-0.5">{BOOKS_RELATIVE_DIR}/</dd>
           </div>
         </dl>
         {lastError ? <p className="mt-3 text-sm text-danger">{lastError}</p> : null}

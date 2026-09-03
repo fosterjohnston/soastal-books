@@ -32,13 +32,18 @@ App: `http://127.0.0.1:43173`
 
 Set `FOSTER_PIN`, `KEITH_PIN`, `SESSION_SECRET`, and optionally `INGEST_KEY` in `.env.local`. Leave them blank locally to use the office v1 defaults in the **server** API only. Hosted/Vercel has no PIN fallback — set the env vars there. The login screen never displays a PIN.
 
-## Vercel (Foster)
+## Vercel — connect GitHub (Foster)
 
-Source: https://github.com/fosterjohnston/soastal-books  
-This is a Next.js App Router app (`app/`, Route Handlers for session, books, ingest).
+This agent cannot attach the existing **soastal-books** Vercel project (name is taken; the token cannot open it). You connect it in the dashboard. Do not create another empty project.
 
-Install the [Vercel GitHub App](https://github.com/apps/vercel) on `fosterjohnston` and allow `soastal-books`. In the **soastal** Vercel team, Import that repo into the existing **soastal-books** project (do not create another empty name). Framework: Next.js.
+1. Open [vercel.com/soastal/soastal-books](https://vercel.com/soastal/soastal-books) while logged into the **soastal** team.
+2. **Settings → Git**.
+3. **Connect Git Repository** → GitHub → `fosterjohnston/soastal-books` (the repo that now has the Next.js app, not an empty README).
+4. Production branch: `main`. Framework: **Next.js**.
+5. **Deployments → Deploy** (or push any commit to `main` after connect).
+6. **Settings → Environment Variables** — add `FOSTER_PIN`, `KEITH_PIN`, and `SESSION_SECRET`. Hosted has no PIN fallback.
+7. **Settings → Deployment Protection** — turn **Vercel Authentication** off so Keith uses the office PIN on the Books login screen, not a Vercel login.
 
-Set `FOSTER_PIN`, `KEITH_PIN`, and `SESSION_SECRET` on the Vercel project. Turn **off Deployment Protection / Vercel Authentication** so Keith opens the hostname and uses the office PIN on the Books login screen — not a Vercel login.
+After deploy, https://soastal-books.vercel.app should show the navy sidebar + cream ledger (Inbox, Transactions, Files). The old build that printed a PIN on `/login` must be gone.
 
-Do not deploy the field-report repo as this product.
+Ignore leftover empty names such as `soastal-books-main`. Do not deploy the field-report repo as this product.

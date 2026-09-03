@@ -15,7 +15,7 @@ export function Button({
   return (
     <button
       className={cn(
-        'inline-flex items-center justify-center gap-2 rounded-md px-3.5 py-2 text-sm font-semibold disabled:opacity-50',
+        'inline-flex items-center justify-center gap-2 rounded-md px-3.5 py-2 text-sm font-semibold shadow-sm disabled:opacity-50',
         styles[variant],
         className,
       )}
@@ -80,7 +80,7 @@ export function Badge({
 
 export function Card({ title, action, children, className }: { title?: string; action?: ReactNode; children: ReactNode; className?: string }) {
   return (
-    <section className={cn('rounded-xl border border-line bg-white p-4 shadow-sm', className)}>
+    <section className={cn('rounded-xl border border-line bg-white p-5 shadow-sm', className)}>
       {title ? (
         <header className="mb-3 flex items-center justify-between gap-3">
           <h2 className="font-serif text-lg text-ink">{title}</h2>

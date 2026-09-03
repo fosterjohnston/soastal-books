@@ -19,16 +19,11 @@ export function FosterInbox() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div>
-        <h1 className="font-serif text-3xl">Inbox</h1>
-        <p className="max-w-2xl text-sm text-ink-2">
-          Foster (COO) is the only human for invoice coding confirms. Propose coding (job + pay item). If the bill is
-          Missing - Get Approval, wait yes/no. Only then post. Mark Paid only when Foster sends payment date and
-          check/ACH number.
+      <Card title={`Inbox · waiting on Foster (${pending.length})`}>
+        <p className="mb-3 text-sm text-ink-2">
+          Foster is the only human for invoice coding confirms. Books proposes the job and pay item. Yes posts. No
+          holds. Mark Paid only when Foster sends the payment date and check/ACH number.
         </p>
-      </div>
-
-      <Card title={`Waiting on Foster (${pending.length})`}>
         {pending.length === 0 ? (
           <p className="text-sm text-ink-2">Nothing in the coding queue.</p>
         ) : (

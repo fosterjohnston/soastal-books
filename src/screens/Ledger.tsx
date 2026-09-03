@@ -16,7 +16,7 @@ import {
 } from '../engine'
 import { formatDate } from '../lib/utils'
 import { useBooks } from '../store/BooksContext'
-import { Button, Card, Field, Input, Select, Textarea } from '../components/ui'
+import { Badge, Button, Card, Field, Input, Select, Textarea } from '../components/ui'
 import { Money } from '../components/Money'
 
 const LOCKED = new Set(FORMULA_COLUMNS)
@@ -174,7 +174,21 @@ export function Ledger() {
                   <td>{r.lineItem || '—'}</td>
                   <td className="formula-cell">{r.overrideAccount || '—'}</td>
                   <td>{r.poNumber || '—'}</td>
-                  <td>{r.approvalStatus}</td>
+                  <td>
+                    <Badge
+                      tone={
+                        r.approvalStatus === 'Ready for Accountant'
+                          ? 'teal'
+                          : r.approvalStatus === 'Paid'
+                            ? 'ink'
+                            : r.approvalStatus === 'Hold / Dispute' || r.approvalStatus === 'Needs Approval'
+                              ? 'sand'
+                              : 'muted'
+                      }
+                    >
+                      {r.approvalStatus}
+                    </Badge>
+                  </td>
                   <td className="formula-cell">{r.finalAccount || '—'}</td>
                   <td className="formula-cell">{r.offsetAccount || '—'}</td>
                   <td className={Math.abs(r.difference) > 0.005 ? 'diff-bad' : 'formula-cell'}>

@@ -24,13 +24,13 @@ export function OfficeNav() {
   const pending = books.fosterQueue.filter((f) => f.decision === 'pending').length
 
   return (
-    <aside className="flex flex-col bg-ink text-paper md:w-56 md:shrink-0">
-      <div className="border-b border-white/10 px-4 py-4">
-        <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sand">Soastal LLC</div>
-        <div className="font-serif text-xl">Books</div>
-        <div className="text-xs text-paper/60">Accrual · copies only</div>
+    <aside className="flex flex-col bg-ink text-paper md:w-60 md:shrink-0">
+      <div className="border-b border-white/10 px-5 py-5">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-sand">Soastal LLC</div>
+        <div className="font-serif text-2xl leading-tight">Books</div>
+        <div className="mt-1 text-xs text-paper/55">Accrual · copies only</div>
       </div>
-      <nav className="flex gap-1 overflow-x-auto p-2 md:flex-col md:overflow-visible">
+      <nav className="flex gap-1 overflow-x-auto p-2 md:flex-col md:overflow-visible md:px-3 md:py-4">
         {NAV.map((item) => {
           const active = path === item.href || (item.href === '/transactions' && (path === '/' || path === ''))
           return (
@@ -38,7 +38,9 @@ export function OfficeNav() {
               key={item.href}
               href={item.href}
               className={`flex items-center justify-between rounded-md px-3 py-2 text-sm whitespace-nowrap ${
-                active ? 'bg-white/10 text-white' : 'text-paper/75 hover:bg-white/5'
+                active
+                  ? 'bg-white/10 text-white shadow-[inset_3px_0_0_0_#1a6b5c]'
+                  : 'text-paper/75 hover:bg-white/5'
               }`}
             >
               <span>{item.label}</span>

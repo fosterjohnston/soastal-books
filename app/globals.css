@@ -3,16 +3,16 @@
 @theme {
   --font-sans: "Segoe UI", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, serif;
-  --color-ink: #0c1f2e;
+  --color-ink: #0b1c2a;
   --color-ink-2: #17364a;
-  --color-paper: #f4efe6;
-  --color-paper-2: #efe6d6;
-  --color-sand: #c4a574;
+  --color-paper: #fcfaf2;
+  --color-paper-2: #f3eee4;
+  --color-sand: #d4a24a;
   --color-teal: #1a6b5c;
   --color-teal-2: #148f7a;
   --color-danger: #9b2c2c;
   --color-ok: #1a6b5c;
-  --color-line: #d9cfc0;
+  --color-line: #e2d8c6;
 }
 
 html,
@@ -56,15 +56,19 @@ body {
 }
 
 .ledger-table td {
-  padding: 7px 10px;
+  padding: 8px 10px;
   border-bottom: 1px solid var(--color-line);
   font-size: 13px;
   white-space: nowrap;
   background: #fffdf8;
 }
 
+.ledger-table tbody tr:nth-child(even) td {
+  background: #f7f3ea;
+}
+
 .ledger-table tr:hover td {
-  background: #f7f1e6;
+  background: #eef6f2;
 }
 
 .formula-cell {
@@ -74,7 +78,7 @@ body {
 }
 
 .ledger-table tr.selected td {
-  background: #e8f2ee;
+  background: #e4f1eb !important;
 }
 
 .diff-bad {
