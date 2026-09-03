@@ -36,13 +36,27 @@ Set `FOSTER_PIN`, `KEITH_PIN`, `SESSION_SECRET`, and optionally `INGEST_KEY` in 
 
 This agent cannot attach the existing **soastal-books** Vercel project (name is taken; the token cannot open it). You connect it in the dashboard. Do not create another empty project.
 
-1. Open [vercel.com/soastal/soastal-books](https://vercel.com/soastal/soastal-books) while logged into the **soastal** team.
-2. **Settings → Git**.
-3. **Connect Git Repository** → GitHub → `fosterjohnston/soastal-books` (the repo that now has the Next.js app, not an empty README).
+The **Git** item in Settings only appears after a repo is already connected. This project was created without Git, so that item is hidden.
+
+**A — from the project home (not Settings)**
+
+1. Top-left team switcher: **soastal** (not a personal Hobby account).
+2. Open the **soastal-books** project (the project card, not Team Settings).
+3. Stay on the **Overview** / project home. Look for **Connect Git Repository** (GitHub / GitLab / Bitbucket). It is not under Settings until after this.
+4. Choose **GitHub** → `fosterjohnston/soastal-books`.
+5. Then set env vars and turn off Vercel Authentication (steps below).
+
+**B — Import (if Overview has no Connect button)**
+
+1. [vercel.com/new](https://vercel.com/new) with team **soastal**.
+2. Import GitHub **`fosterjohnston/soastal-books`**. If the repo is missing, [configure the Vercel GitHub App](https://github.com/apps/vercel) and allow that repo, then refresh.
+3. If the name `soastal-books` is taken, keep the Import — do not make a second empty project by hand. You can point the `soastal-books` domain over after the first good deploy.
+
+Then on that project:
+
 4. Production branch: `main`. Framework: **Next.js**.
-5. **Deployments → Deploy** (or push any commit to `main` after connect).
-6. **Settings → Environment Variables** — add `FOSTER_PIN`, `KEITH_PIN`, and `SESSION_SECRET`. Hosted has no PIN fallback.
-7. **Settings → Deployment Protection** — turn **Vercel Authentication** off so Keith uses the office PIN on the Books login screen, not a Vercel login.
+5. **Settings → Environment Variables** — add `FOSTER_PIN`, `KEITH_PIN`, and `SESSION_SECRET`. Hosted has no PIN fallback.
+6. **Settings → Deployment Protection** — turn **Vercel Authentication** off so Keith uses the office PIN on the Books login screen, not a Vercel login.
 
 After deploy, https://soastal-books.vercel.app should show the navy sidebar + cream ledger (Inbox, Transactions, Files). The old build that printed a PIN on `/login` must be gone.
 
