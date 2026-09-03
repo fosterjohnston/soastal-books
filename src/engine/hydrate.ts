@@ -5,6 +5,21 @@ function looksLikeWorkbookCoa(books: Pick<CompanyBooks, 'chartOfAccounts'>): boo
   return books.chartOfAccounts.some((a) => a.number === '5030' && /water main/i.test(a.name))
 }
 
+export function hasWorkbookCopyJournal(txs: { id?: string }[] | undefined): boolean {
+  return !!txs?.some((t) => String(t.id || '').startsWith('txn_wb_'))
+}
+
+export function listsLookLikeWorkbookCopy(
+  books: Pick<CompanyBooks, 'jobs' | 'vendors' | 'openingBalances'>,
+): boolean {
+  const jobs = books.jobs || []
+  const hasJobs =
+    jobs.some((j) => /captian/i.test(j.jobName)) && jobs.some((j) => /craig farm/i.test(j.jobName))
+  const openings = (books.openingBalances?.length ?? 0) >= 20
+  const vendors = (books.vendors?.length ?? 0) >= 15
+  return hasJobs && openings && vendors
+}
+
 function hydrateEquipmentAlloc(raw: EquipmentAllocation): EquipmentAllocation {
   const startDate = raw.startDate || raw.date || ''
   const avg = raw.avgEngineHrsPerDay || raw.hours || 0
@@ -45,7 +60,12 @@ export function hydrateBooks(raw: unknown): CompanyBooks {
   const b = raw as Partial<CompanyBooks>
   if (!Array.isArray(b.transactions) || !Array.isArray(b.chartOfAccounts)) return seed
   const storedCoaOk = looksLikeWorkbookCoa({ chartOfAccounts: b.chartOfAccounts })
-  const useMasterLists = !storedCoaOk
+  const storedListsOk = listsLookLikeWorkbookCopy({
+    jobs: Array.isArray(b.jobs) ? b.jobs : [],
+    vendors: Array.isArray(b.vendors) ? b.vendors : [],
+    openingBalances: Array.isArray(b.openingBalances) ? b.openingBalances : [],
+  })
+  const useMasterLists = !storedCoaOk || !storedListsOk
   const storedTx = Array.isArray(b.transactions) ? b.transactions : []
   const hasWorkbookJournal = storedTx.some((t) => t.id.startsWith('txn_wb_'))
   const transactions = hasWorkbookJournal
@@ -70,9 +90,29 @@ export function hydrateBooks(raw: unknown): CompanyBooks {
       fuelPricePerGallon: b.settings?.fuelPricePerGallon ?? seed.settings.fuelPricePerGallon,
     },
     chartOfAccounts: useMasterLists ? seed.chartOfAccounts : b.chartOfAccounts,
-    jobs: Array.isArray(b.jobs) && b.jobs.length && !useMasterLists ? b.jobs : seed.jobs,
-    vendors: Array.isArray(b.vendors) && b.vendors.length && !useMasterLists ? b.vendors.map(hydrateVendor) : seed.vendors,
-    equipment: Array.isArray(b.equipment) && b.equipment.length && !useMasterLists ? b.equipment : seed.equipment,
+    jobs:
+      Array.isArray(b.jobs) && b.jobs.length && !useMasterLists
+        ? b.jobs
+        : [
+            ...seed.jobs,
+            ...(Array.isArray(b.jobs) ? b.jobs.filter((j) => !seed.jobs.some((s) => s.jobName === j.jobName)) : []),
+          ],
+    vendors:
+      Array.isArray(b.vendors) && b.vendors.length && !useMasterLists
+        ? b.vendors.map(hydrateVendor)
+        : [
+            ...seed.vendors,
+            ...(Array.isArray(b.vendors)
+              ? b.vendors.filter((v) => !seed.vendors.some((s) => s.name === v.name)).map(hydrateVendor)
+              : []),
+          ],
+    equipment:
+      Array.isArray(b.equipment) && b.equipment.length && !useMasterLists
+        ? b.equipment
+        : [
+            ...seed.equipment,
+            ...(Array.isArray(b.equipment) ? b.equipment.filter((e) => !seed.equipment.some((s) => s.name === e.name)) : []),
+          ],
     lineItemMap:
       Array.isArray(b.lineItemMap) && b.lineItemMap.length && !useMasterLists ? b.lineItemMap : seed.lineItemMap,
     jobLineItems:
@@ -88,7 +128,7 @@ export function hydrateBooks(raw: unknown): CompanyBooks {
     transactions,
     equipmentAllocations,
     openingBalances:
-      Array.isArray(b.openingBalances) && b.openingBalances.length && storedCoaOk
+      Array.isArray(b.openingBalances) && b.openingBalances.length && storedCoaOk && storedListsOk
         ? b.openingBalances
         : seed.openingBalances,
     fosterQueue,

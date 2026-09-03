@@ -7,7 +7,7 @@ export {
   isSoastalBooksDir,
   LIVE_WRITE_REFUSED,
 } from './denylist'
-export { hydrateBooks } from './hydrate'
+export { hasWorkbookCopyJournal, hydrateBooks, listsLookLikeWorkbookCopy } from './hydrate'
 export { applyScanIntake, type ScanIntakeInput, type ScanIntakeResult } from './intake'
 export {
   booksCopyPath,

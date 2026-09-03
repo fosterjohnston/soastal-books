@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { assertCopyDestination, assertWritablePath, hydrateBooks, isLiveWorkbookPath } from '../engine'
+import { hasWorkbookCopyJournal } from '../engine/hydrate'
 import type { CompanyBooks } from '../engine/types'
 import { createEmptyBooks } from '../seed'
 import { booksCopyPath } from '../engine/propose'
@@ -12,6 +13,18 @@ function denied(target: string): boolean {
   return isLiveWorkbookPath(target)
 }
 
+async function persistCopyIfNeeded(raw: unknown, books: CompanyBooks): Promise<CompanyBooks> {
+  const parsed = raw && typeof raw === 'object' ? (raw as { transactions?: { id?: string }[] }) : null
+  const already = hasWorkbookCopyJournal(parsed?.transactions)
+  if (already || !hasWorkbookCopyJournal(books.transactions)) return books
+  try {
+    await saveBooksJson(books)
+  } catch {
+    /* display the copy even if persist fails */
+  }
+  return books
+}
+
 export async function loadBooksJson(): Promise<CompanyBooks> {
   const token = process.env.BLOB_READ_WRITE_TOKEN
   if (token) {
@@ -20,21 +33,32 @@ export async function loadBooksJson(): Promise<CompanyBooks> {
       const result = await get('soastal-books.json', { token, access: 'private', useCache: false })
       if (result?.stream) {
         const text = await new Response(result.stream as ReadableStream).text()
-        if (text) return hydrateBooks(JSON.parse(text))
+        if (text) {
+          const raw = JSON.parse(text)
+          return persistCopyIfNeeded(raw, hydrateBooks(raw))
+        }
       }
     } catch {
       /* empty store */
     }
   }
   try {
-    const raw = await readFile(LOCAL_STORE, 'utf8')
-    return hydrateBooks(JSON.parse(raw))
+    const rawText = await readFile(LOCAL_STORE, 'utf8')
+    const raw = JSON.parse(rawText)
+    return persistCopyIfNeeded(raw, hydrateBooks(raw))
   } catch {
     try {
-      const raw = await readFile('/tmp/soastal-books.json', 'utf8')
-      return hydrateBooks(JSON.parse(raw))
+      const rawText = await readFile('/tmp/soastal-books.json', 'utf8')
+      const raw = JSON.parse(rawText)
+      return persistCopyIfNeeded(raw, hydrateBooks(raw))
     } catch {
-      return createEmptyBooks()
+      const seed = createEmptyBooks()
+      try {
+        await saveBooksJson(seed)
+      } catch {
+        /* keep seed in memory */
+      }
+      return seed
     }
   }
 }

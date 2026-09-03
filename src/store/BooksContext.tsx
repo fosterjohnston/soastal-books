@@ -4,10 +4,11 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 import type { CompanyBooks } from '../engine/types'
 import { createEmptyBooks } from '../seed'
 import { assertImportSourceAllowed, hydrateBooks } from '../engine'
+import { hasWorkbookCopyJournal } from '../engine'
 import { booksCopyPath } from '../engine/propose'
 import { useAuth } from './AuthContext'
 
-const STORAGE_KEY = 'soastal-books-v2'
+const STORAGE_KEY = 'soastal-books-v3'
 const COPY_DIR = 'Documents/Finance/Soastal Books'
 
 type Ctx = {
@@ -59,8 +60,14 @@ export function BooksProvider({ children }: { children: ReactNode }) {
               const server = hydrateBooks(data.books)
               const localStamp = local.savedAt ? Date.parse(local.savedAt) : 0
               const serverStamp = server.savedAt ? Date.parse(server.savedAt) : 0
-              const localWork = localStamp > 0 || (local.documents?.length ?? 0) > 0 || local.transactions.length > server.transactions.length
-              const serverWork = serverStamp > 0 || (server.documents?.length ?? 0) > 0
+              const localHasCopy = hasWorkbookCopyJournal(local.transactions)
+              const serverHasCopy = hasWorkbookCopyJournal(server.transactions)
+              const localWork =
+                localStamp > 0 ||
+                (local.documents?.length ?? 0) > 0 ||
+                local.transactions.length > server.transactions.length ||
+                (localHasCopy && !serverHasCopy)
+              const serverWork = (serverStamp > 0 || (server.documents?.length ?? 0) > 0) && serverHasCopy
               if (serverWork && serverStamp >= localStamp) {
                 skipNextPut.current = true
                 setBooksState(server)
@@ -68,8 +75,8 @@ export function BooksProvider({ children }: { children: ReactNode }) {
               } else if (localWork) {
                 setBooksState(local)
               } else {
-                skipNextPut.current = true
-                setBooksState(server)
+                skipNextPut.current = serverHasCopy
+                setBooksState(serverHasCopy ? server : local)
               }
             }
           }

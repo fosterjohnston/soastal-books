@@ -69,6 +69,21 @@ describe('workbook codes and autofill', () => {
     expect(next.transactions.some((t) => t.id === 'txn_scan_keep')).toBe(true)
   })
 
+  it('replaces a thin leftover job list with the workbook copy jobs', () => {
+    const seed = createEmptyBooks()
+    const stored = {
+      ...seed,
+      jobs: seed.jobs.filter((j) => j.jobName === 'Fern Hill' || j.jobName === 'N/A - Overhead'),
+      openingBalances: seed.openingBalances.slice(0, 2),
+      vendors: seed.vendors.slice(0, 3),
+    }
+    const next = hydrateBooks(stored)
+    expect(next.jobs.some((j) => /craig farm/i.test(j.jobName))).toBe(true)
+    expect(next.jobs.some((j) => /captian/i.test(j.jobName))).toBe(true)
+    expect(next.openingBalances.length).toBeGreaterThan(20)
+    expect(next.vendors.length).toBeGreaterThan(15)
+  })
+
   it('fills ACH / Wire on an old payment-method map so cash posts have an offset', () => {
     const seed = createEmptyBooks()
     const stored = {
