@@ -13,6 +13,7 @@ release
 .data
 agent-tools
 .next
+tsconfig.tsbuildinfo
 out
 .vercel
 
