@@ -20,7 +20,7 @@ export function Setup() {
     <div className="flex flex-col gap-6">
       <SheetTitle
         title="Setup"
-        blurb="Maintain jobs, vendors, equipment, and the line-item-to-account map. Equipment here is permanent facts only — hours go on Equipment Allocation under Run Report. Amounts in U.S. dollars."
+        blurb="Maintain jobs, vendors, equipment, and the line-item-to-account map. Equipment here is permanent facts only — hours go on the Equipment Allocation working tab. Amounts in U.S. dollars."
       />
 
       <Card

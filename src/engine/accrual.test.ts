@@ -267,15 +267,17 @@ describe('posting gates', () => {
   })
 })
 
-describe('demo seed', () => {
-  it('ships a journal so the office app is not empty', () => {
+describe('workbook copy seed', () => {
+  it('ships Keith’s copy journal, not the old demo Vulcan rows', () => {
     const b = createEmptyBooks()
-    expect(b.transactions.length).toBeGreaterThan(3)
+    expect(b.transactions.length).toBeGreaterThan(70)
+    expect(b.transactions.some((t) => t.id.startsWith('txn_demo_'))).toBe(false)
+    expect(b.transactions.some((t) => t.invoiceNumber === 'Payroll 8.28.26')).toBe(true)
     expect(b.jobs.some((j) => j.jobName === 'Fern Hill')).toBe(true)
     expect(b.vendors.length).toBeGreaterThan(0)
     expect(b.chartOfAccounts.some((a) => a.number === '2000')).toBe(true)
-    expect(b.fosterQueue.some((f) => f.decision === 'pending')).toBe(true)
     expect(b.transactions.some((t) => t.paymentMethod === 'Unpaid / AP')).toBe(true)
     expect(b.transactions.some((t) => t.paymentMethod === 'Billed / AR')).toBe(true)
+    expect(b.equipmentAllocations).toEqual([])
   })
 })

@@ -9,15 +9,16 @@ Foster and Keith sign in with an **office PIN** (not Vercel, OneDrive, or GitHub
 Working tabs (left nav):
 
 - **Inbox** — scan / propose / Foster yes
-- **Transactions** — the ledger. Dropdowns match the workbook (`_Lists` + Line Item Map). Suggested Account, Final Account, Offset, Difference autofill.
+- **Transactions** — the ledger from the Soastal Books workbook copy (Payroll, Ferguson, job bills, etc.). Dropdowns match `_Lists` + Line Item Map. Suggested Account, Final Account, Offset, Difference autofill.
+- **Equipment Allocation** — working tab for field hours by machine and job. Memo only — not a report, not a second Transactions expense. The copy had no hour rows yet.
 - **Job Line Items** — schedule of values. Contract value = qty × unit price. Mapped? checks Setup.
 - **Cost Codes** — pick a job; Labor / Equipment / Materials accounts autofill from the map
 - **Opening Balances** — as-of date + balance-sheet accounts (native sign)
 - **Setup** — jobs, equipment, vendors, line item map, payment-method offsets
-- **Run Report** — Equipment Allocation through Walkthrough / Chart of Accounts (those workbook tabs are reports)
+- **Run Report** — Job Costing through Walkthrough / Chart of Accounts
 - **Files** — JSON copies only. Never Keith’s live `Acounting spreadshseet.xlsx`
 
-Run Report includes Equipment Allocation (field hours, memo), Job Costing, Job Cost by Account, P&L Monthly, P&L by Job, Balance Sheet, Cash Flow, WIP, AP/AR aging, Account Summary, COA Report, Accountant Handoff, Month-End Checklist, Walkthrough, Chart of Accounts.
+Run Report includes Job Costing, Job Cost by Account, P&L Monthly, P&L by Job, Balance Sheet, Cash Flow, WIP, AP/AR aging, Account Summary, COA Report, Accountant Handoff, Month-End Checklist, Walkthrough, Chart of Accounts.
 
 AI coding is later. This base is the workbook: codes, dropdowns, autofills.
 

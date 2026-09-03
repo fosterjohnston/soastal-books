@@ -108,11 +108,6 @@ export const MONTH_END_STATUS_LIST = ['Not Started', 'In Progress', 'Complete', 
 
 export const REPORTS = [
   {
-    id: 'equipment-allocation',
-    label: 'Equipment Allocation',
-    blurb: 'Field hours by machine and job. Memo only — not a second Transactions expense.',
-  },
-  {
     id: 'job-costing',
     label: 'Job Costing',
     blurb: 'Pick a job. Costs by line item, plus accounting vs field-equipment memo.',

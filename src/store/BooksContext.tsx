@@ -7,7 +7,7 @@ import { assertImportSourceAllowed, hydrateBooks } from '../engine'
 import { booksCopyPath } from '../engine/propose'
 import { useAuth } from './AuthContext'
 
-const STORAGE_KEY = 'soastal-books-v1'
+const STORAGE_KEY = 'soastal-books-v2'
 const COPY_DIR = 'Documents/Finance/Soastal Books'
 
 type Ctx = {

@@ -1,4 +1,4 @@
-import { emptyDraft, newId } from '../engine/posting'
+import { emptyDraft } from '../engine/posting'
 import type {
   Account,
   AccountType,
@@ -10,11 +10,21 @@ import type {
   MonthEndItem,
   OpeningBalance,
   PaymentMethodMapRow,
+  TransactionDraft,
   Vendor,
   VendorType,
 } from '../engine/types'
-import { OVERHEAD_JOB_NAME, OVERHEAD_JOB_NUMBER } from '../engine/types'
+import {
+  APPROVAL_STATUSES,
+  COST_TYPES,
+  OVERHEAD_JOB_NAME,
+  OVERHEAD_JOB_NUMBER,
+  PAYMENT_METHODS,
+  PO_STATUSES,
+  SOURCE_TYPES,
+} from '../engine/types'
 import master from './workbook-master.json'
+import workbookEntries from './workbook-entries.json'
 
 function mapAccountType(category: string): AccountType {
   if (category === 'Asset') return 'Asset'
@@ -221,193 +231,54 @@ export const DEFAULT_SETTINGS = {
   fuelPricePerGallon: master.fuelPricePerGallon,
 }
 
-function demoBooks(): Pick<CompanyBooks, 'transactions' | 'fosterQueue' | 'equipmentAllocations'> {
-  const billId = 'txn_demo_vulcan_1'
-  const billSplit = 'txn_demo_vulcan_2'
-  const payId = 'txn_demo_vulcan_pmt'
-  const arId = 'txn_demo_ar_1'
-  const cashId = 'txn_demo_cash_1'
-  const fosterBill = 'txn_demo_foster_1'
+function pick<T extends string>(value: string, allowed: readonly T[], fallback: T): T {
+  return (allowed as readonly string[]).includes(value) ? (value as T) : fallback
+}
 
-  return {
-    transactions: [
-      emptyDraft({
-        id: billId,
-        postingDate: '2026-08-12',
-        vendor: 'Vulcan Materials',
-        invoiceNumber: 'VM-88421',
-        sourceType: 'Bill / Invoice',
-        invoiceDate: '2026-08-10',
-        dueDate: '2026-09-09',
-        paymentMethod: 'Unpaid / AP',
-        invoiceTotal: 18420.5,
-        allocationAmount: 12100,
-        jobName: 'Fern Hill',
-        costType: 'Materials',
-        lineItem: 'Place Asphalt Base (Stone)',
-        poStatus: 'No PO Required',
-        approvalStatus: 'Ready for Accountant',
-        posted: true,
-        notes: 'Accrual bill — hits job cost AND AP. Cash does not move.',
-      }),
-      emptyDraft({
-        id: billSplit,
-        postingDate: '2026-08-12',
-        vendor: 'Vulcan Materials',
-        invoiceNumber: 'VM-88421',
-        sourceType: 'Bill / Invoice',
-        invoiceDate: '2026-08-10',
-        dueDate: '2026-09-09',
-        paymentMethod: 'Unpaid / AP',
-        invoiceTotal: 0,
-        allocationAmount: 6320.5,
-        jobName: 'Fern Hill',
-        costType: 'Materials',
-        lineItem: 'Rip Rap',
-        poStatus: 'No PO Required',
-        approvalStatus: 'Ready for Accountant',
-        posted: true,
-        notes: 'Split row — same vendor + invoice. Invoice Total on first row only.',
-      }),
-      emptyDraft({
-        id: payId,
-        postingDate: '2026-08-28',
-        vendor: 'Vulcan Materials',
-        invoiceNumber: 'VM-88100-PMT',
-        sourceType: 'Check',
-        invoiceDate: '2026-08-01',
-        dueDate: '2026-08-31',
-        paymentMethod: 'Check',
-        checkRef: '1042',
-        invoiceTotal: 6400,
-        allocationAmount: 6400,
-        jobName: '',
-        costType: 'Liability',
-        lineItem: '',
-        overrideAccount: '2000 - Accounts Payable',
-        poStatus: 'Not Applicable',
-        approvalStatus: 'Paid',
-        paidDate: '2026-08-28',
-        posted: true,
-        notes: 'Payment of a prior bill (VM-88100). Job blank. Not a second job cost.',
-      }),
-      emptyDraft({
-        id: 'txn_demo_prior_bill',
-        postingDate: '2026-08-01',
-        vendor: 'Vulcan Materials',
-        invoiceNumber: 'VM-88100',
-        sourceType: 'Bill / Invoice',
-        invoiceDate: '2026-08-01',
-        dueDate: '2026-08-31',
-        paymentMethod: 'Unpaid / AP',
-        invoiceTotal: 6400,
-        allocationAmount: 6400,
-        jobName: 'Fern Hill',
-        costType: 'Materials',
-        lineItem: 'Place Asphalt Base (Stone)',
-        poStatus: 'No PO Required',
-        approvalStatus: 'Ready for Accountant',
-        posted: true,
-        notes: 'Original bill that VM-88100-PMT cleared.',
-      }),
-      emptyDraft({
-        id: arId,
-        postingDate: '2026-08-31',
-        vendor: 'STYO',
-        invoiceNumber: 'FH-PAYAPP-01',
-        sourceType: 'Bill / Invoice',
-        invoiceDate: '2026-08-31',
-        dueDate: '2026-09-30',
-        paymentMethod: 'Billed / AR',
-        invoiceTotal: -125000,
-        allocationAmount: -125000,
-        jobName: 'Fern Hill',
-        costType: 'Revenue',
-        lineItem: '',
-        overrideAccount: '4000 - Contract Revenue',
-        poStatus: 'Not Applicable',
-        approvalStatus: 'Ready for Accountant',
-        posted: true,
-        notes: 'Customer billing. Negative allocation. Offset 1100. Deposit later clears AR.',
-      }),
-      emptyDraft({
-        id: cashId,
-        postingDate: '2026-08-15',
-        vendor: 'Office Supplier',
-        invoiceNumber: 'OS-2291',
-        sourceType: 'Cash Purchase',
-        invoiceDate: '2026-08-15',
-        dueDate: '2026-08-15',
-        paymentMethod: 'Debit Card',
-        checkRef: 'DC-0815',
-        invoiceTotal: 214.88,
-        allocationAmount: 214.88,
-        jobName: OVERHEAD_JOB_NAME,
-        costType: 'Overhead',
-        overrideAccount: '6120 - Office Supplies',
-        poStatus: 'No PO Required',
-        approvalStatus: 'Paid',
-        paidDate: '2026-08-15',
-        posted: true,
-        notes: 'Paid on the spot — never AP.',
-      }),
-      emptyDraft({
-        id: fosterBill,
-        postingDate: '2026-09-01',
-        vendor: 'T&T Precast',
-        invoiceNumber: 'TT-1044',
-        sourceType: 'Bill / Invoice',
-        invoiceDate: '2026-08-29',
-        dueDate: '2026-09-28',
-        paymentMethod: 'Unpaid / AP',
-        invoiceTotal: 8750,
-        allocationAmount: 8750,
-        jobName: 'Fern Hill',
-        costType: 'Materials',
-        lineItem: 'RCP 18"',
-        poStatus: 'Missing - Get Approval',
-        approvalStatus: 'Needs Approval',
-        posted: false,
-        notes: 'No PO on this bill — waiting on Foster yes/no before post.',
-      }),
-    ],
-    fosterQueue: [
-      {
-        id: 'foster_demo_1',
-        createdAt: '2026-09-01T12:00:00.000Z',
-        kind: 'coding-confirm',
-        transactionIds: [fosterBill],
-        vendor: 'T&T Precast',
-        invoiceNumber: 'TT-1044',
-        jobName: 'Fern Hill',
-        proposedAccounts: ['5250 / offset 2000'],
-        amount: 8750,
-        reason: 'Vendor bill has no PO. Foster is the only human for invoice coding confirms.',
-        decision: 'pending',
-        decidedAt: '',
-        fosterNote: '',
-        paymentDate: '',
-        paymentRef: '',
-      },
-    ],
-    equipmentAllocations: [
-      {
-        id: newId('eal'),
-        startDate: '2026-08-20',
-        endDate: '',
-        jobName: 'Fern Hill',
-        equipmentId: EQUIPMENT[0]?.id ?? 'eq_1',
-        avgEngineHrsPerDay: 8.5,
-        shareOfDay: 1,
-        notes: 'Memo only — field hours. Do not also post these dollars on Transactions unless a real vendor invoice exists.',
-        status: '',
-      },
-    ],
-  }
+function workbookTransaction(raw: (typeof workbookEntries.transactions)[number]): TransactionDraft {
+  const paymentMethod = pick(raw.paymentMethod, PAYMENT_METHODS, 'Unpaid / AP')
+  const approvalStatus = pick(raw.approvalStatus, APPROVAL_STATUSES, 'Entered Only')
+  const methodEntered = Boolean(raw.paymentMethod)
+  const posted =
+    methodEntered && (approvalStatus === 'Paid' || approvalStatus === 'Ready for Accountant')
+  return emptyDraft({
+    id: `txn_wb_${raw.row}`,
+    postingDate: raw.postingDate,
+    vendor: raw.vendor,
+    invoiceNumber: raw.invoiceNumber,
+    sourceType: pick(raw.sourceType, SOURCE_TYPES, 'Bill / Invoice'),
+    invoiceDate: raw.invoiceDate || raw.postingDate,
+    dueDate: raw.dueDate,
+    paymentMethod,
+    checkRef: raw.checkRef,
+    invoiceTotal: raw.invoiceTotal,
+    allocationAmount: raw.allocationAmount,
+    jobName: raw.jobName,
+    costType: pick(raw.costType, COST_TYPES, 'Materials'),
+    lineItem: raw.lineItem,
+    equipmentUnit: raw.equipmentUnit,
+    overrideAccount: raw.overrideAccount,
+    poStatus: pick(raw.poStatus, PO_STATUSES, 'No PO Required'),
+    poNumber: raw.poNumber,
+    approvalStatus,
+    notes: raw.notes,
+    offsetOverride: raw.offsetOverride,
+    posted,
+    paidDate: approvalStatus === 'Paid' && methodEntered ? raw.postingDate : '',
+  })
+}
+
+/** Keith’s Soastal Books copy — Transactions sheet rows with entered values. */
+export function workbookJournal(): TransactionDraft[] {
+  return workbookEntries.transactions.map(workbookTransaction)
+}
+
+export function isPlaceholderJournal(rows: { id: string }[]): boolean {
+  if (!rows.length) return true
+  return rows.every((r) => r.id.startsWith('txn_demo_'))
 }
 
 export function createEmptyBooks(): CompanyBooks {
-  const demo = demoBooks()
   return {
     version: 1,
     companyName: 'Soastal LLC',
@@ -420,10 +291,10 @@ export function createEmptyBooks(): CompanyBooks {
     lineItemMap: LINE_ITEM_MAP,
     jobLineItems: JOB_LINE_ITEMS,
     paymentMethodMap: PAYMENT_METHOD_MAP,
-    transactions: demo.transactions,
-    equipmentAllocations: demo.equipmentAllocations,
+    transactions: workbookJournal(),
+    equipmentAllocations: [],
     openingBalances: OPENING_BALANCES,
-    fosterQueue: demo.fosterQueue,
+    fosterQueue: [],
     periodCloses: [],
     documents: [],
     copies: [],

@@ -8,6 +8,7 @@ import { useBooks } from '@/store/BooksContext'
 const NAV = [
   { href: '/inbox', label: 'Inbox' },
   { href: '/transactions', label: 'Transactions' },
+  { href: '/equipment-allocation', label: 'Equipment Allocation' },
   { href: '/job-line-items', label: 'Job Line Items' },
   { href: '/cost-codes', label: 'Cost Codes' },
   { href: '/opening-balances', label: 'Opening Balances' },

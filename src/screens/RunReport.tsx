@@ -21,7 +21,7 @@ export function RunReport() {
       <div className="flex flex-col gap-4">
         <SheetTitle
           title="Run Report"
-          blurb="Everything from Equipment Allocation onward in Keith’s workbook lives here. Working sheets stay in the left nav: Setup, Job Line Items, Cost Codes, Opening Balances, Transactions."
+          blurb="Workbook reports: Job Costing through Walkthrough and Chart of Accounts. Equipment Allocation is a working tab in the left nav, next to Transactions."
         />
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {REPORTS.map((r) => (

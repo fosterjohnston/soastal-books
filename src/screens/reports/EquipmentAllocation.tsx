@@ -4,7 +4,7 @@ import { computeEquipmentAllocations, newId, type EquipmentAllocation } from '@/
 import { useBooks } from '@/store/BooksContext'
 import { Button, Card } from '@/components/ui'
 import { Money } from '@/components/Money'
-import { EmptyNote } from '@/components/Sheet'
+import { EmptyNote, SheetTitle } from '@/components/Sheet'
 
 export function EquipmentAllocationSheet() {
   const { books, setBooks } = useBooks()
@@ -33,13 +33,13 @@ export function EquipmentAllocationSheet() {
   }
 
   return (
-    <Card
-      title="Field equipment allocation"
-      action={<Button onClick={add}>Add row</Button>}
-    >
-      <p className="mb-3 text-sm text-ink-2">
-        One row per machine per stay on a job. Days on job = working days (Mon–Fri). Daily cost = monthly rate ÷ working days. Fuel = avg engine hrs/day × days × burn × fuel price. Total is a memo — do not also post it on Transactions unless a vendor invoice exists.
-      </p>
+    <div className="flex flex-col gap-4">
+      <SheetTitle
+        title="Equipment Allocation"
+        blurb="Working tab — one row per machine per stay on a job. Days = working days (Mon–Fri). Daily cost = monthly rate ÷ working days. Fuel = avg engine hrs/day × days × burn × fuel price. Total is a memo, not a second Transactions expense. The copy had no field-hour rows yet."
+        action={<Button onClick={add}>Add row</Button>}
+      />
+      <Card>
       {rows.length === 0 ? (
         <EmptyNote>No field hours entered yet.</EmptyNote>
       ) : (
@@ -141,6 +141,7 @@ export function EquipmentAllocationSheet() {
           </table>
         </div>
       )}
-    </Card>
+      </Card>
+    </div>
   )
 }

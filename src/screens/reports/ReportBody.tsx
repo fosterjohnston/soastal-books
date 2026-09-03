@@ -25,7 +25,6 @@ import { Card, Field, Input, Select } from '@/components/ui'
 import { Money } from '@/components/Money'
 import { EmptyNote } from '@/components/Sheet'
 import { Aging } from '@/screens/Aging'
-import { EquipmentAllocationSheet } from '@/screens/reports/EquipmentAllocation'
 import type { ReportId } from '@/engine/lists'
 import { formatNative } from '@/lib/utils'
 
@@ -79,10 +78,6 @@ export function ReportBody({ report }: { report: ReportId }) {
   const [jobName, setJobName] = useState(books.jobs.find((j) => j.slot === 1)?.jobName || 'Fern Hill')
   const [from, setFrom] = useState('')
   const [to, setTo] = useState('')
-
-  if (report === 'equipment-allocation') {
-    return <EquipmentAllocationSheet />
-  }
 
   if (report === 'job-costing') {
     const costing = jobCosting(books, to || undefined).find((j) => j.jobName === jobName)

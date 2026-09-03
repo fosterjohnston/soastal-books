@@ -1,5 +1,5 @@
 import type { CompanyBooks, EquipmentAllocation, JobLineItem, Vendor } from './types'
-import { createEmptyBooks } from '../seed'
+import { createEmptyBooks, isPlaceholderJournal } from '../seed'
 
 function looksLikeWorkbookCoa(books: Pick<CompanyBooks, 'chartOfAccounts'>): boolean {
   return books.chartOfAccounts.some((a) => a.number === '5030' && /water main/i.test(a.name))
@@ -46,6 +46,21 @@ export function hydrateBooks(raw: unknown): CompanyBooks {
   if (!Array.isArray(b.transactions) || !Array.isArray(b.chartOfAccounts)) return seed
   const storedCoaOk = looksLikeWorkbookCoa({ chartOfAccounts: b.chartOfAccounts })
   const useMasterLists = !storedCoaOk
+  const storedTx = Array.isArray(b.transactions) ? b.transactions : []
+  const hasWorkbookJournal = storedTx.some((t) => t.id.startsWith('txn_wb_'))
+  const transactions = hasWorkbookJournal
+    ? storedTx
+    : [
+        ...seed.transactions,
+        ...storedTx.filter((t) => !t.id.startsWith('txn_demo_') && !t.id.startsWith('txn_wb_')),
+      ]
+  const storedAlloc = (b.equipmentAllocations ?? []).map(hydrateEquipmentAlloc)
+  const equipmentAllocations = isPlaceholderJournal(storedTx)
+    ? seed.equipmentAllocations
+    : storedAlloc.filter((a) => !/do not also post these dollars|MEMO only/i.test(a.notes || ''))
+  const fosterQueue = isPlaceholderJournal(storedTx)
+    ? seed.fosterQueue
+    : (b.fosterQueue ?? []).filter((f) => !f.transactionIds.every((id) => id.startsWith('txn_demo_')))
   return {
     version: 1,
     companyName: b.companyName || seed.companyName,
@@ -66,10 +81,13 @@ export function hydrateBooks(raw: unknown): CompanyBooks {
         : seed.jobLineItems,
     paymentMethodMap:
       Array.isArray(b.paymentMethodMap) && b.paymentMethodMap.length ? b.paymentMethodMap : seed.paymentMethodMap,
-    transactions: b.transactions,
-    equipmentAllocations: (b.equipmentAllocations ?? []).map(hydrateEquipmentAlloc),
-    openingBalances: Array.isArray(b.openingBalances) && b.openingBalances.length ? b.openingBalances : seed.openingBalances,
-    fosterQueue: b.fosterQueue ?? [],
+    transactions,
+    equipmentAllocations,
+    openingBalances:
+      Array.isArray(b.openingBalances) && b.openingBalances.length && storedCoaOk
+        ? b.openingBalances
+        : seed.openingBalances,
+    fosterQueue,
     periodCloses: b.periodCloses ?? [],
     documents: b.documents ?? [],
     copies: b.copies ?? [],

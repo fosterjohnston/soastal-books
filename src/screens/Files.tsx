@@ -111,7 +111,7 @@ export function Files() {
           documents to <code>/api/ingest</code>; that is a one-way drop, not a merge.
         </p>
         <Button className="mt-3" variant="ghost" onClick={resetDemo}>
-          Reload seeded demo books
+          Reload workbook copy
         </Button>
       </Card>
     </div>
