@@ -1,7 +1,5 @@
-'use client'
+import { redirect } from 'next/navigation'
 
-import { Aging } from '@/screens/Aging'
-
-export default function InvoicesPage() {
-  return <Aging mode="ar" />
+export default function InvoicesRedirect() {
+  redirect('/reports?report=ar-aging')
 }

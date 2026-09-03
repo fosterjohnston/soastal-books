@@ -21,7 +21,7 @@ export function UnpaidBillWizard() {
   const [amount, setAmount] = useState('2500')
   const [jobName, setJobName] = useState('Fern Hill')
   const [costType, setCostType] = useState<CostType>('Materials')
-  const [lineItem, setLineItem] = useState('ABC stone')
+  const [lineItem, setLineItem] = useState('Place Asphalt Base (Stone)')
   const [message, setMessage] = useState('')
 
   const lineItems = useMemo(
@@ -65,7 +65,7 @@ export function UnpaidBillWizard() {
     next = postDocument(next, [row.id])
     setBooks(next)
     setInvoice('')
-    setMessage(`Posted ${invoice} to AP (2000). Open Bills (AP) to see aging.`)
+    setMessage(`Posted ${invoice} to AP (2000). Open Run Report → AP Aging to see it.`)
   }
 
   return (

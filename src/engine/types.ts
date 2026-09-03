@@ -73,6 +73,7 @@ export const PAYMENT_METHODS = [
   'Billed / AR',
   'Check',
   'Debit Card',
+  'ACH / Wire',
   'ACH',
   'Wire',
   'Deposit',
@@ -96,14 +97,21 @@ export const ACCOUNT_TYPES = [
 export type AccountType = (typeof ACCOUNT_TYPES)[number]
 
 export const VENDOR_TYPES = [
+  'Material Supplier',
   'Materials Supplier',
-  'Subcontractor',
+  'Equipment Rental',
   'Equipment Dealer',
-  'Payroll',
-  'Professional',
-  'Overhead',
-  'Customer',
+  'Fuel',
+  'Subcontractor',
   'Utility',
+  'Insurance',
+  'Professional Service',
+  'Professional',
+  'Office / Overhead',
+  'Overhead',
+  'Government / Permit',
+  'Customer',
+  'Payroll',
   'Other',
 ] as const
 export type VendorType = (typeof VENDOR_TYPES)[number]
@@ -140,6 +148,8 @@ export type Vendor = {
   type: VendorType
   defaultAccount: string
   terms: string
+  accountNumber: string
+  phoneEmail: string
   active: boolean
   notes: string
 }
@@ -149,17 +159,21 @@ export type EquipmentUnit = {
   name: string
   unitNumber: string
   type: string
-  ownership: 'Owned' | 'Leased' | 'Rented'
+  ownership: 'Owned' | 'Leased' | 'Rented' | 'RPO'
+  rentalVendor: string
   monthlyRate: number
   internalRatePerHour: number
   burnGalPerHour: number
   defaultAccount: string
+  notes: string
   active: boolean
 }
 
 export type LineItemMapRow = {
   id: string
+  /** Cost code / line item name — this is the Transactions dropdown. */
   activity: string
+  category: string
   laborAccount: string
   equipmentAccount: string
   materialsAccount: string
@@ -172,6 +186,8 @@ export type JobLineItem = {
   description: string
   unit: string
   bidQuantity: number
+  unitPrice: number
+  estimatedCost: number
   activity: string
 }
 
@@ -226,11 +242,35 @@ export type LedgerRow = TransactionDraft & ComputedFields
 
 export type EquipmentAllocation = {
   id: string
-  date: string
+  startDate: string
+  /** Blank = one day (same as start). */
+  endDate: string
   jobName: string
   equipmentId: string
-  hours: number
+  avgEngineHrsPerDay: number
+  shareOfDay: number
   notes: string
+  status: string
+  /** Legacy single-day fields — hydrated into startDate / avgEngineHrsPerDay. */
+  date?: string
+  hours?: number
+}
+
+export type MonthEndItem = {
+  id: string
+  number: number
+  title: string
+  status: string
+  completedBy: string
+  dateCompleted: string
+  fileLocation: string
+  notes: string
+  accountantFollowUp: string
+}
+
+export type BooksSettings = {
+  workingDaysPerMonth: number
+  fuelPricePerGallon: number
 }
 
 export type OpeningBalance = {
@@ -321,6 +361,7 @@ export type CompanyBooks = {
   version: 1
   companyName: string
   savedAt: string | null
+  settings: BooksSettings
   chartOfAccounts: Account[]
   jobs: Job[]
   vendors: Vendor[]
@@ -335,6 +376,7 @@ export type CompanyBooks = {
   periodCloses: PeriodClose[]
   documents: ScannedDocument[]
   copies: CopyRecord[]
+  monthEndChecklist: MonthEndItem[]
 }
 
 export type PostingEntry = {

@@ -4,6 +4,23 @@ Office accrual books for **Soastal LLC**. Keith’s company workbook as a websit
 
 Foster and Keith sign in with an **office PIN** (not Vercel, OneDrive, or GitHub). Scan or upload a bill, PO, or AP file. Books proposes coding (“this is where I think it goes”). Foster confirms, then it posts.
 
+## Sheets
+
+Working tabs (left nav):
+
+- **Inbox** — scan / propose / Foster yes
+- **Transactions** — the ledger. Dropdowns match the workbook (`_Lists` + Line Item Map). Suggested Account, Final Account, Offset, Difference autofill.
+- **Job Line Items** — schedule of values. Contract value = qty × unit price. Mapped? checks Setup.
+- **Cost Codes** — pick a job; Labor / Equipment / Materials accounts autofill from the map
+- **Opening Balances** — as-of date + balance-sheet accounts (native sign)
+- **Setup** — jobs, equipment, vendors, line item map, payment-method offsets
+- **Run Report** — Equipment Allocation through Walkthrough / Chart of Accounts (those workbook tabs are reports)
+- **Files** — JSON copies only. Never Keith’s live `Acounting spreadshseet.xlsx`
+
+Run Report includes Equipment Allocation (field hours, memo), Job Costing, Job Cost by Account, P&L Monthly, P&L by Job, Balance Sheet, Cash Flow, WIP, AP/AR aging, Account Summary, COA Report, Accountant Handoff, Month-End Checklist, Walkthrough, Chart of Accounts.
+
+AI coding is later. This base is the workbook: codes, dropdowns, autofills.
+
 ## Accrual
 
 - Money **out** is positive. Money **in** is negative.

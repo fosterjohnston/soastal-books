@@ -1,0 +1,3959 @@
+{
+  "jobs": [
+    {
+      "slot": 1,
+      "jobName": "Fern Hill",
+      "jobNumber": "F001",
+      "status": "Active",
+      "ownerCustomer": "STYO",
+      "startDate": "2026-08-03",
+      "notes": "",
+      "contractAmount": 814232.0,
+      "estimatedTotalCost": 0.0
+    },
+    {
+      "slot": 2,
+      "jobName": "Sandy Run",
+      "jobNumber": "S000",
+      "status": "Active",
+      "ownerCustomer": "Johnston Services/Berkeley County",
+      "startDate": "2026-08-10",
+      "notes": "",
+      "contractAmount": 662585.28,
+      "estimatedTotalCost": 0.0
+    },
+    {
+      "slot": 3,
+      "jobName": "Captian's Quarters",
+      "jobNumber": "CQ",
+      "status": "Active",
+      "ownerCustomer": "VCMB",
+      "startDate": "",
+      "notes": "",
+      "contractAmount": 0.0,
+      "estimatedTotalCost": 0.0
+    },
+    {
+      "slot": 4,
+      "jobName": "Craig Farm",
+      "jobNumber": "CF",
+      "status": "Active",
+      "ownerCustomer": "Craig",
+      "startDate": "",
+      "notes": "",
+      "contractAmount": 18500.0,
+      "estimatedTotalCost": 0.0
+    },
+    {
+      "slot": 30,
+      "jobName": "N/A - Overhead",
+      "jobNumber": "",
+      "status": "Active",
+      "ownerCustomer": "",
+      "startDate": "",
+      "notes": "",
+      "contractAmount": 0.0,
+      "estimatedTotalCost": 0.0
+    }
+  ],
+  "equipment": [
+    {
+      "slot": 1,
+      "name": "Pc360",
+      "unitNumber": "",
+      "type": "Excavator",
+      "ownership": "Owned",
+      "rentalVendor": "",
+      "monthlyRate": 9000.0,
+      "burnGalPerHour": 0.0,
+      "notes": "From existing field equipment setup",
+      "defaultAccount": "5190 - Job Equipment - Other"
+    },
+    {
+      "slot": 2,
+      "name": "D51",
+      "unitNumber": "",
+      "type": "Dozer",
+      "ownership": "Owned",
+      "rentalVendor": "",
+      "monthlyRate": 12500.0,
+      "burnGalPerHour": 0.0,
+      "notes": "From existing field equipment setup",
+      "defaultAccount": "5190 - Job Equipment - Other"
+    },
+    {
+      "slot": 3,
+      "name": "Roller 66",
+      "unitNumber": "",
+      "type": "Roller",
+      "ownership": "Owned",
+      "rentalVendor": "",
+      "monthlyRate": 3808.0,
+      "burnGalPerHour": 0.0,
+      "notes": "From existing field equipment setup",
+      "defaultAccount": "5190 - Job Equipment - Other"
+    },
+    {
+      "slot": 4,
+      "name": "Offroad truck",
+      "unitNumber": "",
+      "type": "Dump Truck",
+      "ownership": "Owned",
+      "rentalVendor": "",
+      "monthlyRate": 12208.0,
+      "burnGalPerHour": 0.0,
+      "notes": "From existing field equipment setup",
+      "defaultAccount": "5190 - Job Equipment - Other"
+    },
+    {
+      "slot": 5,
+      "name": "loader",
+      "unitNumber": "",
+      "type": "Loader",
+      "ownership": "Owned",
+      "rentalVendor": "",
+      "monthlyRate": 5258.4,
+      "burnGalPerHour": 0.0,
+      "notes": "From existing field equipment setup",
+      "defaultAccount": "5190 - Job Equipment - Other"
+    },
+    {
+      "slot": 6,
+      "name": "Pickup truck rental 3/4",
+      "unitNumber": "",
+      "type": "Pickup Truck",
+      "ownership": "Rented",
+      "rentalVendor": "",
+      "monthlyRate": 1456.0,
+      "burnGalPerHour": 0.0,
+      "notes": "From existing field equipment setup",
+      "defaultAccount": "5190 - Job Equipment - Other"
+    },
+    {
+      "slot": 7,
+      "name": "pump 6 inch",
+      "unitNumber": "",
+      "type": "Pump",
+      "ownership": "Owned",
+      "rentalVendor": "",
+      "monthlyRate": 3032.7,
+      "burnGalPerHour": 0.0,
+      "notes": "From existing field equipment setup",
+      "defaultAccount": "5190 - Job Equipment - Other"
+    },
+    {
+      "slot": 8,
+      "name": "trench box",
+      "unitNumber": "",
+      "type": "Other",
+      "ownership": "Owned",
+      "rentalVendor": "",
+      "monthlyRate": 0.0,
+      "burnGalPerHour": 0.0,
+      "notes": "From existing field equipment setup",
+      "defaultAccount": "5190 - Job Equipment - Other"
+    },
+    {
+      "slot": 9,
+      "name": "rock box",
+      "unitNumber": "",
+      "type": "Other",
+      "ownership": "Owned",
+      "rentalVendor": "",
+      "monthlyRate": 675.0,
+      "burnGalPerHour": 0.0,
+      "notes": "From existing field equipment setup",
+      "defaultAccount": "5190 - Job Equipment - Other"
+    },
+    {
+      "slot": 10,
+      "name": "PC210",
+      "unitNumber": "",
+      "type": "Excavator",
+      "ownership": "Owned",
+      "rentalVendor": "",
+      "monthlyRate": 6000.0,
+      "burnGalPerHour": 0.0,
+      "notes": "From existing field equipment setup",
+      "defaultAccount": "5190 - Job Equipment - Other"
+    },
+    {
+      "slot": 11,
+      "name": "pc138",
+      "unitNumber": "",
+      "type": "Excavator",
+      "ownership": "Owned",
+      "rentalVendor": "",
+      "monthlyRate": 5040.0,
+      "burnGalPerHour": 0.0,
+      "notes": "From existing field equipment setup",
+      "defaultAccount": "5190 - Job Equipment - Other"
+    },
+    {
+      "slot": 12,
+      "name": "Mini",
+      "unitNumber": "",
+      "type": "Mini Excavator",
+      "ownership": "Owned",
+      "rentalVendor": "",
+      "monthlyRate": 2464.0,
+      "burnGalPerHour": 0.0,
+      "notes": "From existing field equipment setup",
+      "defaultAccount": "5190 - Job Equipment - Other"
+    },
+    {
+      "slot": 13,
+      "name": "trench roller",
+      "unitNumber": "",
+      "type": "Roller",
+      "ownership": "Owned",
+      "rentalVendor": "",
+      "monthlyRate": 2424.8,
+      "burnGalPerHour": 0.0,
+      "notes": "From existing field equipment setup",
+      "defaultAccount": "5190 - Job Equipment - Other"
+    },
+    {
+      "slot": 14,
+      "name": "water truck",
+      "unitNumber": "",
+      "type": "Water Truck",
+      "ownership": "Owned",
+      "rentalVendor": "",
+      "monthlyRate": 3808.0,
+      "burnGalPerHour": 0.0,
+      "notes": "From existing field equipment setup",
+      "defaultAccount": "5190 - Job Equipment - Other"
+    },
+    {
+      "slot": 15,
+      "name": "base/rover",
+      "unitNumber": "",
+      "type": "Laser / Survey",
+      "ownership": "Owned",
+      "rentalVendor": "",
+      "monthlyRate": 3500.0,
+      "burnGalPerHour": 0.0,
+      "notes": "From existing field equipment setup",
+      "defaultAccount": "5190 - Job Equipment - Other"
+    },
+    {
+      "slot": 16,
+      "name": "sweeper",
+      "unitNumber": "",
+      "type": "Other",
+      "ownership": "Owned",
+      "rentalVendor": "",
+      "monthlyRate": 0.0,
+      "burnGalPerHour": 0.0,
+      "notes": "From existing field equipment setup",
+      "defaultAccount": "5190 - Job Equipment - Other"
+    },
+    {
+      "slot": 17,
+      "name": "HL390 Loader",
+      "unitNumber": "",
+      "type": "Loader",
+      "ownership": "Owned",
+      "rentalVendor": "",
+      "monthlyRate": 4399.8,
+      "burnGalPerHour": 0.0,
+      "notes": "54",
+      "defaultAccount": "5190 - Job Equipment - Other"
+    },
+    {
+      "slot": 18,
+      "name": "SV-100 MINI",
+      "unitNumber": "",
+      "type": "Mini Excavator",
+      "ownership": "Owned",
+      "rentalVendor": "",
+      "monthlyRate": 3948.54,
+      "burnGalPerHour": 0.0,
+      "notes": "55",
+      "defaultAccount": "5190 - Job Equipment - Other"
+    },
+    {
+      "slot": 19,
+      "name": "HX-85",
+      "unitNumber": "",
+      "type": "Mini Excavator",
+      "ownership": "Owned",
+      "rentalVendor": "",
+      "monthlyRate": 3948.54,
+      "burnGalPerHour": 0.0,
+      "notes": "56",
+      "defaultAccount": "5190 - Job Equipment - Other"
+    },
+    {
+      "slot": 20,
+      "name": "HX-130",
+      "unitNumber": "",
+      "type": "Excavator",
+      "ownership": "Owned",
+      "rentalVendor": "",
+      "monthlyRate": 6122.26,
+      "burnGalPerHour": 0.0,
+      "notes": "57",
+      "defaultAccount": "5190 - Job Equipment - Other"
+    }
+  ],
+  "vendors": [
+    {
+      "name": "Payroll",
+      "type": "Office / Overhead",
+      "defaultAccount": "1010 - Payroll Checking Account",
+      "terms": "Due on Receipt",
+      "accountNumber": "",
+      "phoneEmail": "",
+      "active": true,
+      "notes": ""
+    },
+    {
+      "name": "Seacoast",
+      "type": "Material Supplier",
+      "defaultAccount": "1000 - Operating Checking Account",
+      "terms": "Net 30",
+      "accountNumber": "",
+      "phoneEmail": "",
+      "active": true,
+      "notes": ""
+    },
+    {
+      "name": "Ferguson",
+      "type": "Material Supplier",
+      "defaultAccount": "1000 - Operating Checking Account",
+      "terms": "Net 10",
+      "accountNumber": "",
+      "phoneEmail": "",
+      "active": true,
+      "notes": ""
+    },
+    {
+      "name": "Cel Oil",
+      "type": "Fuel",
+      "defaultAccount": "1000 - Operating Checking Account",
+      "terms": "Net 10",
+      "accountNumber": "",
+      "phoneEmail": "",
+      "active": true,
+      "notes": ""
+    },
+    {
+      "name": "White Cap",
+      "type": "Material Supplier",
+      "defaultAccount": "1000 - Operating Checking Account",
+      "terms": "Net 30",
+      "accountNumber": "",
+      "phoneEmail": "",
+      "active": true,
+      "notes": ""
+    },
+    {
+      "name": "Fuelman",
+      "type": "Fuel",
+      "defaultAccount": "1000 - Operating Checking Account",
+      "terms": "Net 10",
+      "accountNumber": "2877224",
+      "phoneEmail": "800-877-0800",
+      "active": true,
+      "notes": ""
+    },
+    {
+      "name": "T&T Precast",
+      "type": "Material Supplier",
+      "defaultAccount": "1000 - Operating Checking Account",
+      "terms": "Due on Receipt",
+      "accountNumber": "",
+      "phoneEmail": "",
+      "active": true,
+      "notes": ""
+    },
+    {
+      "name": "Lowe's",
+      "type": "Material Supplier",
+      "defaultAccount": "5290 - Job Materials - Other",
+      "terms": "Net 30",
+      "accountNumber": "",
+      "phoneEmail": "",
+      "active": true,
+      "notes": ""
+    },
+    {
+      "name": "O'Reilly Auto Parts",
+      "type": "Material Supplier",
+      "defaultAccount": "1530 - Office Equipment & Computers",
+      "terms": "Net 30",
+      "accountNumber": "",
+      "phoneEmail": "",
+      "active": true,
+      "notes": ""
+    },
+    {
+      "name": "Tractor Supply",
+      "type": "Material Supplier",
+      "defaultAccount": "5290 - Job Materials - Other",
+      "terms": "Net 30",
+      "accountNumber": "",
+      "phoneEmail": "",
+      "active": true,
+      "notes": ""
+    },
+    {
+      "name": "Staple's",
+      "type": "Office / Overhead",
+      "defaultAccount": "1530 - Office Equipment & Computers",
+      "terms": "Net 30",
+      "accountNumber": "",
+      "phoneEmail": "",
+      "active": true,
+      "notes": ""
+    },
+    {
+      "name": "The Home Depot",
+      "type": "Material Supplier",
+      "defaultAccount": "5290 - Job Materials - Other",
+      "terms": "Net 30",
+      "accountNumber": "",
+      "phoneEmail": "",
+      "active": true,
+      "notes": ""
+    },
+    {
+      "name": "W.B. Henry Contracting",
+      "type": "Subcontractor",
+      "defaultAccount": "5350 - Subcontractor - Other",
+      "terms": "Net 30",
+      "accountNumber": "",
+      "phoneEmail": "",
+      "active": true,
+      "notes": ""
+    },
+    {
+      "name": "Intuit",
+      "type": "Professional Service",
+      "defaultAccount": "1000 - Operating Checking Account",
+      "terms": "Other",
+      "accountNumber": "9341456889598860",
+      "phoneEmail": "",
+      "active": true,
+      "notes": ""
+    },
+    {
+      "name": "NED",
+      "type": "Equipment Rental",
+      "defaultAccount": "1000 - Operating Checking Account",
+      "terms": "Net 15",
+      "accountNumber": "",
+      "phoneEmail": "",
+      "active": true,
+      "notes": ""
+    },
+    {
+      "name": "Linder",
+      "type": "Equipment Rental",
+      "defaultAccount": "1000 - Operating Checking Account",
+      "terms": "Net 10",
+      "accountNumber": "BP0059036",
+      "phoneEmail": "",
+      "active": true,
+      "notes": ""
+    },
+    {
+      "name": "ACCESS PORTABLE TOILETS",
+      "type": "Subcontractor",
+      "defaultAccount": "1000 - Operating Checking Account",
+      "terms": "Due on Receipt",
+      "accountNumber": "",
+      "phoneEmail": "",
+      "active": true,
+      "notes": ""
+    },
+    {
+      "name": "Alcrete",
+      "type": "Material Supplier",
+      "defaultAccount": "1000 - Operating Checking Account",
+      "terms": "Net 30",
+      "accountNumber": "A1597",
+      "phoneEmail": "",
+      "active": true,
+      "notes": ""
+    },
+    {
+      "name": "HLA",
+      "type": "Subcontractor",
+      "defaultAccount": "1000 - Operating Checking Account",
+      "terms": "Net 30",
+      "accountNumber": "",
+      "phoneEmail": "",
+      "active": true,
+      "notes": ""
+    },
+    {
+      "name": "Aquatic Analytics",
+      "type": "Subcontractor",
+      "defaultAccount": "1000 - Operating Checking Account",
+      "terms": "Net 30",
+      "accountNumber": "",
+      "phoneEmail": "",
+      "active": true,
+      "notes": ""
+    },
+    {
+      "name": "The Bay Company",
+      "type": "Subcontractor",
+      "defaultAccount": "1000 - Operating Checking Account",
+      "terms": "Due on Receipt",
+      "accountNumber": "",
+      "phoneEmail": "",
+      "active": true,
+      "notes": ""
+    },
+    {
+      "name": "Ground Penetrating Radar Systems",
+      "type": "Subcontractor",
+      "defaultAccount": "1000 - Operating Checking Account",
+      "terms": "Net 30",
+      "accountNumber": "",
+      "phoneEmail": "",
+      "active": true,
+      "notes": ""
+    },
+    {
+      "name": "Pilot",
+      "type": "Fuel",
+      "defaultAccount": "1000 - Operating Checking Account",
+      "terms": "Due on Receipt",
+      "accountNumber": "",
+      "phoneEmail": "",
+      "active": true,
+      "notes": ""
+    },
+    {
+      "name": "STYO",
+      "type": "Other",
+      "defaultAccount": "1100 - Accounts Receivable",
+      "terms": "Net 10",
+      "accountNumber": "",
+      "phoneEmail": "",
+      "active": true,
+      "notes": ""
+    },
+    {
+      "name": "Cliff Ball",
+      "type": "Subcontractor",
+      "defaultAccount": "5350 - Subcontractor - Other",
+      "terms": "Due on Receipt",
+      "accountNumber": "",
+      "phoneEmail": "",
+      "active": true,
+      "notes": ""
+    }
+  ],
+  "lineItemMap": [
+    {
+      "activity": "Supplies and Miscellaneous",
+      "category": "Other",
+      "laborAccount": "5090 - Job Labor - Other",
+      "equipmentAccount": "5190 - Job Equipment - Other",
+      "materialsAccount": "5290 - Job Materials - Other"
+    },
+    {
+      "activity": "Mobilization",
+      "category": "Other",
+      "laborAccount": "5090 - Job Labor - Other",
+      "equipmentAccount": "5190 - Job Equipment - Other",
+      "materialsAccount": "5290 - Job Materials - Other"
+    },
+    {
+      "activity": "License and Insurance",
+      "category": "Other",
+      "laborAccount": "5090 - Job Labor - Other",
+      "equipmentAccount": "5190 - Job Equipment - Other",
+      "materialsAccount": "5290 - Job Materials - Other"
+    },
+    {
+      "activity": "Survey and Staking",
+      "category": "Other",
+      "laborAccount": "5090 - Job Labor - Other",
+      "equipmentAccount": "5190 - Job Equipment - Other",
+      "materialsAccount": "5290 - Job Materials - Other"
+    },
+    {
+      "activity": "Clearing and Grubbing",
+      "category": "Site Clearing",
+      "laborAccount": "5000 - Job Labor - Site Clearing",
+      "equipmentAccount": "5100 - Job Equipment - Site Clearing",
+      "materialsAccount": "5200 - Job Materials - Site Clearing"
+    },
+    {
+      "activity": "Fine Grade Asphalt Base",
+      "category": "Earthwork",
+      "laborAccount": "5010 - Job Labor - Earthwork",
+      "equipmentAccount": "5110 - Job Equipment - Earthwork",
+      "materialsAccount": "5210 - Job Materials - Earthwork"
+    },
+    {
+      "activity": "Fine Grade Asphalt Subgrade",
+      "category": "Earthwork",
+      "laborAccount": "5010 - Job Labor - Earthwork",
+      "equipmentAccount": "5110 - Job Equipment - Earthwork",
+      "materialsAccount": "5210 - Job Materials - Earthwork"
+    },
+    {
+      "activity": "Fine Grade Building Pad",
+      "category": "Earthwork",
+      "laborAccount": "5010 - Job Labor - Earthwork",
+      "equipmentAccount": "5110 - Job Equipment - Earthwork",
+      "materialsAccount": "5210 - Job Materials - Earthwork"
+    },
+    {
+      "activity": "Fine Grade Common Areas",
+      "category": "Earthwork",
+      "laborAccount": "5010 - Job Labor - Earthwork",
+      "equipmentAccount": "5110 - Job Equipment - Earthwork",
+      "materialsAccount": "5210 - Job Materials - Earthwork"
+    },
+    {
+      "activity": "Place Asphalt Base (Stone)",
+      "category": "Aggregate & Stone",
+      "laborAccount": "5070 - Job Labor - Aggregate & Stone",
+      "equipmentAccount": "5170 - Job Equipment - Aggregate & Stone",
+      "materialsAccount": "5270 - Job Materials - Aggregate & Stone"
+    },
+    {
+      "activity": "Rough Grade",
+      "category": "Earthwork",
+      "laborAccount": "5010 - Job Labor - Earthwork",
+      "equipmentAccount": "5110 - Job Equipment - Earthwork",
+      "materialsAccount": "5210 - Job Materials - Earthwork"
+    },
+    {
+      "activity": "Site Cut to Fill",
+      "category": "Earthwork",
+      "laborAccount": "5010 - Job Labor - Earthwork",
+      "equipmentAccount": "5110 - Job Equipment - Earthwork",
+      "materialsAccount": "5210 - Job Materials - Earthwork"
+    },
+    {
+      "activity": "Silt Fence",
+      "category": "Erosion Control",
+      "laborAccount": "5020 - Job Labor - Erosion Control",
+      "equipmentAccount": "5120 - Job Equipment - Erosion Control",
+      "materialsAccount": "5220 - Job Materials - Erosion Control"
+    },
+    {
+      "activity": "Construction Entrance",
+      "category": "Erosion Control",
+      "laborAccount": "5020 - Job Labor - Erosion Control",
+      "equipmentAccount": "5120 - Job Equipment - Erosion Control",
+      "materialsAccount": "5220 - Job Materials - Erosion Control"
+    },
+    {
+      "activity": "Inlet Protection",
+      "category": "Erosion Control",
+      "laborAccount": "5020 - Job Labor - Erosion Control",
+      "equipmentAccount": "5120 - Job Equipment - Erosion Control",
+      "materialsAccount": "5220 - Job Materials - Erosion Control"
+    },
+    {
+      "activity": "Grassing",
+      "category": "Erosion Control",
+      "laborAccount": "5020 - Job Labor - Erosion Control",
+      "equipmentAccount": "5120 - Job Equipment - Erosion Control",
+      "materialsAccount": "5220 - Job Materials - Erosion Control"
+    },
+    {
+      "activity": "SWPPP Maintenance",
+      "category": "Erosion Control",
+      "laborAccount": "5020 - Job Labor - Erosion Control",
+      "equipmentAccount": "5120 - Job Equipment - Erosion Control",
+      "materialsAccount": "5220 - Job Materials - Erosion Control"
+    },
+    {
+      "activity": "Sewer - 8\" SDR 26 - (6-8)",
+      "category": "Sanitary Sewer",
+      "laborAccount": "5040 - Job Labor - Sanitary Sewer",
+      "equipmentAccount": "5140 - Job Equipment - Sanitary Sewer",
+      "materialsAccount": "5240 - Job Materials - Sanitary Sewer"
+    },
+    {
+      "activity": "Sewer - 8\" SDR 26 - (8-10)",
+      "category": "Sanitary Sewer",
+      "laborAccount": "5040 - Job Labor - Sanitary Sewer",
+      "equipmentAccount": "5140 - Job Equipment - Sanitary Sewer",
+      "materialsAccount": "5240 - Job Materials - Sanitary Sewer"
+    },
+    {
+      "activity": "4\" PVC Sewer Lateral",
+      "category": "Sanitary Sewer",
+      "laborAccount": "5040 - Job Labor - Sanitary Sewer",
+      "equipmentAccount": "5140 - Job Equipment - Sanitary Sewer",
+      "materialsAccount": "5240 - Job Materials - Sanitary Sewer"
+    },
+    {
+      "activity": "Sewer - Manhole - (6-8)",
+      "category": "Sanitary Sewer",
+      "laborAccount": "5040 - Job Labor - Sanitary Sewer",
+      "equipmentAccount": "5140 - Job Equipment - Sanitary Sewer",
+      "materialsAccount": "5240 - Job Materials - Sanitary Sewer"
+    },
+    {
+      "activity": "Sewer - Manhole - (8-10)",
+      "category": "Sanitary Sewer",
+      "laborAccount": "5040 - Job Labor - Sanitary Sewer",
+      "equipmentAccount": "5140 - Job Equipment - Sanitary Sewer",
+      "materialsAccount": "5240 - Job Materials - Sanitary Sewer"
+    },
+    {
+      "activity": "Sewer Cleanout",
+      "category": "Sanitary Sewer",
+      "laborAccount": "5040 - Job Labor - Sanitary Sewer",
+      "equipmentAccount": "5140 - Job Equipment - Sanitary Sewer",
+      "materialsAccount": "5240 - Job Materials - Sanitary Sewer"
+    },
+    {
+      "activity": "Sewer Testing",
+      "category": "Sanitary Sewer",
+      "laborAccount": "5040 - Job Labor - Sanitary Sewer",
+      "equipmentAccount": "5140 - Job Equipment - Sanitary Sewer",
+      "materialsAccount": "5240 - Job Materials - Sanitary Sewer"
+    },
+    {
+      "activity": "Sewer CCTV",
+      "category": "Sanitary Sewer",
+      "laborAccount": "5040 - Job Labor - Sanitary Sewer",
+      "equipmentAccount": "5140 - Job Equipment - Sanitary Sewer",
+      "materialsAccount": "5240 - Job Materials - Sanitary Sewer"
+    },
+    {
+      "activity": "Sewer Tie In",
+      "category": "Sanitary Sewer",
+      "laborAccount": "5040 - Job Labor - Sanitary Sewer",
+      "equipmentAccount": "5140 - Job Equipment - Sanitary Sewer",
+      "materialsAccount": "5240 - Job Materials - Sanitary Sewer"
+    },
+    {
+      "activity": "RCP 18\"",
+      "category": "Storm Drainage",
+      "laborAccount": "5050 - Job Labor - Storm Drainage",
+      "equipmentAccount": "5150 - Job Equipment - Storm Drainage",
+      "materialsAccount": "5250 - Job Materials - Storm Drainage"
+    },
+    {
+      "activity": "RCP 24\"",
+      "category": "Storm Drainage",
+      "laborAccount": "5050 - Job Labor - Storm Drainage",
+      "equipmentAccount": "5150 - Job Equipment - Storm Drainage",
+      "materialsAccount": "5250 - Job Materials - Storm Drainage"
+    },
+    {
+      "activity": "RCP 30\"",
+      "category": "Storm Drainage",
+      "laborAccount": "5050 - Job Labor - Storm Drainage",
+      "equipmentAccount": "5150 - Job Equipment - Storm Drainage",
+      "materialsAccount": "5250 - Job Materials - Storm Drainage"
+    },
+    {
+      "activity": "Storm Inlet (2x3)",
+      "category": "Storm Drainage",
+      "laborAccount": "5050 - Job Labor - Storm Drainage",
+      "equipmentAccount": "5150 - Job Equipment - Storm Drainage",
+      "materialsAccount": "5250 - Job Materials - Storm Drainage"
+    },
+    {
+      "activity": "Storm Inlet (4x3)",
+      "category": "Storm Drainage",
+      "laborAccount": "5050 - Job Labor - Storm Drainage",
+      "equipmentAccount": "5150 - Job Equipment - Storm Drainage",
+      "materialsAccount": "5250 - Job Materials - Storm Drainage"
+    },
+    {
+      "activity": "Storm Manhole 4' dia",
+      "category": "Storm Drainage",
+      "laborAccount": "5050 - Job Labor - Storm Drainage",
+      "equipmentAccount": "5150 - Job Equipment - Storm Drainage",
+      "materialsAccount": "5250 - Job Materials - Storm Drainage"
+    },
+    {
+      "activity": "Junction Box",
+      "category": "Storm Drainage",
+      "laborAccount": "5050 - Job Labor - Storm Drainage",
+      "equipmentAccount": "5150 - Job Equipment - Storm Drainage",
+      "materialsAccount": "5250 - Job Materials - Storm Drainage"
+    },
+    {
+      "activity": "Headwall/Endwall",
+      "category": "Storm Drainage",
+      "laborAccount": "5050 - Job Labor - Storm Drainage",
+      "equipmentAccount": "5150 - Job Equipment - Storm Drainage",
+      "materialsAccount": "5250 - Job Materials - Storm Drainage"
+    },
+    {
+      "activity": "Rip Rap",
+      "category": "Storm Drainage",
+      "laborAccount": "5050 - Job Labor - Storm Drainage",
+      "equipmentAccount": "5150 - Job Equipment - Storm Drainage",
+      "materialsAccount": "5250 - Job Materials - Storm Drainage"
+    },
+    {
+      "activity": "Storm Pipe Testing",
+      "category": "Storm Drainage",
+      "laborAccount": "5050 - Job Labor - Storm Drainage",
+      "equipmentAccount": "5150 - Job Equipment - Storm Drainage",
+      "materialsAccount": "5250 - Job Materials - Storm Drainage"
+    },
+    {
+      "activity": "Storm - CCTV Inspection",
+      "category": "Storm Drainage",
+      "laborAccount": "5050 - Job Labor - Storm Drainage",
+      "equipmentAccount": "5150 - Job Equipment - Storm Drainage",
+      "materialsAccount": "5250 - Job Materials - Storm Drainage"
+    },
+    {
+      "activity": "Under Drain",
+      "category": "Storm Drainage",
+      "laborAccount": "5050 - Job Labor - Storm Drainage",
+      "equipmentAccount": "5150 - Job Equipment - Storm Drainage",
+      "materialsAccount": "5250 - Job Materials - Storm Drainage"
+    },
+    {
+      "activity": "Detention Pond Grading",
+      "category": "Storm Drainage",
+      "laborAccount": "5050 - Job Labor - Storm Drainage",
+      "equipmentAccount": "5150 - Job Equipment - Storm Drainage",
+      "materialsAccount": "5250 - Job Materials - Storm Drainage"
+    },
+    {
+      "activity": "8\" DIP Water Main",
+      "category": "Water Main",
+      "laborAccount": "5030 - Job Labor - Water Main",
+      "equipmentAccount": "5130 - Job Equipment - Water Main",
+      "materialsAccount": "5230 - Job Materials - Water Main"
+    },
+    {
+      "activity": "6\" DIP Water Main",
+      "category": "Water Main",
+      "laborAccount": "5030 - Job Labor - Water Main",
+      "equipmentAccount": "5130 - Job Equipment - Water Main",
+      "materialsAccount": "5230 - Job Materials - Water Main"
+    },
+    {
+      "activity": "Water Service - Single",
+      "category": "Water Main",
+      "laborAccount": "5030 - Job Labor - Water Main",
+      "equipmentAccount": "5130 - Job Equipment - Water Main",
+      "materialsAccount": "5230 - Job Materials - Water Main"
+    },
+    {
+      "activity": "Water - Fire Hydrant Assemblies",
+      "category": "Water Main",
+      "laborAccount": "5030 - Job Labor - Water Main",
+      "equipmentAccount": "5130 - Job Equipment - Water Main",
+      "materialsAccount": "5230 - Job Materials - Water Main"
+    },
+    {
+      "activity": "Water - 8\" Gate Valve",
+      "category": "Water Main",
+      "laborAccount": "5030 - Job Labor - Water Main",
+      "equipmentAccount": "5130 - Job Equipment - Water Main",
+      "materialsAccount": "5230 - Job Materials - Water Main"
+    },
+    {
+      "activity": "Water Testing",
+      "category": "Water Main",
+      "laborAccount": "5030 - Job Labor - Water Main",
+      "equipmentAccount": "5130 - Job Equipment - Water Main",
+      "materialsAccount": "5230 - Job Materials - Water Main"
+    },
+    {
+      "activity": "Water Tie In",
+      "category": "Water Main",
+      "laborAccount": "5030 - Job Labor - Water Main",
+      "equipmentAccount": "5130 - Job Equipment - Water Main",
+      "materialsAccount": "5230 - Job Materials - Water Main"
+    },
+    {
+      "activity": "Asphalt - 2\" Surface",
+      "category": "Other",
+      "laborAccount": "5090 - Job Labor - Other",
+      "equipmentAccount": "5190 - Job Equipment - Other",
+      "materialsAccount": "5310 - Subcontractor - Paving"
+    },
+    {
+      "activity": "Tack Coat",
+      "category": "Other",
+      "laborAccount": "5090 - Job Labor - Other",
+      "equipmentAccount": "5190 - Job Equipment - Other",
+      "materialsAccount": "5310 - Subcontractor - Paving"
+    },
+    {
+      "activity": "Driveway Tie-in",
+      "category": "Other",
+      "laborAccount": "5090 - Job Labor - Other",
+      "equipmentAccount": "5190 - Job Equipment - Other",
+      "materialsAccount": "5310 - Subcontractor - Paving"
+    },
+    {
+      "activity": "Striping and Signage",
+      "category": "Other",
+      "laborAccount": "5090 - Job Labor - Other",
+      "equipmentAccount": "5190 - Job Equipment - Other",
+      "materialsAccount": "5310 - Subcontractor - Paving"
+    },
+    {
+      "activity": "Traffic Control (Paving)",
+      "category": "Other",
+      "laborAccount": "5090 - Job Labor - Other",
+      "equipmentAccount": "5190 - Job Equipment - Other",
+      "materialsAccount": "5350 - Subcontractor - Other"
+    },
+    {
+      "activity": "Curb and Gutter",
+      "category": "Concrete & Structures",
+      "laborAccount": "5080 - Job Labor - Concrete & Structures",
+      "equipmentAccount": "5180 - Job Equipment - Concrete & Structures",
+      "materialsAccount": "5320 - Subcontractor - Concrete"
+    },
+    {
+      "activity": "ADA Ramp",
+      "category": "Concrete & Structures",
+      "laborAccount": "5080 - Job Labor - Concrete & Structures",
+      "equipmentAccount": "5180 - Job Equipment - Concrete & Structures",
+      "materialsAccount": "5320 - Subcontractor - Concrete"
+    },
+    {
+      "activity": "Sidewalk",
+      "category": "Concrete & Structures",
+      "laborAccount": "5080 - Job Labor - Concrete & Structures",
+      "equipmentAccount": "5180 - Job Equipment - Concrete & Structures",
+      "materialsAccount": "5320 - Subcontractor - Concrete"
+    },
+    {
+      "activity": "Concrete Washout",
+      "category": "Other",
+      "laborAccount": "5090 - Job Labor - Other",
+      "equipmentAccount": "5090 - Job Labor - Other",
+      "materialsAccount": "5090 - Job Labor - Other"
+    },
+    {
+      "activity": "Payroll",
+      "category": "Payroll",
+      "laborAccount": "2200 - Payroll Liabilities",
+      "equipmentAccount": "1000 - Operating Checking Account",
+      "materialsAccount": "1000 - Operating Checking Account"
+    },
+    {
+      "activity": "Payroll Federal Tax",
+      "category": "Payroll",
+      "laborAccount": "2210 - Federal Payroll Tax Payable",
+      "equipmentAccount": "1000 - Operating Checking Account",
+      "materialsAccount": "1000 - Operating Checking Account"
+    },
+    {
+      "activity": "Payroll State Tax",
+      "category": "Payroll",
+      "laborAccount": "2220 - State Payroll Tax Payable",
+      "equipmentAccount": "1000 - Operating Checking Account",
+      "materialsAccount": "1000 - Operating Checking Account"
+    },
+    {
+      "activity": "Employer Payroll Tax",
+      "category": "Payroll",
+      "laborAccount": "6010 - Payroll Taxes - Employer",
+      "equipmentAccount": "1000 - Operating Checking Account",
+      "materialsAccount": "1000 - Operating Checking Account"
+    },
+    {
+      "activity": "Vehicle Allowance",
+      "category": "Payroll",
+      "laborAccount": "6300 - Vehicle Expense - Non-Job",
+      "equipmentAccount": "1000 - Operating Checking Account",
+      "materialsAccount": "1000 - Operating Checking Account"
+    },
+    {
+      "activity": "Inlet Protection",
+      "category": "Erosion Control",
+      "laborAccount": "5020 - Job Labor - Erosion Control",
+      "equipmentAccount": "5120 - Job Equipment - Erosion Control",
+      "materialsAccount": "5220 - Job Materials - Erosion Control"
+    },
+    {
+      "activity": "Sediment Tubes",
+      "category": "Erosion Control",
+      "laborAccount": "5020 - Job Labor - Erosion Control",
+      "equipmentAccount": "5120 - Job Equipment - Erosion Control",
+      "materialsAccount": "5220 - Job Materials - Erosion Control"
+    },
+    {
+      "activity": "Sewer Service - Single",
+      "category": "Sanitary Sewer",
+      "laborAccount": "5040 - Job Labor - Sanitary Sewer",
+      "equipmentAccount": "5140 - Job Equipment - Sanitary Sewer",
+      "materialsAccount": "5240 - Job Materials - Sanitary Sewer"
+    },
+    {
+      "activity": "Sewer Service - Double",
+      "category": "Sanitary Sewer",
+      "laborAccount": "5040 - Job Labor - Sanitary Sewer",
+      "equipmentAccount": "5140 - Job Equipment - Sanitary Sewer",
+      "materialsAccount": "5240 - Job Materials - Sanitary Sewer"
+    },
+    {
+      "activity": "Storm - Drop Inlet - 3x3",
+      "category": "Storm Drainage",
+      "laborAccount": "5050 - Job Labor - Storm Drainage",
+      "equipmentAccount": "5150 - Job Equipment - Storm Drainage",
+      "materialsAccount": "5250 - Job Materials - Storm Drainage"
+    },
+    {
+      "activity": "Storm - Isolation Box",
+      "category": "Storm Drainage",
+      "laborAccount": "5050 - Job Labor - Storm Drainage",
+      "equipmentAccount": "5150 - Job Equipment - Storm Drainage",
+      "materialsAccount": "5250 - Job Materials - Storm Drainage"
+    },
+    {
+      "activity": "RCP 15\"",
+      "category": "Storm Drainage",
+      "laborAccount": "5050 - Job Labor - Storm Drainage",
+      "equipmentAccount": "5150 - Job Equipment - Storm Drainage",
+      "materialsAccount": "5250 - Job Materials - Storm Drainage"
+    },
+    {
+      "activity": "Emergency Spillway",
+      "category": "Storm Drainage",
+      "laborAccount": "5050 - Job Labor - Storm Drainage",
+      "equipmentAccount": "5150 - Job Equipment - Storm Drainage",
+      "materialsAccount": "5250 - Job Materials - Storm Drainage"
+    },
+    {
+      "activity": "Forebay Berm",
+      "category": "Storm Drainage",
+      "laborAccount": "5050 - Job Labor - Storm Drainage",
+      "equipmentAccount": "5150 - Job Equipment - Storm Drainage",
+      "materialsAccount": "5250 - Job Materials - Storm Drainage"
+    },
+    {
+      "activity": "Water - 8\" C900",
+      "category": "Water Main",
+      "laborAccount": "5030 - Job Labor - Water Main",
+      "equipmentAccount": "5130 - Job Equipment - Water Main",
+      "materialsAccount": "5230 - Job Materials - Water Main"
+    },
+    {
+      "activity": "Water 8\" DIP",
+      "category": "Water Main",
+      "laborAccount": "5030 - Job Labor - Water Main",
+      "equipmentAccount": "5130 - Job Equipment - Water Main",
+      "materialsAccount": "5230 - Job Materials - Water Main"
+    },
+    {
+      "activity": "Water - 8\" Fittings",
+      "category": "Water Main",
+      "laborAccount": "5030 - Job Labor - Water Main",
+      "equipmentAccount": "5130 - Job Equipment - Water Main",
+      "materialsAccount": "5230 - Job Materials - Water Main"
+    },
+    {
+      "activity": "Water - Vertical Offsets",
+      "category": "Water Main",
+      "laborAccount": "5030 - Job Labor - Water Main",
+      "equipmentAccount": "5130 - Job Equipment - Water Main",
+      "materialsAccount": "5230 - Job Materials - Water Main"
+    },
+    {
+      "activity": "Traffic Control - Water",
+      "category": "Water Main",
+      "laborAccount": "5030 - Job Labor - Water Main",
+      "equipmentAccount": "5130 - Job Equipment - Water Main",
+      "materialsAccount": "5230 - Job Materials - Water Main"
+    },
+    {
+      "activity": "Intuit Workforce (Payroll)",
+      "category": "Payroll",
+      "laborAccount": "6400 - Professional Fees - Accounting",
+      "equipmentAccount": "6400 - Professional Fees - Accounting",
+      "materialsAccount": "6400 - Professional Fees - Accounting"
+    },
+    {
+      "activity": "PORT-O-JON",
+      "category": "Other",
+      "laborAccount": "5350 - Subcontractor - Other",
+      "equipmentAccount": "5350 - Subcontractor - Other",
+      "materialsAccount": "5350 - Subcontractor - Other"
+    },
+    {
+      "activity": "WATER LINE",
+      "category": "Water Main",
+      "laborAccount": "5030 - Job Labor - Water Main",
+      "equipmentAccount": "5130 - Job Equipment - Water Main",
+      "materialsAccount": "5230 - Job Materials - Water Main"
+    },
+    {
+      "activity": "Grease Trap",
+      "category": "Grease Trap",
+      "laborAccount": "5040 - Job Labor - Sanitary Sewer",
+      "equipmentAccount": "5140 - Job Equipment - Sanitary Sewer",
+      "materialsAccount": "5240 - Job Materials - Sanitary Sewer"
+    },
+    {
+      "activity": "Concrete General",
+      "category": "Concrete & Structures",
+      "laborAccount": "5080 - Job Labor - Concrete & Structures",
+      "equipmentAccount": "5180 - Job Equipment - Concrete & Structures",
+      "materialsAccount": "5280 - Job Materials - Concrete & Structures"
+    },
+    {
+      "activity": "Sewer Supplies",
+      "category": "Sewer",
+      "laborAccount": "5040 - Job Labor - Sanitary Sewer",
+      "equipmentAccount": "5140 - Job Equipment - Sanitary Sewer",
+      "materialsAccount": "5240 - Job Materials - Sanitary Sewer"
+    },
+    {
+      "activity": "Water Supplies",
+      "category": "Water Main",
+      "laborAccount": "5030 - Job Labor - Water Main",
+      "equipmentAccount": "5130 - Job Equipment - Water Main",
+      "materialsAccount": "5230 - Job Materials - Water Main"
+    },
+    {
+      "activity": "Storm Supplies",
+      "category": "Storm Drainage",
+      "laborAccount": "5050 - Job Labor - Storm Drainage",
+      "equipmentAccount": "5150 - Job Equipment - Storm Drainage",
+      "materialsAccount": "5250 - Job Materials - Storm Drainage"
+    },
+    {
+      "activity": "Environmental Fees",
+      "category": "Other",
+      "laborAccount": "5500 - Permits & Fees",
+      "equipmentAccount": "1500 - Heavy Equipment & Machinery",
+      "materialsAccount": "5190 - Job Equipment - Other"
+    },
+    {
+      "activity": "Sales Tax",
+      "category": "Other",
+      "laborAccount": "2250 - Sales Tax Payable",
+      "equipmentAccount": "2250 - Sales Tax Payable",
+      "materialsAccount": "2250 - Sales Tax Payable"
+    },
+    {
+      "activity": "Fuel Trucks",
+      "category": "Fuel",
+      "laborAccount": "5440 - Fuel & Oil - Field Equipment",
+      "equipmentAccount": "1510 - Trucks & Trailers",
+      "materialsAccount": "5440 - Fuel & Oil - Field Equipment"
+    },
+    {
+      "activity": "Fuel Equpment",
+      "category": "Fuel",
+      "laborAccount": "5440 - Fuel & Oil - Field Equipment",
+      "equipmentAccount": "1500 - Heavy Equipment & Machinery",
+      "materialsAccount": "5440 - Fuel & Oil - Field Equipment"
+    },
+    {
+      "activity": "Equipment Repair",
+      "category": "Equipment Repair",
+      "laborAccount": "5420 - Field Repairs & Ground Engagement",
+      "equipmentAccount": "1500 - Heavy Equipment & Machinery",
+      "materialsAccount": "5350 - Subcontractor - Other"
+    }
+  ],
+  "jobLineItems": [
+    {
+      "jobName": "Fern Hill",
+      "description": "Survey and Staking",
+      "unit": "LS",
+      "bidQuantity": 1.0,
+      "unitPrice": 16800.0,
+      "estimatedCost": 0.0,
+      "activity": "Survey and Staking"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Mobilization",
+      "unit": "LS",
+      "bidQuantity": 1.0,
+      "unitPrice": 31200.0,
+      "estimatedCost": 0.0,
+      "activity": "Mobilization"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "License and Insurance",
+      "unit": "LS",
+      "bidQuantity": 1.0,
+      "unitPrice": 7500.0,
+      "estimatedCost": 0.0,
+      "activity": "License and Insurance"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Clearing and Grubbing",
+      "unit": "Acre",
+      "bidQuantity": 5.0,
+      "unitPrice": 8475.0,
+      "estimatedCost": 0.0,
+      "activity": "Clearing and Grubbing"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Fine Grade Asphalt Base",
+      "unit": "SY",
+      "bidQuantity": 2450.0,
+      "unitPrice": 5.04,
+      "estimatedCost": 0.0,
+      "activity": "Fine Grade Asphalt Base"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Fine Grade Asphalt Subgrade",
+      "unit": "SY",
+      "bidQuantity": 2450.0,
+      "unitPrice": 1.51,
+      "estimatedCost": 0.0,
+      "activity": "Fine Grade Asphalt Subgrade"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Fine Grade Building Pad",
+      "unit": "SY",
+      "bidQuantity": 3375.0,
+      "unitPrice": 0.9,
+      "estimatedCost": 0.0,
+      "activity": "Fine Grade Building Pad"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Fine Grade Common Areas",
+      "unit": "SY",
+      "bidQuantity": 18800.0,
+      "unitPrice": 0.9,
+      "estimatedCost": 0.0,
+      "activity": "Fine Grade Common Areas"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Place Asphalt Base (Stone)",
+      "unit": "TON",
+      "bidQuantity": 820.0,
+      "unitPrice": 74.34,
+      "estimatedCost": 0.0,
+      "activity": "Place Asphalt Base (Stone)"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Site Cut to Fill",
+      "unit": "CY",
+      "bidQuantity": 4500.0,
+      "unitPrice": 4.23,
+      "estimatedCost": 0.0,
+      "activity": "Site Cut to Fill"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Construction Entrance",
+      "unit": "EA",
+      "bidQuantity": 1.0,
+      "unitPrice": 7875.0,
+      "estimatedCost": 0.0,
+      "activity": "Construction Entrance"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Grassing",
+      "unit": "SY",
+      "bidQuantity": 21500.0,
+      "unitPrice": 0.71,
+      "estimatedCost": 0.0,
+      "activity": "Grassing"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Concrete Washout",
+      "unit": "EA",
+      "bidQuantity": 1.0,
+      "unitPrice": 997.5,
+      "estimatedCost": 0.0,
+      "activity": "Concrete Washout"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Inlet Protection",
+      "unit": "EA",
+      "bidQuantity": 15.0,
+      "unitPrice": 467.25,
+      "estimatedCost": 0.0,
+      "activity": "Inlet Protection"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Sediment Tubes",
+      "unit": "EA",
+      "bidQuantity": 3.0,
+      "unitPrice": 131.25,
+      "estimatedCost": 0.0,
+      "activity": "Sediment Tubes"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Swppp Maintenance",
+      "unit": "LS",
+      "bidQuantity": 1.0,
+      "unitPrice": 14264.87,
+      "estimatedCost": 0.0,
+      "activity": "Swppp Maintenance"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Sewer - 8\" SDR 26 - (6-8)",
+      "unit": "LF",
+      "bidQuantity": 453.0,
+      "unitPrice": 55.76,
+      "estimatedCost": 0.0,
+      "activity": "Sewer - 8\" SDR 26 - (6-8)"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Sewer - 8\" SDR 26 - (8-10)",
+      "unit": "LF",
+      "bidQuantity": 178.0,
+      "unitPrice": 60.93,
+      "estimatedCost": 0.0,
+      "activity": "Sewer - 8\" SDR 26 - (8-10)"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Sewer - Manhole - (6-8)",
+      "unit": "EA",
+      "bidQuantity": 2.0,
+      "unitPrice": 3772.99,
+      "estimatedCost": 0.0,
+      "activity": "Sewer - Manhole - (6-8)"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Sewer - Manhole - (8-10)",
+      "unit": "EA",
+      "bidQuantity": 2.0,
+      "unitPrice": 5110.74,
+      "estimatedCost": 0.0,
+      "activity": "Sewer - Manhole - (8-10)"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Sewer Service - Single",
+      "unit": "EA",
+      "bidQuantity": 3.0,
+      "unitPrice": 991.91,
+      "estimatedCost": 0.0,
+      "activity": "Sewer Service - Single"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Sewer Service - Double",
+      "unit": "EA",
+      "bidQuantity": 4.0,
+      "unitPrice": 1342.14,
+      "estimatedCost": 0.0,
+      "activity": "Sewer Service - Double"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Sewer Tie In",
+      "unit": "EA",
+      "bidQuantity": 1.0,
+      "unitPrice": 3538.63,
+      "estimatedCost": 0.0,
+      "activity": "Sewer Tie In"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Sewer CCTV",
+      "unit": "LS",
+      "bidQuantity": 1.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Sewer CCTV"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Sewer Testing",
+      "unit": "LS",
+      "bidQuantity": 1.0,
+      "unitPrice": 12550.0,
+      "estimatedCost": 0.0,
+      "activity": "Sewer Testing"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Storm - Drop Inlet - 3x3",
+      "unit": "EA",
+      "bidQuantity": 13.0,
+      "unitPrice": 4522.36,
+      "estimatedCost": 0.0,
+      "activity": "Storm - Drop Inlet - 3x3"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Storm - Isolation Box",
+      "unit": "EA",
+      "bidQuantity": 2.0,
+      "unitPrice": 6518.25,
+      "estimatedCost": 0.0,
+      "activity": "Storm - Isolation Box"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "RCP 15\"",
+      "unit": "LF",
+      "bidQuantity": 190.0,
+      "unitPrice": 55.16,
+      "estimatedCost": 0.0,
+      "activity": "RCP 15\""
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "RCP 18\"",
+      "unit": "LF",
+      "bidQuantity": 456.0,
+      "unitPrice": 59.47,
+      "estimatedCost": 0.0,
+      "activity": "RCP 18\""
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "RCP 24\"",
+      "unit": "LF",
+      "bidQuantity": 180.0,
+      "unitPrice": 77.92,
+      "estimatedCost": 0.0,
+      "activity": "RCP 24\""
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Rip Rap",
+      "unit": "EA",
+      "bidQuantity": 1.0,
+      "unitPrice": 2820.17,
+      "estimatedCost": 0.0,
+      "activity": "Rip Rap"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Emergency Spillway",
+      "unit": "SY",
+      "bidQuantity": 50.0,
+      "unitPrice": 226.56,
+      "estimatedCost": 0.0,
+      "activity": "Emergency Spillway"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Storm - CCTV Inspection",
+      "unit": "LS",
+      "bidQuantity": 1.0,
+      "unitPrice": 4250.0,
+      "estimatedCost": 0.0,
+      "activity": "Storm - CCTV Inspection"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Under Drain",
+      "unit": "LF",
+      "bidQuantity": 1825.0,
+      "unitPrice": 15.01,
+      "estimatedCost": 0.0,
+      "activity": "Under Drain"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Forebay Berm",
+      "unit": "LF",
+      "bidQuantity": 140.0,
+      "unitPrice": 156.38,
+      "estimatedCost": 0.0,
+      "activity": "Forebay Berm"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Water - 8\" C900",
+      "unit": "LF",
+      "bidQuantity": 710.0,
+      "unitPrice": 36.77,
+      "estimatedCost": 0.0,
+      "activity": "Water - 8\" C900"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Water 8\" DIP",
+      "unit": "LF",
+      "bidQuantity": 190.0,
+      "unitPrice": 82.25,
+      "estimatedCost": 0.0,
+      "activity": "Water 8\" DIP"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Water - 8\" Fittings",
+      "unit": "LS",
+      "bidQuantity": 1.0,
+      "unitPrice": 11823.12,
+      "estimatedCost": 0.0,
+      "activity": "Water - 8\" Fittings"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Water - Vertical Offsets",
+      "unit": "EA",
+      "bidQuantity": 1.0,
+      "unitPrice": 4206.17,
+      "estimatedCost": 0.0,
+      "activity": "Water - Vertical Offsets"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Water - Fire Hydrant Assemblies",
+      "unit": "EA",
+      "bidQuantity": 2.0,
+      "unitPrice": 8806.77,
+      "estimatedCost": 0.0,
+      "activity": "Water - Fire Hydrant Assemblies"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Water - 8\" Gate Valve",
+      "unit": "EA",
+      "bidQuantity": 5.0,
+      "unitPrice": 2958.61,
+      "estimatedCost": 0.0,
+      "activity": "Water - 8\" Gate Valve"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Water Service - Single",
+      "unit": "EA",
+      "bidQuantity": 11.0,
+      "unitPrice": 1293.67,
+      "estimatedCost": 0.0,
+      "activity": "Water Service - Single"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Water Tie In",
+      "unit": "EA",
+      "bidQuantity": 1.0,
+      "unitPrice": 5205.2,
+      "estimatedCost": 0.0,
+      "activity": "Water Tie In"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Water Testing",
+      "unit": "LS",
+      "bidQuantity": 1.0,
+      "unitPrice": 13550.0,
+      "estimatedCost": 0.0,
+      "activity": "Water Testing"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Traffic Control - Water",
+      "unit": "LS",
+      "bidQuantity": 1.0,
+      "unitPrice": 4900.0,
+      "estimatedCost": 0.0,
+      "activity": "Traffic Control - Water"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Asphalt - 2\" Surface",
+      "unit": "SY",
+      "bidQuantity": 2450.0,
+      "unitPrice": 21.0,
+      "estimatedCost": 0.0,
+      "activity": "Asphalt - 2\" Surface"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Striping and Signage",
+      "unit": "LS",
+      "bidQuantity": 1.0,
+      "unitPrice": 8925.0,
+      "estimatedCost": 0.0,
+      "activity": "Striping and Signage"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Traffic Control (Paving)",
+      "unit": "LS",
+      "bidQuantity": 1.0,
+      "unitPrice": 4900.0,
+      "estimatedCost": 0.0,
+      "activity": "Traffic Control (Paving)"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Curb and Gutter",
+      "unit": "LF",
+      "bidQuantity": 2025.0,
+      "unitPrice": 18.22,
+      "estimatedCost": 0.0,
+      "activity": "Curb and Gutter"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "ADA Ramp",
+      "unit": "EA",
+      "bidQuantity": 3.0,
+      "unitPrice": 911.99,
+      "estimatedCost": 0.0,
+      "activity": "ADA Ramp"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Sidewalk",
+      "unit": "SF",
+      "bidQuantity": 8150.0,
+      "unitPrice": 6.39,
+      "estimatedCost": 0.0,
+      "activity": "Sidewalk"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Supplies and Miscellaneous",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Supplies and Miscellaneous"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Payroll",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Payroll"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Payroll Federal Tax",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Payroll Federal Tax"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Payroll State Tax",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Payroll State Tax"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Employer Payroll Tax",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Employer Payroll Tax"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "PORT-O-JON",
+      "unit": "EA",
+      "bidQuantity": 3.0,
+      "unitPrice": 163.61,
+      "estimatedCost": 0.0,
+      "activity": "PORT-O-JON"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Sewer Supplies",
+      "unit": "",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Sewer Supplies"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Water Supplies",
+      "unit": "",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Water Supplies"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Storm Supplies",
+      "unit": "",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Storm Supplies"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Environmental Fees",
+      "unit": "",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Environmental Fees"
+    },
+    {
+      "jobName": "Fern Hill",
+      "description": "Sales Tax",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Sales Tax"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "WATER LINE",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "WATER LINE"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Supplies and Miscellaneous",
+      "unit": "LS",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Supplies and Miscellaneous"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Mobilization",
+      "unit": "LS",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Mobilization"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "License and Insurance",
+      "unit": "LS",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "License and Insurance"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Survey and Staking",
+      "unit": "Acre",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Survey and Staking"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Clearing and Grubbing",
+      "unit": "SY",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Clearing and Grubbing"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Fine Grade Asphalt Base",
+      "unit": "SY",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Fine Grade Asphalt Base"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Fine Grade Asphalt Subgrade",
+      "unit": "SY",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Fine Grade Asphalt Subgrade"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Fine Grade Building Pad",
+      "unit": "SY",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Fine Grade Building Pad"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Fine Grade Common Areas",
+      "unit": "TON",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Fine Grade Common Areas"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Place Asphalt Base (Stone)",
+      "unit": "CY",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Place Asphalt Base (Stone)"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Rough Grade",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Rough Grade"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Site Cut to Fill",
+      "unit": "SY",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Site Cut to Fill"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Silt Fence",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Silt Fence"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Construction Entrance",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Construction Entrance"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Inlet Protection",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Inlet Protection"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Grassing",
+      "unit": "LS",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Grassing"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "SWPPP Maintenance",
+      "unit": "LF",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "SWPPP Maintenance"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Sewer - 8\" SDR 26 - (6-8)",
+      "unit": "LF",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Sewer - 8\" SDR 26 - (6-8)"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Sewer - 8\" SDR 26 - (8-10)",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Sewer - 8\" SDR 26 - (8-10)"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "4\" PVC Sewer Lateral",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "4\" PVC Sewer Lateral"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Sewer - Manhole - (6-8)",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Sewer - Manhole - (6-8)"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Sewer - Manhole - (8-10)",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Sewer - Manhole - (8-10)"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Sewer Cleanout",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Sewer Cleanout"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Sewer Testing",
+      "unit": "LS",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Sewer Testing"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Sewer CCTV",
+      "unit": "LS",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Sewer CCTV"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Sewer Tie In",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Sewer Tie In"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "RCP 18\"",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "RCP 18\""
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "RCP 24\"",
+      "unit": "LF",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "RCP 24\""
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "RCP 30\"",
+      "unit": "LF",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "RCP 30\""
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Storm Inlet (2x3)",
+      "unit": "LF",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Storm Inlet (2x3)"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Storm Inlet (4x3)",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Storm Inlet (4x3)"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Storm Manhole 4' dia",
+      "unit": "SY",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Storm Manhole 4' dia"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Junction Box",
+      "unit": "LS",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Junction Box"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Headwall/Endwall",
+      "unit": "LF",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Headwall/Endwall"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Rip Rap",
+      "unit": "LF",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Rip Rap"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Storm Pipe Testing",
+      "unit": "LF",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Storm Pipe Testing"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Storm - CCTV Inspection",
+      "unit": "LF",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Storm - CCTV Inspection"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Under Drain",
+      "unit": "LS",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Under Drain"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Detention Pond Grading",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Detention Pond Grading"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "8\" DIP Water Main",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "8\" DIP Water Main"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "6\" DIP Water Main",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "6\" DIP Water Main"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Water Service - Single",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Water Service - Single"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Water - Fire Hydrant Assemblies",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Water - Fire Hydrant Assemblies"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Water - 8\" Gate Valve",
+      "unit": "LS",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Water - 8\" Gate Valve"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Water Testing",
+      "unit": "LS",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Water Testing"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Water Tie In",
+      "unit": "SY",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Water Tie In"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Asphalt - 2\" Surface",
+      "unit": "LS",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Asphalt - 2\" Surface"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Tack Coat",
+      "unit": "LS",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Tack Coat"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Driveway Tie-in",
+      "unit": "LF",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Driveway Tie-in"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Striping and Signage",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Striping and Signage"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Traffic Control (Paving)",
+      "unit": "SF",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Traffic Control (Paving)"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Curb and Gutter",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Curb and Gutter"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "ADA Ramp",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "ADA Ramp"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Sidewalk",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Sidewalk"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Concrete Washout",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Concrete Washout"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Payroll",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Payroll"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Payroll Federal Tax",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Payroll Federal Tax"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Payroll State Tax",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Payroll State Tax"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Employer Payroll Tax",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Employer Payroll Tax"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Vehicle Allowance",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Vehicle Allowance"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Inlet Protection",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Inlet Protection"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Sediment Tubes",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Sediment Tubes"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Sewer Service - Single",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Sewer Service - Single"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Sewer Service - Double",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Sewer Service - Double"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Storm - Drop Inlet - 3x3",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Storm - Drop Inlet - 3x3"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Storm - Isolation Box",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Storm - Isolation Box"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "RCP 15\"",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "RCP 15\""
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Emergency Spillway",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Emergency Spillway"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Forebay Berm",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Forebay Berm"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Water - 8\" C900",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Water - 8\" C900"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Water 8\" DIP",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Water 8\" DIP"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Water - 8\" Fittings",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Water - 8\" Fittings"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Water - Vertical Offsets",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Water - Vertical Offsets"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Traffic Control - Water",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Traffic Control - Water"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "Intuit Workforce (Payroll)",
+      "unit": "EA",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Intuit Workforce (Payroll)"
+    },
+    {
+      "jobName": "Sandy Run",
+      "description": "PORT-O-JON",
+      "unit": "",
+      "bidQuantity": 0.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "PORT-O-JON"
+    },
+    {
+      "jobName": "Craig Farm",
+      "description": "Clearing and Grubbing",
+      "unit": "EA",
+      "bidQuantity": 1.0,
+      "unitPrice": 18500.0,
+      "estimatedCost": 0.0,
+      "activity": "Clearing and Grubbing"
+    },
+    {
+      "jobName": "Captian's Quarters",
+      "description": "Grease Trap",
+      "unit": "EA",
+      "bidQuantity": 1.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Grease Trap"
+    },
+    {
+      "jobName": "Captian's Quarters",
+      "description": "Concrete General",
+      "unit": "EA",
+      "bidQuantity": 11.0,
+      "unitPrice": 0.0,
+      "estimatedCost": 0.0,
+      "activity": "Concrete General"
+    }
+  ],
+  "openingBalances": [
+    {
+      "accountNumber": "1000",
+      "accountName": "Operating Checking Account",
+      "category": "Asset",
+      "amount": 28528.18,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "1010",
+      "accountName": "Payroll Checking Account",
+      "category": "Asset",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "1050",
+      "accountName": "Petty Cash",
+      "category": "Asset",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "1100",
+      "accountName": "Accounts Receivable",
+      "category": "Asset",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "1150",
+      "accountName": "Retainage Receivable",
+      "category": "Asset",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "1200",
+      "accountName": "Employee Advances",
+      "category": "Asset",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "1250",
+      "accountName": "Prepaid Insurance",
+      "category": "Asset",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "1260",
+      "accountName": "Prepaid Expenses - Other",
+      "category": "Asset",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "1300",
+      "accountName": "Materials Inventory",
+      "category": "Asset",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "1350",
+      "accountName": "Undeposited Funds",
+      "category": "Asset",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "1400",
+      "accountName": "Cost in Excess of Billings (Underbilling)",
+      "category": "Asset",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "1500",
+      "accountName": "Heavy Equipment & Machinery",
+      "category": "Asset",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "1510",
+      "accountName": "Trucks & Trailers",
+      "category": "Asset",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "1520",
+      "accountName": "Small Equipment & Tools",
+      "category": "Asset",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "1530",
+      "accountName": "Office Equipment & Computers",
+      "category": "Asset",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "1540",
+      "accountName": "Leasehold Improvements",
+      "category": "Asset",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "1590",
+      "accountName": "Accumulated Depreciation",
+      "category": "Asset",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "2000",
+      "accountName": "Accounts Payable",
+      "category": "Liability",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "2050",
+      "accountName": "Retainage Payable",
+      "category": "Liability",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "2100",
+      "accountName": "Credit Card - Company",
+      "category": "Liability",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "2150",
+      "accountName": "Billings in Excess of Cost (Overbilling)",
+      "category": "Liability",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "2200",
+      "accountName": "Payroll Liabilities",
+      "category": "Liability",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "2210",
+      "accountName": "Federal Payroll Tax Payable",
+      "category": "Liability",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "2220",
+      "accountName": "State Payroll Tax Payable",
+      "category": "Liability",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "2250",
+      "accountName": "Sales Tax Payable",
+      "category": "Liability",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "2300",
+      "accountName": "Accrued Expenses",
+      "category": "Liability",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "2350",
+      "accountName": "Line of Credit",
+      "category": "Liability",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "2500",
+      "accountName": "Equipment Loans",
+      "category": "Liability",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "2510",
+      "accountName": "Vehicle Loans",
+      "category": "Liability",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "2600",
+      "accountName": "Other Long-Term Debt",
+      "category": "Liability",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "3000",
+      "accountName": "Owner's Equity / Capital",
+      "category": "Equity",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "3100",
+      "accountName": "Owner's Draw",
+      "category": "Equity",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "3200",
+      "accountName": "Retained Earnings",
+      "category": "Equity",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    },
+    {
+      "accountNumber": "If this total is not zero the balance sheet will not balance. Assets are positive; liabilities and equity are negative. Leave everything blank if you are starting from scratch.",
+      "accountName": "",
+      "category": "",
+      "amount": 0.0,
+      "asOfDate": "2026-09-01"
+    }
+  ],
+  "chartOfAccounts": [
+    {
+      "number": "1000",
+      "name": "Operating Checking Account",
+      "category": "Asset",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "1010",
+      "name": "Payroll Checking Account",
+      "category": "Asset",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "1050",
+      "name": "Petty Cash",
+      "category": "Asset",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "1100",
+      "name": "Accounts Receivable",
+      "category": "Asset",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "1150",
+      "name": "Retainage Receivable",
+      "category": "Asset",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "1200",
+      "name": "Employee Advances",
+      "category": "Asset",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "1250",
+      "name": "Prepaid Insurance",
+      "category": "Asset",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "1260",
+      "name": "Prepaid Expenses - Other",
+      "category": "Asset",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "1300",
+      "name": "Materials Inventory",
+      "category": "Asset",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "1350",
+      "name": "Undeposited Funds",
+      "category": "Asset",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "1400",
+      "name": "Cost in Excess of Billings (Underbilling)",
+      "category": "Asset",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "1500",
+      "name": "Heavy Equipment & Machinery",
+      "category": "Asset",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "1510",
+      "name": "Trucks & Trailers",
+      "category": "Asset",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "1520",
+      "name": "Small Equipment & Tools",
+      "category": "Asset",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "1530",
+      "name": "Office Equipment & Computers",
+      "category": "Asset",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "1540",
+      "name": "Leasehold Improvements",
+      "category": "Asset",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "1590",
+      "name": "Accumulated Depreciation",
+      "category": "Asset",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "2000",
+      "name": "Accounts Payable",
+      "category": "Liability",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "2050",
+      "name": "Retainage Payable",
+      "category": "Liability",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "2100",
+      "name": "Credit Card - Company",
+      "category": "Liability",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "2150",
+      "name": "Billings in Excess of Cost (Overbilling)",
+      "category": "Liability",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "2200",
+      "name": "Payroll Liabilities",
+      "category": "Liability",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "2210",
+      "name": "Federal Payroll Tax Payable",
+      "category": "Liability",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "2220",
+      "name": "State Payroll Tax Payable",
+      "category": "Liability",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "2250",
+      "name": "Sales Tax Payable",
+      "category": "Liability",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "2300",
+      "name": "Accrued Expenses",
+      "category": "Liability",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "2350",
+      "name": "Line of Credit",
+      "category": "Liability",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "2500",
+      "name": "Equipment Loans",
+      "category": "Liability",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "2510",
+      "name": "Vehicle Loans",
+      "category": "Liability",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "2600",
+      "name": "Other Long-Term Debt",
+      "category": "Liability",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "3000",
+      "name": "Owner's Equity / Capital",
+      "category": "Equity",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "3100",
+      "name": "Owner's Draw",
+      "category": "Equity",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "3200",
+      "name": "Retained Earnings",
+      "category": "Equity",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "4000",
+      "name": "Contract Revenue",
+      "category": "Revenue",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "4100",
+      "name": "Change Order Revenue",
+      "category": "Revenue",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "4200",
+      "name": "T&M Revenue (Time & Materials)",
+      "category": "Revenue",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "4300",
+      "name": "Service & Repair Revenue",
+      "category": "Revenue",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "4900",
+      "name": "Other Income",
+      "category": "Revenue",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "4910",
+      "name": "Interest Income",
+      "category": "Revenue",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "5000",
+      "name": "Job Labor - Site Clearing",
+      "category": "Job Cost",
+      "description": "Job labor by activity",
+      "active": true
+    },
+    {
+      "number": "5010",
+      "name": "Job Labor - Earthwork",
+      "category": "Job Cost",
+      "description": "Job labor by activity",
+      "active": true
+    },
+    {
+      "number": "5020",
+      "name": "Job Labor - Erosion Control",
+      "category": "Job Cost",
+      "description": "Job labor by activity",
+      "active": true
+    },
+    {
+      "number": "5030",
+      "name": "Job Labor - Water Main",
+      "category": "Job Cost",
+      "description": "Job labor by activity",
+      "active": true
+    },
+    {
+      "number": "5040",
+      "name": "Job Labor - Sanitary Sewer",
+      "category": "Job Cost",
+      "description": "Job labor by activity",
+      "active": true
+    },
+    {
+      "number": "5050",
+      "name": "Job Labor - Storm Drainage",
+      "category": "Job Cost",
+      "description": "Job labor by activity",
+      "active": true
+    },
+    {
+      "number": "5060",
+      "name": "Job Labor - Conduit & Electrical",
+      "category": "Job Cost",
+      "description": "Job labor by activity",
+      "active": true
+    },
+    {
+      "number": "5070",
+      "name": "Job Labor - Aggregate & Stone",
+      "category": "Job Cost",
+      "description": "Job labor by activity",
+      "active": true
+    },
+    {
+      "number": "5080",
+      "name": "Job Labor - Concrete & Structures",
+      "category": "Job Cost",
+      "description": "Job labor by activity",
+      "active": true
+    },
+    {
+      "number": "5090",
+      "name": "Job Labor - Other",
+      "category": "Job Cost",
+      "description": "Job labor by activity",
+      "active": true
+    },
+    {
+      "number": "5100",
+      "name": "Job Equipment - Site Clearing",
+      "category": "Job Cost",
+      "description": "Job equipment by activity",
+      "active": true
+    },
+    {
+      "number": "5110",
+      "name": "Job Equipment - Earthwork",
+      "category": "Job Cost",
+      "description": "Job equipment by activity",
+      "active": true
+    },
+    {
+      "number": "5120",
+      "name": "Job Equipment - Erosion Control",
+      "category": "Job Cost",
+      "description": "Job equipment by activity",
+      "active": true
+    },
+    {
+      "number": "5130",
+      "name": "Job Equipment - Water Main",
+      "category": "Job Cost",
+      "description": "Job equipment by activity",
+      "active": true
+    },
+    {
+      "number": "5140",
+      "name": "Job Equipment - Sanitary Sewer",
+      "category": "Job Cost",
+      "description": "Job equipment by activity",
+      "active": true
+    },
+    {
+      "number": "5150",
+      "name": "Job Equipment - Storm Drainage",
+      "category": "Job Cost",
+      "description": "Job equipment by activity",
+      "active": true
+    },
+    {
+      "number": "5160",
+      "name": "Job Equipment - Conduit & Electrical",
+      "category": "Job Cost",
+      "description": "Job equipment by activity",
+      "active": true
+    },
+    {
+      "number": "5170",
+      "name": "Job Equipment - Aggregate & Stone",
+      "category": "Job Cost",
+      "description": "Job equipment by activity",
+      "active": true
+    },
+    {
+      "number": "5180",
+      "name": "Job Equipment - Concrete & Structures",
+      "category": "Job Cost",
+      "description": "Job equipment by activity",
+      "active": true
+    },
+    {
+      "number": "5190",
+      "name": "Job Equipment - Other",
+      "category": "Job Cost",
+      "description": "Job equipment by activity",
+      "active": true
+    },
+    {
+      "number": "5200",
+      "name": "Job Materials - Site Clearing",
+      "category": "Job Cost",
+      "description": "Job materials by activity",
+      "active": true
+    },
+    {
+      "number": "5210",
+      "name": "Job Materials - Earthwork",
+      "category": "Job Cost",
+      "description": "Job materials by activity",
+      "active": true
+    },
+    {
+      "number": "5220",
+      "name": "Job Materials - Erosion Control",
+      "category": "Job Cost",
+      "description": "Job materials by activity",
+      "active": true
+    },
+    {
+      "number": "5230",
+      "name": "Job Materials - Water Main",
+      "category": "Job Cost",
+      "description": "Job materials by activity",
+      "active": true
+    },
+    {
+      "number": "5240",
+      "name": "Job Materials - Sanitary Sewer",
+      "category": "Job Cost",
+      "description": "Job materials by activity",
+      "active": true
+    },
+    {
+      "number": "5250",
+      "name": "Job Materials - Storm Drainage",
+      "category": "Job Cost",
+      "description": "Job materials by activity",
+      "active": true
+    },
+    {
+      "number": "5260",
+      "name": "Job Materials - Conduit & Electrical",
+      "category": "Job Cost",
+      "description": "Job materials by activity",
+      "active": true
+    },
+    {
+      "number": "5270",
+      "name": "Job Materials - Aggregate & Stone",
+      "category": "Job Cost",
+      "description": "Job materials by activity",
+      "active": true
+    },
+    {
+      "number": "5280",
+      "name": "Job Materials - Concrete & Structures",
+      "category": "Job Cost",
+      "description": "Job materials by activity",
+      "active": true
+    },
+    {
+      "number": "5290",
+      "name": "Job Materials - Other",
+      "category": "Job Cost",
+      "description": "Job materials by activity",
+      "active": true
+    },
+    {
+      "number": "5300",
+      "name": "Subcontractor - General",
+      "category": "Job Cost",
+      "description": "Subcontractors",
+      "active": true
+    },
+    {
+      "number": "5310",
+      "name": "Subcontractor - Paving",
+      "category": "Job Cost",
+      "description": "Subcontractors",
+      "active": true
+    },
+    {
+      "number": "5320",
+      "name": "Subcontractor - Concrete",
+      "category": "Job Cost",
+      "description": "Subcontractors",
+      "active": true
+    },
+    {
+      "number": "5330",
+      "name": "Subcontractor - Electrical",
+      "category": "Job Cost",
+      "description": "Subcontractors",
+      "active": true
+    },
+    {
+      "number": "5340",
+      "name": "Subcontractor - Landscaping",
+      "category": "Job Cost",
+      "description": "Subcontractors",
+      "active": true
+    },
+    {
+      "number": "5350",
+      "name": "Subcontractor - Other",
+      "category": "Job Cost",
+      "description": "Subcontractors",
+      "active": true
+    },
+    {
+      "number": "5400",
+      "name": "Equipment Rental (3rd Party)",
+      "category": "Job Cost",
+      "description": "General equipment costs",
+      "active": true
+    },
+    {
+      "number": "5410",
+      "name": "Internal Equipment Charge (Owned)",
+      "category": "Job Cost",
+      "description": "General equipment costs",
+      "active": true
+    },
+    {
+      "number": "5420",
+      "name": "Field Repairs & Ground Engagement",
+      "category": "Job Cost",
+      "description": "General equipment costs",
+      "active": true
+    },
+    {
+      "number": "5430",
+      "name": "Lowboy Hauling & Transport",
+      "category": "Job Cost",
+      "description": "General equipment costs",
+      "active": true
+    },
+    {
+      "number": "5440",
+      "name": "Fuel & Oil - Field Equipment",
+      "category": "Job Cost",
+      "description": "General equipment costs",
+      "active": true
+    },
+    {
+      "number": "5450",
+      "name": "Small Tools & Consumables",
+      "category": "Job Cost",
+      "description": "General equipment costs",
+      "active": true
+    },
+    {
+      "number": "5500",
+      "name": "Permits & Fees",
+      "category": "Job Cost",
+      "description": "Other direct job costs",
+      "active": true
+    },
+    {
+      "number": "5510",
+      "name": "Testing & Inspection (3rd Party)",
+      "category": "Job Cost",
+      "description": "Other direct job costs",
+      "active": true
+    },
+    {
+      "number": "5520",
+      "name": "Survey (3rd Party)",
+      "category": "Job Cost",
+      "description": "Other direct job costs",
+      "active": true
+    },
+    {
+      "number": "5530",
+      "name": "Temporary Facilities & Utilities",
+      "category": "Job Cost",
+      "description": "Other direct job costs",
+      "active": true
+    },
+    {
+      "number": "5540",
+      "name": "Dump Fees & Disposal",
+      "category": "Job Cost",
+      "description": "Other direct job costs",
+      "active": true
+    },
+    {
+      "number": "5550",
+      "name": "Safety Supplies & Training",
+      "category": "Job Cost",
+      "description": "Other direct job costs",
+      "active": true
+    },
+    {
+      "number": "5560",
+      "name": "Other Direct Job Costs",
+      "category": "Job Cost",
+      "description": "Other direct job costs",
+      "active": true
+    },
+    {
+      "number": "6000",
+      "name": "Office Salaries & Wages",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6010",
+      "name": "Payroll Taxes - Employer",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6020",
+      "name": "Employee Benefits (Health, 401k)",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6030",
+      "name": "Workers Comp Insurance",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6100",
+      "name": "Office Rent / Yard Lease",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6110",
+      "name": "Office Utilities",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6120",
+      "name": "Office Supplies",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6130",
+      "name": "Postage & Shipping",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6200",
+      "name": "General Liability Insurance",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6210",
+      "name": "Auto / Equipment Insurance",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6220",
+      "name": "Builders Risk / Project Insurance",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6230",
+      "name": "Umbrella / Excess Liability",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6300",
+      "name": "Vehicle Expense - Reimbursement",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6310",
+      "name": "Fuel - Non-Job Vehicles",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6320",
+      "name": "Vehicle Maintenance - Non-Job",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6400",
+      "name": "Professional Fees - Accounting",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6410",
+      "name": "Professional Fees - Legal",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6420",
+      "name": "Professional Fees - Consulting",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6500",
+      "name": "Software & Subscriptions",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6510",
+      "name": "Phone & Internet",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6520",
+      "name": "IT Services",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6600",
+      "name": "Marketing & Advertising",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6610",
+      "name": "Meals & Entertainment",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6620",
+      "name": "Travel",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6700",
+      "name": "Licenses & Registrations",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6710",
+      "name": "Dues & Memberships",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6720",
+      "name": "Training & Education",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6800",
+      "name": "Depreciation Expense",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6810",
+      "name": "Bank Service Charges",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "6820",
+      "name": "Miscellaneous Expense",
+      "category": "Overhead",
+      "description": "Company overhead",
+      "active": true
+    },
+    {
+      "number": "7000",
+      "name": "Interest Expense",
+      "category": "Other Expense",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "7100",
+      "name": "Loss on Sale/Disposal of Assets",
+      "category": "Other Expense",
+      "description": "Financial statement / control account",
+      "active": true
+    },
+    {
+      "number": "7200",
+      "name": "Penalties & Fines",
+      "category": "Other Expense",
+      "description": "Financial statement / control account",
+      "active": true
+    }
+  ],
+  "monthEnd": [
+    {
+      "n": 1,
+      "title": "All vendor bills, receipts, checks, debit-card charges, and credit-card charges entered",
+      "status": "Not Started"
+    },
+    {
+      "n": 2,
+      "title": "All deposits, customer payments, refunds, and owner transactions entered",
+      "status": "Not Started"
+    },
+    {
+      "n": 3,
+      "title": "Every invoice split is fully allocated; Transactions Difference column is zero",
+      "status": "Not Started"
+    },
+    {
+      "n": 4,
+      "title": "PO exceptions and missing approvals reviewed",
+      "status": "Not Started"
+    },
+    {
+      "n": 5,
+      "title": "Operating-bank statement and check images attached",
+      "status": "Not Started"
+    },
+    {
+      "n": 6,
+      "title": "Payroll-bank statement attached",
+      "status": "Not Started"
+    },
+    {
+      "n": 7,
+      "title": "All credit-card statements and receipts attached",
+      "status": "Not Started"
+    },
+    {
+      "n": 8,
+      "title": "Open unpaid-bill / accounts-payable list prepared",
+      "status": "Not Started"
+    },
+    {
+      "n": 9,
+      "title": "Open customer-invoice / accounts-receivable list prepared",
+      "status": "Not Started"
+    },
+    {
+      "n": 10,
+      "title": "Payroll register and payroll-tax liability reports attached",
+      "status": "Not Started"
+    },
+    {
+      "n": 11,
+      "title": "Equipment loan and vehicle loan statements attached; principal and interest identified",
+      "status": "Not Started"
+    },
+    {
+      "n": 12,
+      "title": "Equipment purchases, sales, and disposals identified",
+      "status": "Not Started"
+    },
+    {
+      "n": 13,
+      "title": "Retainage receivable and retainage payable schedules updated",
+      "status": "Not Started"
+    },
+    {
+      "n": 14,
+      "title": "Underbilling / overbilling (WIP) schedule provided for active jobs",
+      "status": "Not Started"
+    },
+    {
+      "n": 15,
+      "title": "Inventory or significant unused materials identified",
+      "status": "Not Started"
+    },
+    {
+      "n": 16,
+      "title": "Owner contributions and owner draws identified",
+      "status": "Not Started"
+    },
+    {
+      "n": 17,
+      "title": "Job Costing report reviewed for each active job",
+      "status": "Not Started"
+    },
+    {
+      "n": 18,
+      "title": "Account Summary reviewed for missing or unusual account coding",
+      "status": "Not Started"
+    },
+    {
+      "n": 19,
+      "title": "Equipment Allocation marked Ready for Accountant and not double-counted",
+      "status": "Not Started"
+    },
+    {
+      "n": 20,
+      "title": "Accountant questions and final adjustment entries documented",
+      "status": "Not Started"
+    }
+  ],
+  "walkthrough": [
+    {
+      "heading": "OFFICE WORKFLOW \u2014 STEP BY STEP",
+      "body": ""
+    },
+    {
+      "heading": "This is the handoff guide for the person entering bills, cards, checks, deposits, and job-cost allocations.",
+      "body": ""
+    },
+    {
+      "heading": "Amounts in U.S. dollars unless otherwise noted.",
+      "body": ""
+    },
+    {
+      "heading": "1. ONE-TIME SETUP",
+      "body": ""
+    },
+    {
+      "heading": "Use Setup to maintain Jobs, Vendors, and Equipment. Equipment setup stores permanent facts only; never change its job or line item each time it moves.",
+      "body": ""
+    },
+    {
+      "heading": "2. WHEN AN INVOICE ARRIVES",
+      "body": ""
+    },
+    {
+      "heading": "Enter the vendor and invoice in Transactions. A PO is helpful for matching and approval, but it is not required just to record the invoice.",
+      "body": ""
+    },
+    {
+      "heading": "3. PO DECISION",
+      "body": ""
+    },
+    {
+      "heading": "Choose Matched to PO when one exists. Choose No PO Required for approved items that do not require a PO. Choose Missing - Get Approval when the purchase should have had a PO or approval is uncertain.",
+      "body": ""
+    },
+    {
+      "heading": "4. SPLIT THE INVOICE",
+      "body": ""
+    },
+    {
+      "heading": "Use one allocation row for each job/line item. Enter Invoice Total only on the first row. Repeat Vendor and Invoice # on every split row. Difference must equal zero.",
+      "body": ""
+    },
+    {
+      "heading": "5. EQUIPMENT USAGE",
+      "body": ""
+    },
+    {
+      "heading": "Equipment: enter one row per machine per stay on a job - start date, end date, job, machine. The cost is charged to that job. Line items are not used for equipment.",
+      "body": ""
+    },
+    {
+      "heading": "6. HAND TO ACCOUNTANT",
+      "body": ""
+    },
+    {
+      "heading": "The Transactions sheet is the accounting source. Equipment Allocation is a separate job-cost/reclassification schedule and must not be added a second time.",
+      "body": ""
+    },
+    {
+      "heading": "EXAMPLE \u2014 SEACOAST INVOICE FOR FERN HILL: WATER + SEWER MATERIALS",
+      "body": ""
+    },
+    {
+      "heading": "Assume Seacoast invoice SC-1001 totals $10,000.00: $6,000.00 is water-main material and $4,000.00 is sanitary-sewer material. There is no PO. Enter two allocation rows as shown. If the purchase was authorized and no PO is required, select No PO Required. If company policy expected a PO, select Missing - Get Approval.",
+      "body": ""
+    },
+    {
+      "heading": "Vendor",
+      "body": "Invoice #"
+    },
+    {
+      "heading": "Seacoast",
+      "body": "SC-1001"
+    },
+    {
+      "heading": "Seacoast",
+      "body": "SC-1001"
+    },
+    {
+      "heading": "Why these accounts: the line item 8\" DIP Water Main maps Materials to 5230, while 8\" PVC Sewer Main maps Materials to 5240. Both rows use Job = Fern Hill. The total allocations equal the $10,000.00 invoice, so Difference is zero.",
+      "body": ""
+    },
+    {
+      "heading": "Important accounting control: If the office records a rental invoice in Transactions and also records that machine in Equipment Allocation, the Equipment Allocation is a management/job-cost allocation schedule\u2014not a second expense. The accountant can use it to reclassify costs among line-item equipment accounts. Do not add it again to cash, AP, or total company expense.",
+      "body": ""
+    },
+    {
+      "heading": "7. REVIEW THE REPORTS",
+      "body": ""
+    },
+    {
+      "heading": "Use Job Costing to choose a job and see costs by line item. Use Account Summary to see totals by the full Chart of Accounts. Finish the Month-End Checklist before handing the workbook and source documents to the accountant.",
+      "body": ""
+    }
+  ],
+  "lists": {
+    "accounts": [
+      "1000 - Operating Checking Account",
+      "1010 - Payroll Checking Account",
+      "1050 - Petty Cash",
+      "1100 - Accounts Receivable",
+      "1150 - Retainage Receivable",
+      "1200 - Employee Advances",
+      "1250 - Prepaid Insurance",
+      "1260 - Prepaid Expenses - Other",
+      "1300 - Materials Inventory",
+      "1350 - Undeposited Funds",
+      "1400 - Cost in Excess of Billings (Underbilling)",
+      "1500 - Heavy Equipment & Machinery",
+      "1510 - Trucks & Trailers",
+      "1520 - Small Equipment & Tools",
+      "1530 - Office Equipment & Computers",
+      "1540 - Leasehold Improvements",
+      "1590 - Accumulated Depreciation",
+      "2000 - Accounts Payable",
+      "2050 - Retainage Payable",
+      "2100 - Credit Card - Company",
+      "2150 - Billings in Excess of Cost (Overbilling)",
+      "2200 - Payroll Liabilities",
+      "2210 - Federal Payroll Tax Payable",
+      "2220 - State Payroll Tax Payable",
+      "2250 - Sales Tax Payable",
+      "2300 - Accrued Expenses",
+      "2350 - Line of Credit",
+      "2500 - Equipment Loans",
+      "2510 - Vehicle Loans",
+      "2600 - Other Long-Term Debt",
+      "3000 - Owner's Equity / Capital",
+      "3100 - Owner's Draw",
+      "3200 - Retained Earnings",
+      "4000 - Contract Revenue",
+      "4100 - Change Order Revenue",
+      "4200 - T&M Revenue (Time & Materials)",
+      "4300 - Service & Repair Revenue",
+      "4900 - Other Income",
+      "4910 - Interest Income",
+      "5000 - Job Labor - Site Clearing",
+      "5010 - Job Labor - Earthwork",
+      "5020 - Job Labor - Erosion Control",
+      "5030 - Job Labor - Water Main",
+      "5040 - Job Labor - Sanitary Sewer",
+      "5050 - Job Labor - Storm Drainage",
+      "5060 - Job Labor - Conduit & Electrical",
+      "5070 - Job Labor - Aggregate & Stone",
+      "5080 - Job Labor - Concrete & Structures",
+      "5090 - Job Labor - Other",
+      "5100 - Job Equipment - Site Clearing",
+      "5110 - Job Equipment - Earthwork",
+      "5120 - Job Equipment - Erosion Control",
+      "5130 - Job Equipment - Water Main",
+      "5140 - Job Equipment - Sanitary Sewer",
+      "5150 - Job Equipment - Storm Drainage",
+      "5160 - Job Equipment - Conduit & Electrical",
+      "5170 - Job Equipment - Aggregate & Stone",
+      "5180 - Job Equipment - Concrete & Structures",
+      "5190 - Job Equipment - Other",
+      "5200 - Job Materials - Site Clearing",
+      "5210 - Job Materials - Earthwork",
+      "5220 - Job Materials - Erosion Control",
+      "5230 - Job Materials - Water Main",
+      "5240 - Job Materials - Sanitary Sewer",
+      "5250 - Job Materials - Storm Drainage",
+      "5260 - Job Materials - Conduit & Electrical",
+      "5270 - Job Materials - Aggregate & Stone",
+      "5280 - Job Materials - Concrete & Structures",
+      "5290 - Job Materials - Other",
+      "5300 - Subcontractor - General",
+      "5310 - Subcontractor - Paving",
+      "5320 - Subcontractor - Concrete",
+      "5330 - Subcontractor - Electrical",
+      "5340 - Subcontractor - Landscaping",
+      "5350 - Subcontractor - Other",
+      "5400 - Equipment Rental (3rd Party)",
+      "5410 - Internal Equipment Charge (Owned)",
+      "5420 - Field Repairs & Ground Engagement",
+      "5430 - Lowboy Hauling & Transport",
+      "5440 - Fuel & Oil - Field Equipment",
+      "5450 - Small Tools & Consumables",
+      "5500 - Permits & Fees",
+      "5510 - Testing & Inspection (3rd Party)",
+      "5520 - Survey (3rd Party)",
+      "5530 - Temporary Facilities & Utilities",
+      "5540 - Dump Fees & Disposal",
+      "5550 - Safety Supplies & Training",
+      "5560 - Other Direct Job Costs",
+      "6000 - Office Salaries & Wages",
+      "6010 - Payroll Taxes - Employer",
+      "6020 - Employee Benefits (Health, 401k)",
+      "6030 - Workers Comp Insurance",
+      "6100 - Office Rent / Yard Lease",
+      "6110 - Office Utilities",
+      "6120 - Office Supplies",
+      "6130 - Postage & Shipping",
+      "6200 - General Liability Insurance",
+      "6210 - Auto / Equipment Insurance",
+      "6220 - Builders Risk / Project Insurance",
+      "6230 - Umbrella / Excess Liability",
+      "6300 - Vehicle Expense - Non-Job",
+      "6310 - Fuel - Non-Job Vehicles",
+      "6320 - Vehicle Maintenance - Non-Job",
+      "6400 - Professional Fees - Accounting",
+      "6410 - Professional Fees - Legal",
+      "6420 - Professional Fees - Consulting",
+      "6500 - Software & Subscriptions",
+      "6510 - Phone & Internet",
+      "6520 - IT Services",
+      "6600 - Marketing & Advertising",
+      "6610 - Meals & Entertainment",
+      "6620 - Travel",
+      "6700 - Licenses & Registrations",
+      "6710 - Dues & Memberships",
+      "6720 - Training & Education",
+      "6800 - Depreciation Expense",
+      "6810 - Bank Service Charges",
+      "6820 - Miscellaneous Expense",
+      "7000 - Interest Expense",
+      "7100 - Loss on Sale/Disposal of Assets",
+      "7200 - Penalties & Fines"
+    ],
+    "sourceTypes": [
+      "Bill / Invoice",
+      "Credit Card Charge",
+      "Debit Card Charge",
+      "Check",
+      "Cash Purchase",
+      "ACH / Wire",
+      "Payroll",
+      "Deposit / Revenue",
+      "Refund",
+      "Journal Entry"
+    ],
+    "paymentMethods": [
+      "Unpaid / AP",
+      "Check",
+      "Credit Card",
+      "Debit Card",
+      "ACH / Wire",
+      "Cash",
+      "Auto-Pay",
+      "Deposit",
+      "Billed / AR"
+    ],
+    "costTypes": [
+      "Labor",
+      "Equipment",
+      "Materials",
+      "Subcontractor",
+      "Overhead",
+      "Revenue",
+      "Asset",
+      "Liability",
+      "Equity",
+      "Other Expense"
+    ],
+    "poStatuses": [
+      "Matched to PO",
+      "No PO Required",
+      "Missing - Get Approval",
+      "Pending Match",
+      "Not Applicable"
+    ],
+    "approvalStatuses": [
+      "Ready for Accountant",
+      "Needs Approval",
+      "Hold / Dispute",
+      "Paid",
+      "Entered Only"
+    ],
+    "ownership": [
+      "Owned",
+      "Rented",
+      "RPO"
+    ],
+    "equipmentTypes": [
+      "Excavator",
+      "Dozer",
+      "Loader",
+      "Backhoe",
+      "Skid Steer",
+      "Mini Excavator",
+      "Compactor",
+      "Roller",
+      "Dump Truck",
+      "Water Truck",
+      "Lowboy",
+      "Pickup Truck",
+      "Service Truck",
+      "Trailer",
+      "Generator",
+      "Pump",
+      "Laser / Survey",
+      "Plate Compactor",
+      "Trencher",
+      "Other"
+    ],
+    "vendorTypes": [
+      "Material Supplier",
+      "Equipment Rental",
+      "Fuel",
+      "Subcontractor",
+      "Utility",
+      "Insurance",
+      "Professional Service",
+      "Office / Overhead",
+      "Government / Permit",
+      "Other"
+    ],
+    "terms": [
+      "Due on Receipt",
+      "Net 10",
+      "Net 15",
+      "Net 30",
+      "Net 45",
+      "Net 60",
+      "Credit Card",
+      "COD",
+      "Other"
+    ]
+  },
+  "workingDaysPerMonth": 21.7,
+  "fuelPricePerGallon": 4.45
+}

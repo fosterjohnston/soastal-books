@@ -8,13 +8,12 @@ import { useBooks } from '@/store/BooksContext'
 const NAV = [
   { href: '/inbox', label: 'Inbox' },
   { href: '/transactions', label: 'Transactions' },
-  { href: '/bills', label: 'Bills (AP)' },
-  { href: '/invoices', label: 'Invoices (AR)' },
-  { href: '/jobs', label: 'Jobs' },
-  { href: '/vendors', label: 'Vendors' },
-  { href: '/reports', label: 'Reports' },
-  { href: '/files', label: 'Files' },
+  { href: '/job-line-items', label: 'Job Line Items' },
+  { href: '/cost-codes', label: 'Cost Codes' },
+  { href: '/opening-balances', label: 'Opening Balances' },
   { href: '/setup', label: 'Setup' },
+  { href: '/reports', label: 'Run Report' },
+  { href: '/files', label: 'Files' },
 ] as const
 
 export function OfficeNav() {
@@ -32,7 +31,10 @@ export function OfficeNav() {
       </div>
       <nav className="flex gap-1 overflow-x-auto p-2 md:flex-col md:overflow-visible md:px-3 md:py-4">
         {NAV.map((item) => {
-          const active = path === item.href || (item.href === '/transactions' && (path === '/' || path === ''))
+          const active =
+            path === item.href ||
+            (item.href === '/transactions' && (path === '/' || path === '')) ||
+            (item.href === '/reports' && path.startsWith('/reports'))
           return (
             <Link
               key={item.href}

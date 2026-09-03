@@ -16,6 +16,13 @@ import {
 } from '../engine'
 import { formatDate } from '../lib/utils'
 import { useBooks } from '../store/BooksContext'
+import {
+  APPROVAL_STATUS_LIST,
+  COST_TYPE_LIST,
+  PAYMENT_METHOD_LIST,
+  PO_STATUS_LIST,
+  SOURCE_TYPE_LIST,
+} from '../engine/lists'
 import { Badge, Button, Card, Field, Input, Select, Textarea } from '../components/ui'
 import { Money } from '../components/Money'
 
@@ -87,7 +94,9 @@ export function Ledger() {
   }
 
   const issues = selected ? validateDocument(books, selected.vendor, selected.invoiceNumber) : []
-  const lineItems = books.jobLineItems.filter((s) => !selected?.jobName || s.jobName === selected.jobName)
+  const sovItems = books.jobLineItems.filter((s) => !selected?.jobName || s.jobName === selected.jobName)
+  const sovNames = new Set(sovItems.map((s) => s.description))
+  const mappedExtras = books.lineItemMap.filter((m) => !sovNames.has(m.activity))
 
   return (
     <div className="flex flex-col gap-4">
@@ -235,11 +244,9 @@ export function Ledger() {
                 value={selected.sourceType}
                 onChange={(e) => patch({ sourceType: e.target.value as TransactionDraft['sourceType'] })}
               >
-                {['Bill / Invoice', 'Credit Card Charge', 'Debit Card Charge', 'Check', 'Cash Purchase', 'ACH / Wire', 'Payroll', 'Deposit / Revenue', 'Refund', 'Journal Entry'].map(
-                  (x) => (
+                {SOURCE_TYPE_LIST.map((x) => (
                     <option key={x}>{x}</option>
-                  ),
-                )}
+                  ))}
               </Select>
             </Field>
             <Field label="Invoice Date">
@@ -253,9 +260,12 @@ export function Ledger() {
                 value={selected.paymentMethod}
                 onChange={(e) => patch({ paymentMethod: e.target.value as TransactionDraft['paymentMethod'] })}
               >
-                {books.paymentMethodMap.map((p) => (
-                  <option key={p.paymentMethod}>{p.paymentMethod}</option>
+                {PAYMENT_METHOD_LIST.map((p) => (
+                  <option key={p}>{p}</option>
                 ))}
+                {selected.paymentMethod && !PAYMENT_METHOD_LIST.includes(selected.paymentMethod as (typeof PAYMENT_METHOD_LIST)[number]) ? (
+                  <option value={selected.paymentMethod}>{selected.paymentMethod}</option>
+                ) : null}
               </Select>
             </Field>
             <Field label="Check / Ref #">
@@ -292,29 +302,36 @@ export function Ledger() {
                 value={selected.costType}
                 onChange={(e) => patch({ costType: e.target.value as TransactionDraft['costType'] })}
               >
-                {['Labor', 'Equipment', 'Materials', 'Subcontractor', 'Overhead', 'Revenue', 'Asset', 'Liability', 'Equity', 'Other Expense'].map(
-                  (x) => (
+                {COST_TYPE_LIST.map((x) => (
                     <option key={x}>{x}</option>
-                  ),
-                )}
+                  ))}
               </Select>
             </Field>
-            <Field label="Line Item / Activity">
+            <Field label="Line Item / Activity" hint="Dropdown is the Line Item Map. On-this-job items listed first. Autofill Suggested Account for Labor / Equipment / Materials.">
               <Select value={selected.lineItem} onChange={(e) => patch({ lineItem: e.target.value })}>
                 <option value="">(none)</option>
-                {lineItems.map((s) => (
-                  <option key={s.id} value={s.description}>
-                    {s.itemNumber}. {s.description}
-                  </option>
-                ))}
+                <optgroup label="On this job">
+                  {sovItems.map((s) => (
+                    <option key={s.id} value={s.description}>
+                      {s.description}
+                    </option>
+                  ))}
+                </optgroup>
+                <optgroup label="All cost codes">
+                  {mappedExtras.map((m) => (
+                    <option key={m.id} value={m.activity}>
+                      {m.activity}
+                    </option>
+                  ))}
+                </optgroup>
               </Select>
             </Field>
-            <Field label="Equipment">
+            <Field label="Equipment" hint="Optional. Named list from Setup.">
               <Select value={selected.equipmentUnit} onChange={(e) => patch({ equipmentUnit: e.target.value })}>
                 <option value="">(none)</option>
                 {books.equipment.map((e) => (
-                  <option key={e.id} value={e.unitNumber}>
-                    {e.unitNumber} {e.name}
+                  <option key={e.id} value={e.name}>
+                    {e.name}
                   </option>
                 ))}
               </Select>
@@ -329,7 +346,7 @@ export function Ledger() {
                 ))}
               </Select>
             </Field>
-            <Field label="Suggested Account">
+            <Field label="Suggested Account" hint="Autofill from Line Item Map (Labor / Equipment / Materials) or vendor default.">
               <Input readOnly value={computed.suggestedAccount} className="bg-paper-2" />
             </Field>
             <Field label="Final Account">
@@ -340,11 +357,9 @@ export function Ledger() {
                 value={selected.poStatus}
                 onChange={(e) => patch({ poStatus: e.target.value as TransactionDraft['poStatus'] })}
               >
-                {['Matched to PO', 'No PO Required', 'Missing - Get Approval', 'Pending Match', 'Not Applicable'].map(
-                  (x) => (
+                {PO_STATUS_LIST.map((x) => (
                     <option key={x}>{x}</option>
-                  ),
-                )}
+                  ))}
               </Select>
             </Field>
             <Field label="PO #">
@@ -355,7 +370,7 @@ export function Ledger() {
                 value={selected.approvalStatus}
                 onChange={(e) => patch({ approvalStatus: e.target.value as TransactionDraft['approvalStatus'] })}
               >
-                {['Ready for Accountant', 'Needs Approval', 'Hold / Dispute', 'Paid', 'Entered Only'].map((x) => (
+                {APPROVAL_STATUS_LIST.map((x) => (
                   <option key={x}>{x}</option>
                 ))}
               </Select>
@@ -389,6 +404,9 @@ export function Ledger() {
               <Textarea value={selected.notes} onChange={(e) => patch({ notes: e.target.value })} />
             </Field>
           </div>
+            <Field label="Line Item on This Job?">
+              <Input readOnly value={computed.lineItemOnThisJob} className="bg-paper-2" />
+            </Field>
           {issues.length ? (
             <ul className="mt-3 space-y-1 text-sm">
               {issues.map((i, idx) => (

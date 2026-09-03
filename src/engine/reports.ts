@@ -3,7 +3,6 @@ import {
   AP_ACCOUNT,
   AR_ACCOUNT,
   CASH_OFFSET_ACCOUNTS,
-  FUEL_USD_PER_GALLON,
   type Account,
   type CompanyBooks,
   type LedgerRow,
@@ -434,41 +433,12 @@ export function wip(books: CompanyBooks, asOf: string): WipRow[] {
     })
 }
 
-export type EquipmentMemo = {
-  id: string
-  date: string
-  jobName: string
-  equipmentName: string
-  unitNumber: string
-  hours: number
-  internalCharge: number
-  fuelGallons: number
-  fuelCost: number
-  totalMemo: number
-  notes: string
-}
+import { computeEquipmentAllocations, type EquipmentComputed } from './equipment'
+
+export type EquipmentMemo = EquipmentComputed
 
 export function equipmentMemos(books: CompanyBooks): EquipmentMemo[] {
-  return books.equipmentAllocations.map((a) => {
-    const eq = books.equipment.find((e) => e.id === a.equipmentId)
-    const hours = a.hours
-    const internalCharge = money(hours * (eq?.internalRatePerHour ?? 0))
-    const fuelGallons = money(hours * (eq?.burnGalPerHour ?? 0))
-    const fuelCost = money(fuelGallons * FUEL_USD_PER_GALLON)
-    return {
-      id: a.id,
-      date: a.date,
-      jobName: a.jobName,
-      equipmentName: eq?.name ?? a.equipmentId,
-      unitNumber: eq?.unitNumber ?? '',
-      hours,
-      internalCharge,
-      fuelGallons,
-      fuelCost,
-      totalMemo: money(internalCharge + fuelCost),
-      notes: a.notes,
-    }
-  })
+  return computeEquipmentAllocations(books)
 }
 
 export const MONTH_END_CHECKLIST: { id: string; title: string; detail: string; owner: string }[] = [

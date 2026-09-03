@@ -117,7 +117,7 @@ function guessCostType(hay: string, vendorType?: string): CostType {
   const n = hay.toLowerCase()
   if (/subcontractor|paving sub|concrete sub|landscape/.test(n) || vendorType === 'Subcontractor') return 'Subcontractor'
   if (/labor|payroll|adp/.test(n) || vendorType === 'Payroll') return 'Labor'
-  if (/equip|rental|excavator|dozer/.test(n) || vendorType === 'Equipment Dealer') return 'Equipment'
+  if (/equip|rental|excavator|dozer/.test(n) || vendorType === 'Equipment Dealer' || vendorType === 'Equipment Rental') return 'Equipment'
   if (/overhead|office|insurance|rent|accountant/.test(n) || vendorType === 'Overhead' || vendorType === 'Professional') {
     return 'Overhead'
   }
@@ -167,7 +167,7 @@ export function proposeCoding(books: CompanyBooks, hints: IntakeHints): CodingPr
         ? `${vendor.defaultAccount}`
         : '5300'
       : costType === 'Overhead'
-        ? vendor?.defaultAccount ?? '6500'
+        ? vendor?.defaultAccount ?? '6120'
         : costType === 'Revenue'
           ? '4000 - Construction Revenue'
           : ''

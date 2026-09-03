@@ -36,6 +36,8 @@ export {
   overrideShouldBeBlank,
   parseAccountNumber,
   suggestedAccountForRow,
+  findLineItemMap,
+  normLabel,
 } from './formulas'
 export {
   canPost,
@@ -66,4 +68,19 @@ export {
   trialBalances,
   wip,
 } from './reports'
+export {
+  accountantHandoff,
+  accountSummary,
+  balanceSheetMonthly,
+  cashFlowStatement,
+  coaReport,
+  costCodesForJob,
+  jobCostByLineItem,
+  monthColumns,
+  pnlGrid,
+  summarizeAging,
+  sovContractValue,
+} from './workbook-reports'
+export { computeEquipmentAllocations, computeEquipmentRow, networkDays } from './equipment'
+export { REPORTS, type ReportId } from './lists'
 export * from './types'

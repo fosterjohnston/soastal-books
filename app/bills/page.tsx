@@ -1,7 +1,5 @@
-'use client'
+import { redirect } from 'next/navigation'
 
-import { Aging } from '@/screens/Aging'
-
-export default function BillsPage() {
-  return <Aging mode="ap" />
+export default function BillsRedirect() {
+  redirect('/reports?report=ap-aging')
 }

@@ -5,6 +5,7 @@ import {
   COST_TYPES_USING_LINE_MAP,
   type Account,
   type CompanyBooks,
+  type LineItemMapRow,
   type ComputedFields,
   type LedgerRow,
   type PaymentMethod,
@@ -41,9 +42,19 @@ export function offsetForPaymentMethod(
   books: CompanyBooks,
   method: PaymentMethod,
 ): { number: string; label: string } {
-  const row = books.paymentMethodMap.find((r) => r.paymentMethod === method)
+  const aliases: Record<string, PaymentMethod> = {
+    ACH: 'ACH / Wire',
+    Wire: 'ACH / Wire',
+    'ACH / Wire': 'ACH / Wire',
+  }
+  const key = aliases[method] ?? method
+  const row =
+    books.paymentMethodMap.find((r) => r.paymentMethod === method) ??
+    books.paymentMethodMap.find((r) => r.paymentMethod === key)
   if (!row) return { number: '', label: '' }
-  return { number: parseAccountNumber(row.offsetAccount), label: `${row.offsetAccount} - ${row.offsetName}` }
+  const num = parseAccountNumber(row.offsetAccount)
+  const name = row.offsetName || findAccount(books, num)?.name || ''
+  return { number: num, label: name ? `${num} - ${name}` : num }
 }
 
 export function findAccount(books: CompanyBooks, numberOrLabel: string): Account | undefined {
@@ -51,13 +62,20 @@ export function findAccount(books: CompanyBooks, numberOrLabel: string): Account
   return books.chartOfAccounts.find((a) => a.number === num)
 }
 
+export function normLabel(s: string): string {
+  return s.replace(/\s+/g, ' ').trim().toLowerCase()
+}
+
+export function findLineItemMap(books: CompanyBooks, lineItem: string): LineItemMapRow | undefined {
+  const want = normLabel(lineItem)
+  if (!want) return undefined
+  return books.lineItemMap.find((m) => normLabel(m.activity) === want)
+}
+
+/** Excel Q: Materials looks up Materials|item; Labor/Equipment MATCH line item on Setup C. */
 export function suggestedAccountForRow(books: CompanyBooks, row: TransactionDraft): string {
-  if (COST_TYPES_USING_LINE_MAP.includes(row.costType) && row.jobName && row.lineItem) {
-    const sov = books.jobLineItems.find(
-      (s) => s.jobName === row.jobName && (s.description === row.lineItem || s.itemNumber === row.lineItem),
-    )
-    const activity = sov?.activity ?? row.lineItem
-    const map = books.lineItemMap.find((m) => m.activity === activity || m.activity === row.lineItem)
+  if (COST_TYPES_USING_LINE_MAP.includes(row.costType) && row.lineItem) {
+    const map = findLineItemMap(books, row.lineItem)
     if (map) {
       if (row.costType === 'Labor') return map.laborAccount
       if (row.costType === 'Equipment') return map.equipmentAccount
@@ -113,12 +131,12 @@ export function computeRow(books: CompanyBooks, row: TransactionDraft, all: Tran
       ? books.jobLineItems.some(
           (s) =>
             s.jobName === row.jobName &&
-            (s.description === row.lineItem || s.itemNumber === row.lineItem),
+            (normLabel(s.description) === normLabel(row.lineItem) || s.itemNumber === row.lineItem),
         )
         ? 'Yes'
         : row.jobName === 'N/A - Overhead'
           ? 'Overhead'
-          : 'No'
+          : 'NOT ON THIS JOB'
       : ''
   const fa = findAccount(books, finalAcct)
   const oa = findAccount(books, offsetAcct)

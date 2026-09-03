@@ -45,7 +45,7 @@ describe('sign convention', () => {
     expect(ledger.find((r) => r.id === 't1')!.allocationAmount).toBeGreaterThan(0)
     expect(ledger.find((r) => r.id === 't2')!.allocationAmount).toBeLessThan(0)
     const bals = trialBalances(b)
-    const mat = bals.find((a) => a.number === '5240') // ABC stone → Paving / Roadway materials
+    const mat = bals.find((a) => a.number === '5270')
     const rev = bals.find((a) => a.number === '4000')
     expect(mat?.amount).toBe(100)
     expect(rev?.amount).toBe(-500)
@@ -72,7 +72,7 @@ describe('accrual unpaid bill then payment', () => {
     })
     b = upsertTransactions(b, [bill])
     const afterBill = trialBalances(b)
-    expect(afterBill.find((a) => a.number === '5240')?.amount).toBe(1000)
+    expect(afterBill.find((a) => a.number === '5270')?.amount).toBe(1000)
     expect(afterBill.find((a) => a.number === AP_ACCOUNT)?.amount).toBe(-1000)
     expect(afterBill.find((a) => a.number === '1000')?.amount ?? 0).toBe(0)
     const aging = apAging(b, '2026-08-15')
@@ -101,7 +101,7 @@ describe('accrual unpaid bill then payment', () => {
     const afterPay = trialBalances(b)
     expect(afterPay.find((a) => a.number === AP_ACCOUNT)?.amount ?? 0).toBe(0)
     expect(afterPay.find((a) => a.number === '1000')?.amount).toBe(-1000)
-    expect(afterPay.find((a) => a.number === '5240')?.amount).toBe(1000)
+    expect(afterPay.find((a) => a.number === '5270')?.amount).toBe(1000)
     const costAfterPay = jobCosting(b).find((j) => j.jobName === 'Fern Hill')!.materials
     expect(costAfterPay).toBe(costAfterBill)
     expect(apAging(b, '2026-08-21').filter((r) => r.invoiceNumber === 'VM-1')).toHaveLength(0)
@@ -235,7 +235,7 @@ describe('posting gates', () => {
       allocationAmount: 10,
       jobName: 'N/A - Overhead',
       costType: 'Overhead',
-      overrideAccount: '6500',
+      overrideAccount: '6120',
       approvalStatus: 'Paid',
       paidDate: '',
       checkRef: '',
@@ -255,7 +255,7 @@ describe('posting gates', () => {
       allocationAmount: 10,
       jobName: 'N/A - Overhead',
       costType: 'Overhead',
-      overrideAccount: '6500',
+      overrideAccount: '6120',
       posted: true,
       approvalStatus: 'Ready for Accountant',
     })
