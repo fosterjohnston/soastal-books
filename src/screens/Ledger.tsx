@@ -2,12 +2,18 @@
 
 import { useMemo, useState } from 'react'
 import {
+  allocationHint,
   applyDerivedOverride,
   askFosterReview,
   canPost,
   computeLedger,
   emptyDraft,
   FORMULA_COLUMNS,
+  invoiceNumberHint,
+  invoiceTotalHint,
+  moneyDirection,
+  overrideHint,
+  paymentMethodHint,
   postDocument,
   removeTransactions,
   type TransactionDraft,
@@ -111,8 +117,9 @@ export function Ledger() {
         <div>
           <h1 className="font-serif text-3xl">Transactions</h1>
           <p className="max-w-2xl text-sm text-ink-2">
-            Keith’s ledger. What it is and Payment Method come from the workbook lists. Payment Method sets the
-            offset. Formula columns autofill. Invoice Total on the first split only. Foster does not have to approve.
+            Keith’s ledger. Same cheat sheet: money out is positive, money in is negative — that signed amount goes in
+            Invoice Total (first split only). Payment Method sets the offset. Formula columns autofill. Foster does
+            not have to approve.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -244,7 +251,7 @@ export function Ledger() {
                 ))}
               </Select>
             </Field>
-            <Field label="Invoice / Receipt #" hint="One document = one number. Payments append -PMT.">
+            <Field label="Invoice / Receipt #" hint={invoiceNumberHint()}>
               <Input value={selected.invoiceNumber} onChange={(e) => patch({ invoiceNumber: e.target.value })} />
             </Field>
             <Field label="Source Type">
@@ -263,7 +270,7 @@ export function Ledger() {
             <Field label="Due Date">
               <Input type="date" value={selected.dueDate} onChange={(e) => patch({ dueDate: e.target.value })} />
             </Field>
-            <Field label="Payment Method" hint="Sets the offset. Do not type Offset Account.">
+            <Field label="Payment Method" hint={paymentMethodHint(computed.offsetAccount)}>
               <Select
                 value={selected.paymentMethod}
                 onChange={(e) => patch({ paymentMethod: e.target.value as TransactionDraft['paymentMethod'] })}
@@ -279,7 +286,7 @@ export function Ledger() {
             <Field label="Check / Ref #">
               <Input value={selected.checkRef} onChange={(e) => patch({ checkRef: e.target.value })} />
             </Field>
-            <Field label="Invoice Total" hint="Control total. First split only.">
+            <Field label="Invoice Total" hint={invoiceTotalHint(moneyDirection(selected))}>
               <Input
                 type="number"
                 step="0.01"
@@ -287,7 +294,7 @@ export function Ledger() {
                 onChange={(e) => patch({ invoiceTotal: e.target.value === '' ? 0 : Number(e.target.value) })}
               />
             </Field>
-            <Field label="Allocation Amount" hint="Money out +. Money in −.">
+            <Field label="Allocation Amount" hint={allocationHint(moneyDirection(selected))}>
               <Input
                 type="number"
                 step="0.01"
@@ -344,7 +351,7 @@ export function Ledger() {
                 ))}
               </Select>
             </Field>
-            <Field label="Override Account" hint="Derived from what it is, payment method, and cost type. Blank when the Line Item Map fills Labor / Equipment / Materials.">
+            <Field label="Override Account" hint={overrideHint()}>
               <Select value={selected.overrideAccount} onChange={(e) => patch({ overrideAccount: e.target.value })}>
                 <option value=""></option>
                 {books.chartOfAccounts.map((a) => (

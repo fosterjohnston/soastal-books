@@ -11,7 +11,8 @@ export function SeedLedgerTable() {
         <h1 className="font-serif text-3xl">Transactions</h1>
         <p className="max-w-2xl text-sm text-ink-2">
           Keith’s company ledger. Invoice total on the first split only. Formula columns (Final acct, Offset, Diff)
-          are computed. Money out +, money in −. Unpaid / AP offsets 2000. Pay later as invoice-PMT, Job blank,
+          are computed. Cheat sheet: money out +, money in − — that signed amount goes in Invoice Total. Unpaid / AP
+          offsets 2000. Pay later as invoice-PMT, Job blank,
           Liability, override 2000.
         </p>
       </div>

@@ -224,7 +224,17 @@ export const MONTH_END_ITEMS: MonthEndItem[] = master.monthEnd.map((m, i) => ({
   accountantFollowUp: '',
 }))
 
-export const WALKTHROUGH = master.walkthrough
+export const WALKTHROUGH = [
+  {
+    heading: 'The two rules everything hangs on',
+    body: '1. Sign. Money out is positive. Money in is negative. Always. A $500 bill is 500. A $500 check from a client is -500. That number goes in Invoice Total (control total on the first split only). 2. Payment Method sets the other side. You never type the offset account.',
+  },
+  {
+    heading: 'The four questions, in order',
+    body: '1. Which direction is the money going? Out is positive, in is negative. 2. How did it move? Payment Method sets the offset. 3. Is it a job cost? If yes, Job + Line Item; Override stays blank. If no, pick Override Account. 4. Does Difference read zero?',
+  },
+  ...master.walkthrough,
+]
 export const WORKBOOK_LISTS = master.lists
 export const DEFAULT_SETTINGS = {
   workingDaysPerMonth: master.workingDaysPerMonth,

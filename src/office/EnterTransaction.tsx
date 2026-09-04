@@ -2,17 +2,26 @@
 
 import { useMemo, useState } from 'react'
 import {
+  allocationHint,
   buildSplitDocument,
   canPost,
+  CHEAT_SHEET_QUESTIONS,
+  CHEAT_SHEET_RULES,
   deriveAccount,
   displayAccount,
   documentDifference,
   emptyDraft,
+  invoiceNumberHint,
+  invoiceTotalHint,
   isPaidPaymentMethod,
   money,
+  moneyDirection,
   offsetLabel,
+  overrideHint,
   paymentForSource,
+  paymentMethodHint,
   postDocument,
+  signMismatchMessage,
   upsertTransactions,
   type CostType,
   type PaymentMethod,
@@ -61,6 +70,11 @@ export function EnterTransaction() {
   const allocations = splits.map((s) => Number(s.amount) || 0)
   const difference = documentDifference(Number.isFinite(control) ? control : 0, allocations)
   const offset = method ? offsetLabel(books, method) : ''
+  const direction = moneyDirection({
+    sourceType,
+    paymentMethod: method,
+    costType: splits[0]?.costType,
+  })
 
   function lineItemsFor(jobName: string): { onJob: string[]; extras: string[] } {
     const onJob = books.jobLineItems.filter((s) => s.jobName === jobName).map((s) => s.description)
@@ -108,6 +122,8 @@ export function EnterTransaction() {
       list.push('Invoice total is the control total for the whole document.')
     }
     if (method === 'Check' && !checkRef.trim()) list.push('A check needs the check number.')
+    const totalSign = signMismatchMessage(control, direction, 'Invoice total')
+    if (totalSign) list.push(totalSign)
     if (Number.isFinite(control) && control !== 0 && Math.abs(difference) > 0.005) {
       list.push(`Difference must be 0 (now ${difference.toFixed(2)}). Split amounts have to add up to the invoice total.`)
     }
@@ -117,6 +133,9 @@ export function EnterTransaction() {
       if (!split.amount.trim() || !Number.isFinite(amt) || amt === 0) {
         list.push(`Split ${i + 1} needs an allocation amount.`)
       }
+      const splitDir = moneyDirection({ sourceType, paymentMethod: method, costType: split.costType })
+      const splitSign = signMismatchMessage(amt, splitDir, 'Split')
+      if (splitSign) list.push(`Split ${i + 1}: ${splitSign}`)
       const d = deriveAccount(books, {
         sourceType,
         paymentMethod: method,
@@ -136,7 +155,7 @@ export function EnterTransaction() {
       }
     }
     return list
-  }, [books, checkRef, control, difference, invoice, invoiceTotal, method, sourceType, splits, vendor])
+  }, [books, checkRef, control, difference, direction, invoice, invoiceTotal, method, sourceType, splits, vendor])
 
   function postRow() {
     setMessage('')
@@ -204,11 +223,25 @@ export function EnterTransaction() {
       <div>
         <h2 className="font-serif text-xl">Enter a transaction</h2>
         <p className="mt-1 max-w-3xl text-sm text-ink-2">
-          One document, one invoice / check number. Invoice total is the control total. Add a split for each place the
-          money goes (sewer vs water, or four $50k lines on a $200k bill). Payment method sets the offset — Unpaid / AP
-          is 2000, Billed / AR is 1100, check / ACH / debit / deposit is cash. Account is derived before you post;
-          change it if it is wrong. Keith posts.
+          Same rules as the Transaction cheat sheet. Invoice total is the control total — money out is positive, money
+          in is negative. Add a split for each place the money goes (sewer vs water, or four $50k lines on a $200k
+          bill). Payment method sets the offset. Account is derived before you post; change it if it is wrong. Keith
+          posts.
         </p>
+        <details className="mt-3 rounded-lg border border-line bg-paper p-3">
+          <summary className="cursor-pointer text-sm font-semibold">Transaction cheat sheet</summary>
+          <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-ink-2">
+            {CHEAT_SHEET_RULES.map((rule) => (
+              <li key={rule}>{rule}</li>
+            ))}
+          </ol>
+          <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-ink-2">The four questions</p>
+          <ol className="mt-1 list-decimal space-y-1 pl-5 text-sm text-ink-2">
+            {CHEAT_SHEET_QUESTIONS.map((q) => (
+              <li key={q}>{q}</li>
+            ))}
+          </ol>
+        </details>
       </div>
       <div className="mt-3 grid gap-3 md:grid-cols-3 lg:grid-cols-4">
         <Field label="What it is">
@@ -219,7 +252,7 @@ export function EnterTransaction() {
             ))}
           </Select>
         </Field>
-        <Field label="Payment method" hint={offset ? `Offset ${offset}` : 'Sets the offset'}>
+        <Field label="Payment method" hint={paymentMethodHint(offset)}>
           <Select value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value as PaymentMethod | '')}>
             <option value="">Select…</option>
             {PAYMENT_METHOD_LIST.map((p) => (
@@ -237,8 +270,8 @@ export function EnterTransaction() {
             ))}
           </Select>
         </Field>
-        <Field label="Invoice / receipt #">
-          <Input value={invoice} onChange={(e) => setInvoice(e.target.value)} placeholder="INV-1042" />
+        <Field label="Invoice / receipt #" hint={invoiceNumberHint()}>
+          <Input value={invoice} onChange={(e) => setInvoice(e.target.value)} autoComplete="off" placeholder="" />
         </Field>
         <Field label="Invoice date">
           <Input type="date" value={invoiceDate} onChange={(e) => setInvoiceDate(e.target.value)} />
@@ -249,16 +282,17 @@ export function EnterTransaction() {
           </Field>
         ) : null}
         {showRef ? (
-          <Field label="Check / ACH / ref #" hint={method === 'Check' ? 'Required for a check' : 'Optional'}>
-            <Input value={checkRef} onChange={(e) => setCheckRef(e.target.value)} placeholder="" />
+          <Field label="Check / ACH / ref #" hint={method === 'Check' ? 'Required for a check. Leave blank on unpaid AP.' : 'Optional. Leave blank on unpaid AP.'}>
+            <Input value={checkRef} onChange={(e) => setCheckRef(e.target.value)} autoComplete="off" placeholder="" />
           </Field>
         ) : null}
-        <Field label="Invoice total" hint="Control total for the whole bill or check">
+        <Field label="Invoice total" hint={invoiceTotalHint(direction)}>
           <Input
             type="number"
             step="0.01"
             value={invoiceTotal}
             placeholder=""
+            autoComplete="off"
             onChange={(e) => setInvoiceTotal(e.target.value)}
           />
         </Field>
@@ -272,9 +306,9 @@ export function EnterTransaction() {
           </Button>
         </div>
         <p className="mb-2 text-sm text-ink-2">
-          Standing rules: same invoice / check number on every split. Invoice total on the document once. Difference
-          must be 0. A $200,000 check that is $100,000 sewer and $100,000 water is two rows. A $200,000 invoice split
-          four ways is four rows.
+          Standing rules: same invoice / check number on every split. Invoice total on the document once, same sign as
+          the money (out +, in −). Difference must be 0. A $200,000 check that is $100,000 sewer and $100,000 water is
+          two rows. A $200,000 invoice split four ways is four rows.
         </p>
         <div className="space-y-3">
           {splits.map((split, index) => {
@@ -350,7 +384,7 @@ export function EnterTransaction() {
                       </optgroup>
                     </Select>
                   </Field>
-                  <Field label="Amount" hint="This split only">
+                  <Field label="Amount" hint={allocationHint(moneyDirection({ sourceType, paymentMethod: method, costType: split.costType }))}>
                     <Input
                       type="number"
                       step="0.01"
@@ -361,7 +395,7 @@ export function EnterTransaction() {
                   </Field>
                   <Field
                     label="Override Account"
-                    hint={d?.reason || 'Derived before you post. Change it if it is wrong.'}
+                    hint={overrideHint(d?.reason)}
                   >
                     <Select
                       value={shown}

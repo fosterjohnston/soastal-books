@@ -25,7 +25,7 @@ AI coding is later. This base is the workbook: codes, dropdowns, autofills.
 
 ## Accrual
 
-- Money **out** is positive. Money **in** is negative.
+- Money **out** is positive. Money **in** is negative. A $500 bill is `500`. A $500 client check is `-500`. That signed amount goes in **Invoice Total** (control total, first split only).
 - **Payment Method** sets the offset. Unpaid / AP → 2000. Billed / AR → 1100. Check/Debit/ACH/Wire/Deposit → 1000.
 - Vendor bill: Unpaid / AP hits job cost and AP immediately. Pay later: invoice `-PMT`, Job blank, Liability, override 2000.
 - Invoice Total is a control total on the first split only. Difference must be 0. A $200k check that is $100k sewer and $100k water is two rows with the same check number. A $200k invoice split four ways is four rows.

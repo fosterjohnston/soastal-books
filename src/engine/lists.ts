@@ -191,7 +191,7 @@ export const REPORTS = [
   {
     id: 'walkthrough',
     label: 'Walkthrough',
-    blurb: 'Office workflow: setup, invoices, POs, splits, payments.',
+    blurb: 'Cheat sheet: money out +, money in −. Then setup, invoices, POs, splits, payments.',
   },
   {
     id: 'chart-of-accounts',
