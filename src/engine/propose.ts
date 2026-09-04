@@ -1,3 +1,4 @@
+import { deriveAccount } from './accounts'
 import { computeRow } from './formulas'
 import { emptyDraft, newId } from './posting'
 import type {
@@ -161,16 +162,16 @@ export function proposeCoding(books: CompanyBooks, hints: IntakeHints): CodingPr
   const lineItem = matchLineItem(books, jobName, hay, costType)
   const paymentMethod: PaymentMethod = isRevenue ? 'Billed / AR' : 'Unpaid / AP'
   const sourceType: SourceType = kind === 'po' ? 'Bill / Invoice' : isRevenue ? 'Bill / Invoice' : 'Bill / Invoice'
-  const overrideAccount =
-    costType === 'Subcontractor'
-      ? vendor?.defaultAccount
-        ? `${vendor.defaultAccount}`
-        : '5300'
-      : costType === 'Overhead'
-        ? vendor?.defaultAccount ?? '6120'
-        : costType === 'Revenue'
-          ? '4000 - Construction Revenue'
-          : ''
+  const derived = deriveAccount(books, {
+    sourceType,
+    paymentMethod,
+    costType,
+    vendor: vendorHit.name,
+    jobName,
+    lineItem,
+    invoiceNumber: parseInvoice(hints, hay, kind),
+  })
+  const overrideAccount = derived.shouldBeBlank ? '' : derived.account
 
   const draft: TransactionDraft = emptyDraft({
     vendor: vendorHit.name,

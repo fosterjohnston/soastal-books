@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import {
+  applyDerivedOverride,
   askFosterReview,
   canPost,
   computeLedger,
@@ -53,7 +54,16 @@ export function Ledger() {
 
   function patch(p: Partial<TransactionDraft>) {
     if (!selected) return
-    setBooks(upsertTransactions(books, [{ ...selected, ...p, posted: false }]))
+    const next = { ...selected, ...p, posted: false }
+    const userSetOverride = 'overrideAccount' in p
+    const codingChanged = (
+      ['sourceType', 'paymentMethod', 'costType', 'vendor', 'jobName', 'lineItem', 'invoiceNumber'] as const
+    ).some((k) => k in p)
+    if (userSetOverride || !codingChanged) {
+      setBooks(upsertTransactions(books, [next]))
+      return
+    }
+    setBooks(upsertTransactions(books, [applyDerivedOverride(books, next, false)]))
   }
 
   function addRow(split: boolean) {
@@ -66,9 +76,10 @@ export function Ledger() {
       invoiceDate: split && base ? base.invoiceDate : emptyDraft().invoiceDate,
       dueDate: split && base ? base.dueDate : emptyDraft().dueDate,
       paymentMethod: split && base ? base.paymentMethod : 'Unpaid / AP',
+      checkRef: split && base ? base.checkRef : '',
       jobName: split && base ? base.jobName : '',
       costType: split && base ? base.costType : 'Materials',
-      invoiceTotal: split ? 0 : 0,
+      invoiceTotal: 0,
       poStatus: split && base ? base.poStatus : 'No PO Required',
     })
     setBooks(upsertTransactions(books, [row]))
@@ -213,7 +224,7 @@ export function Ledger() {
               <Button variant="ghost" onClick={() => setBooks(removeTransactions(books, [selected.id]))}>
                 Delete
               </Button>
-              <Button onClick={onPost} disabled={selected.posted}>
+              <Button onClick={onPost} disabled={selected.posted || Math.abs(computed.difference) > 0.005}>
                 {selected.posted ? 'Posted' : 'Post document'}
               </Button>
             </div>
@@ -272,16 +283,16 @@ export function Ledger() {
               <Input
                 type="number"
                 step="0.01"
-                value={selected.invoiceTotal}
-                onChange={(e) => patch({ invoiceTotal: Number(e.target.value) })}
+                value={selected.invoiceTotal || ''}
+                onChange={(e) => patch({ invoiceTotal: e.target.value === '' ? 0 : Number(e.target.value) })}
               />
             </Field>
             <Field label="Allocation Amount" hint="Money out +. Money in −.">
               <Input
                 type="number"
                 step="0.01"
-                value={selected.allocationAmount}
-                onChange={(e) => patch({ allocationAmount: Number(e.target.value) })}
+                value={selected.allocationAmount || ''}
+                onChange={(e) => patch({ allocationAmount: e.target.value === '' ? 0 : Number(e.target.value) })}
               />
             </Field>
             <Field label="Job (name)">
@@ -333,7 +344,7 @@ export function Ledger() {
                 ))}
               </Select>
             </Field>
-            <Field label="Override Account" hint="Blank when Job + Line Item exist for Labor/Equip/Materials.">
+            <Field label="Override Account" hint="Derived from what it is, payment method, and cost type. Blank when the Line Item Map fills Labor / Equipment / Materials.">
               <Select value={selected.overrideAccount} onChange={(e) => patch({ overrideAccount: e.target.value })}>
                 <option value=""></option>
                 {books.chartOfAccounts.map((a) => (

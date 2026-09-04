@@ -10,7 +10,7 @@ Working tabs (left nav):
 
 - **Inbox** — Keith scans / uploads. Books proposes a draft on Transactions.
 - **Review** — only rows Keith flags. Foster answers. Not a gate to post.
-- **Transactions** — Enter a transaction, then pick what it is from the workbook list (bill, check, ACH, payroll, deposit, …). Payment Method sets the offset. Keith posts.
+- **Transactions** — Enter a transaction (bill, check, ACH, payroll, deposit, …). Payment Method sets the offset. Override Account is derived from what it is + payment method + cost type — visible before Post, editable. Add splits on one invoice / check (sewer vs water, or a 4-way bill). Keith posts.
 - **Equipment Allocation** — working tab for field hours by machine and job. Memo only — not a report, not a second Transactions expense. The copy had no hour rows yet.
 - **Job Line Items** — pick a job, then upload the whole bid Excel/CSV. Every row is added to that job. Contract value = qty × unit price. Unmapped names have **ADD TO MAP**.
 - **Cost Codes** — pick a job; Labor / Equipment / Materials accounts autofill from the Line Item Map (the cost-code / crosscode map). Add missing names here.
@@ -28,7 +28,7 @@ AI coding is later. This base is the workbook: codes, dropdowns, autofills.
 - Money **out** is positive. Money **in** is negative.
 - **Payment Method** sets the offset. Unpaid / AP → 2000. Billed / AR → 1100. Check/Debit/ACH/Wire/Deposit → 1000.
 - Vendor bill: Unpaid / AP hits job cost and AP immediately. Pay later: invoice `-PMT`, Job blank, Liability, override 2000.
-- Invoice Total is a control total on the first split only. Difference must be 0.
+- Invoice Total is a control total on the first split only. Difference must be 0. A $200k check that is $100k sewer and $100k water is two rows with the same check number. A $200k invoice split four ways is four rows.
 - Formula columns are computed, never typed.
 - Keith posts. Foster reviews only when Keith asks.
 
