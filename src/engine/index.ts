@@ -84,6 +84,7 @@ export {
 } from './workbook-reports'
 export { computeEquipmentAllocations, computeEquipmentRow, networkDays } from './equipment'
 export {
+  matchKnownJob,
   mergeJobLineItems,
   parseBidScheduleFile,
   parseBidScheduleSource,

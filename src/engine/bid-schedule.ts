@@ -164,11 +164,27 @@ function findHeader(grid: unknown[][]): { index: number; map: Partial<Record<Col
   return best ? { index: best.index, map: best.map } : null
 }
 
-function matchKnownJob(value: string, known: string[] | undefined): string {
+function jobTokens(value: string): string[] {
+  return normLabel(value).split(' ').filter(Boolean)
+}
+
+function isTokenPrefix(shorter: string[], longer: string[]): boolean {
+  if (!shorter.length || shorter.length > longer.length) return false
+  return shorter.every((token, i) => token === longer[i])
+}
+
+/** Exact name, else token prefix: "Craig Farm Rd" → "Craig Farm". */
+export function matchKnownJob(value: string, known: string[] | undefined): string {
   const want = normLabel(value)
   if (!want || !known?.length) return value
-  const hit = known.find((j) => normLabel(j) === want)
-  return hit || value
+  const exact = known.find((j) => normLabel(j) === want)
+  if (exact) return exact
+  const incoming = jobTokens(value)
+  const ranked = known
+    .map((j) => ({ j, tokens: jobTokens(j) }))
+    .filter(({ tokens }) => isTokenPrefix(tokens, incoming) || isTokenPrefix(incoming, tokens))
+    .sort((a, b) => b.tokens.length - a.tokens.length || b.j.length - a.j.length)
+  return ranked[0]?.j || value
 }
 
 export function parseBidScheduleTable(grid: unknown[][], options: BidScheduleOptions = {}): BidScheduleParseResult {
@@ -190,7 +206,15 @@ export function parseBidScheduleTable(grid: unknown[][], options: BidScheduleOpt
     if (classifyHeader(rawDesc) === 'description') continue
     let job = map.job != null ? cellText(row[map.job]) : ''
     if (job) {
-      job = matchKnownJob(job, options.knownJobNames)
+      const matched = matchKnownJob(job, options.knownJobNames)
+      if (matched !== job && normLabel(matched) !== normLabel(job)) {
+        const note = `Used job “${matched}” for “${job}”.`
+        if (!warnings.includes(note)) warnings.push(note)
+      } else if (options.knownJobNames?.length && !options.knownJobNames.some((j) => normLabel(j) === normLabel(matched))) {
+        const note = `Job “${job}” is not on Setup — add it there, or pick the job on each row.`
+        if (!warnings.includes(note)) warnings.push(note)
+      }
+      job = matched
       lastJob = job
     } else {
       job = lastJob

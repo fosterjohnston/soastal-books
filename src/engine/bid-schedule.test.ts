@@ -29,6 +29,19 @@ describe('bid schedule import', () => {
     expect(parsed.rows[1].unitPrice).toBe(4.25)
   })
 
+  it('maps Craig Farm Rd onto the Setup job Craig Farm', () => {
+    const csv = [
+      'Job,Line item,Unit,Qty,Unit price',
+      'Craig Farm Rd,Mobilization,LS,1,18500',
+      ',Silt Fence,LF,1200,3.75',
+    ].join('\n')
+    const parsed = parseBidScheduleSource('craig-farm-bid.csv', csv, {
+      knownJobNames: ['Fern Hill', 'Sandy Run', 'Craig Farm', "Captian's Quarters"],
+    })
+    expect(parsed.rows.map((r) => r.jobName)).toEqual(['Craig Farm', 'Craig Farm'])
+    expect(parsed.warnings.some((w) => /Craig Farm/.test(w))).toBe(true)
+  })
+
   it('uses the job filter when the Excel has no Job column', () => {
     const grid = [
       ['Line item', 'Unit', 'Quantity', 'Unit price'],

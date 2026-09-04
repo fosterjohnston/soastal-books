@@ -148,6 +148,9 @@ export function JobLineItems() {
                         {books.jobs.map((j) => (
                           <option key={j.id}>{j.jobName}</option>
                         ))}
+                        {s.jobName && !books.jobs.some((j) => j.jobName === s.jobName) ? (
+                          <option value={s.jobName}>{s.jobName}</option>
+                        ) : null}
                       </select>
                     </td>
                     <td>
