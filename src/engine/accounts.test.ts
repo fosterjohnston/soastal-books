@@ -101,6 +101,17 @@ describe('account mapping (offset + override)', () => {
       invoiceNumber: 'VM-1-PMT',
     })
     expect(pmt.account).toMatch(/^2000/)
+    const collect = deriveAccount(books, {
+      sourceType: 'Deposit / Revenue',
+      paymentMethod: 'Deposit',
+      costType: 'Asset',
+      vendor: 'STYO',
+      jobName: 'Fern Hill',
+      lineItem: '',
+      invoiceNumber: 'PA-001-PMT',
+    })
+    expect(collect.account).toMatch(/^1100/)
+    expect(collect.reason).toMatch(/not Revenue/i)
   })
 
   it('asks for an account when Asset / Equity cannot be derived', () => {

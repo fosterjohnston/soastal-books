@@ -117,9 +117,9 @@ export function Ledger() {
         <div>
           <h1 className="font-serif text-3xl">Transactions</h1>
           <p className="max-w-2xl text-sm text-ink-2">
-            Keith’s ledger. Same cheat sheet: money out is positive, money in is negative — that signed amount goes in
-            Invoice Total (first split only). Payment Method sets the offset. Formula columns autofill. Foster does
-            not have to approve.
+            Keith’s ledger. Money out +, money in −. Client bill = Revenue / 4000. Client then pays = Asset / 1100
+            (same number + -PMT), not a second sale. Invoice Total on the first split only. Foster does not have to
+            approve.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -251,7 +251,16 @@ export function Ledger() {
                 ))}
               </Select>
             </Field>
-            <Field label="Invoice / Receipt #" hint={invoiceNumberHint()}>
+            <Field
+              label="Invoice / Receipt #"
+              hint={invoiceNumberHint(
+                selected.paymentMethod === 'Deposit' || selected.sourceType === 'Deposit / Revenue'
+                  ? 'client'
+                  : selected.paymentMethod === 'Check'
+                    ? 'vendor'
+                    : 'any',
+              )}
+            >
               <Input value={selected.invoiceNumber} onChange={(e) => patch({ invoiceNumber: e.target.value })} />
             </Field>
             <Field label="Source Type">

@@ -233,6 +233,10 @@ export const WALKTHROUGH = [
     heading: 'The four questions, in order',
     body: '1. Which direction is the money going? Out is positive, in is negative. 2. How did it move? Payment Method sets the offset. 3. Is it a job cost? If yes, Job + Line Item; Override stays blank. If no, pick Override Account. 4. Does Difference read zero?',
   },
+  {
+    heading: 'Client billed you, then paid',
+    body: 'Send the bill: Revenue, Billed / AR, negative Invoice total, 4000. When they pay: same number + -PMT, Asset, Deposit, negative again, 1100. That payment is not a second sale.',
+  },
   ...master.walkthrough,
 ]
 export const WORKBOOK_LISTS = master.lists

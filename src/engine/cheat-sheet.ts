@@ -6,6 +6,15 @@ export const CHEAT_SHEET_RULES = [
   'Payment Method sets the other side of the entry. You never type the offset account.',
 ] as const
 
+export const CLIENT_BILL_THEN_PAY = {
+  title: 'Client billed you, then paid — Revenue vs Asset',
+  bill: 'When you send the bill: Cost type Revenue, Payment method Billed / AR, Invoice total negative (a $100,000 pay app is -100000). Override 4000 — Contract Revenue. That is the sale. Cash has not moved.',
+  collect:
+    'When the client pays that bill: same invoice number + -PMT, Cost type Asset, Payment method Deposit, Invoice total negative again. Override 1100 — Accounts Receivable. Cash up, AR down. Do not post Revenue a second time.',
+  noPriorBill:
+    'They paid and you never billed first: one row only, Deposit, Cost type Revenue, Override 4000. Cash and revenue move together. AR is never involved.',
+} as const
+
 export const CHEAT_SHEET_QUESTIONS = [
   'Which direction is the money going? Out is positive, in is negative.',
   'How did it move? Payment Method — that sets the other side.',
@@ -50,8 +59,14 @@ export function paymentMethodHint(offsetLabel: string): string {
   return `Sets the other side. Never type Offset Account.${offset}`
 }
 
-export function invoiceNumberHint(): string {
-  return 'One document = one number. Paying a bill later: same number + -PMT, with its own Invoice total.'
+export function invoiceNumberHint(kind: 'vendor' | 'client' | 'any' = 'any'): string {
+  if (kind === 'client') {
+    return 'Same number as the bill you sent, plus -PMT (PA-001-PMT). Its own Invoice total — do not reuse the bill’s total on this row.'
+  }
+  if (kind === 'vendor') {
+    return 'One document = one number. Paying a vendor bill later: same number + -PMT, with its own Invoice total.'
+  }
+  return 'One document = one number. Vendor payment or client collection: same number + -PMT, with its own Invoice total.'
 }
 
 export function overrideHint(reason?: string): string {

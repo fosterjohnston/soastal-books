@@ -55,6 +55,7 @@ export {
   allocationHint,
   CHEAT_SHEET_QUESTIONS,
   CHEAT_SHEET_RULES,
+  CLIENT_BILL_THEN_PAY,
   invoiceNumberHint,
   invoiceTotalHint,
   moneyDirection,

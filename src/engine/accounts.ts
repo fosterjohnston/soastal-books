@@ -117,7 +117,32 @@ export function deriveAccount(
     Boolean(row.jobName && row.lineItem && COST_TYPES_USING_LINE_MAP.includes(row.costType) && row.jobName !== 'N/A - Overhead') &&
     mapHit
 
-  if (isPaymentDocument(row.invoiceNumber) || (row.costType === 'Liability' && !row.jobName.trim())) {
+  if (isPaymentDocument(row.invoiceNumber)) {
+    const collecting =
+      row.paymentMethod === 'Deposit' ||
+      row.sourceType === 'Deposit / Revenue' ||
+      row.costType === 'Asset'
+    if (collecting) {
+      return {
+        account: labelFor(books, AR_ACCOUNT),
+        suggested: suggestedLabel,
+        via: 'rule',
+        required: true,
+        shouldBeBlank: false,
+        reason: 'Client paid a bill you already sent. This hits 1100 AR — not Revenue again.',
+      }
+    }
+    return {
+      account: labelFor(books, AP_ACCOUNT),
+      suggested: suggestedLabel,
+      via: 'rule',
+      required: true,
+      shouldBeBlank: false,
+      reason: 'Paying a vendor bill hits 2000 — not a second job cost.',
+    }
+  }
+
+  if (row.costType === 'Liability' && !row.jobName.trim()) {
     return {
       account: labelFor(books, AP_ACCOUNT),
       suggested: suggestedLabel,
@@ -151,14 +176,17 @@ export function deriveAccount(
     }
   }
 
-  if (row.sourceType === 'Deposit / Revenue' && row.costType === 'Liability') {
+  if (
+    (row.sourceType === 'Deposit / Revenue' || row.paymentMethod === 'Deposit') &&
+    (row.costType === 'Asset' || row.costType === 'Liability')
+  ) {
     return {
       account: labelFor(books, AR_ACCOUNT),
       suggested: suggestedLabel,
       via: 'rule',
       required: true,
       shouldBeBlank: false,
-      reason: 'A deposit against AR hits 1100.',
+      reason: 'A deposit against AR hits 1100. Revenue already moved when you billed.',
     }
   }
 

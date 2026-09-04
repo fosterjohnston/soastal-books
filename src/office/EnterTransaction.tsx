@@ -7,6 +7,7 @@ import {
   canPost,
   CHEAT_SHEET_QUESTIONS,
   CHEAT_SHEET_RULES,
+  CLIENT_BILL_THEN_PAY,
   deriveAccount,
   displayAccount,
   documentDifference,
@@ -237,6 +238,26 @@ export function EnterTransaction() {
           positive, money in is negative. Add a split only when the same invoice or check goes more than one place
           (sewer vs water, or four $50k lines on a $200k bill). Payment method sets the offset. Keith posts.
         </p>
+        <div className="mt-3 rounded-lg border border-line bg-paper p-3">
+          <p className="text-sm font-semibold">{CLIENT_BILL_THEN_PAY.title}</p>
+          <ol className="mt-2 list-decimal space-y-2 pl-5 text-sm text-ink-2">
+            <li
+              className={
+                method === 'Billed / AR' || splits[0]?.costType === 'Revenue' ? 'font-medium text-ink' : undefined
+              }
+            >
+              {CLIENT_BILL_THEN_PAY.bill}
+            </li>
+            <li
+              className={
+                method === 'Deposit' || splits[0]?.costType === 'Asset' ? 'font-medium text-ink' : undefined
+              }
+            >
+              {CLIENT_BILL_THEN_PAY.collect}
+            </li>
+          </ol>
+          <p className="mt-2 text-sm text-ink-2">{CLIENT_BILL_THEN_PAY.noPriorBill}</p>
+        </div>
         <details className="mt-3 rounded-lg border border-line bg-paper p-3">
           <summary className="cursor-pointer text-sm font-semibold">Transaction cheat sheet</summary>
           <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-ink-2">
@@ -279,7 +300,16 @@ export function EnterTransaction() {
             ))}
           </Select>
         </Field>
-        <Field label="Invoice / receipt #" hint={invoiceNumberHint()}>
+        <Field
+          label="Invoice / receipt #"
+          hint={invoiceNumberHint(
+            method === 'Deposit' || sourceType === 'Deposit / Revenue'
+              ? 'client'
+              : method === 'Check' || sourceType === 'Check'
+                ? 'vendor'
+                : 'any',
+          )}
+        >
           <Input value={invoice} onChange={(e) => setInvoice(e.target.value)} autoComplete="off" placeholder="" />
         </Field>
         <Field label="Invoice date">
