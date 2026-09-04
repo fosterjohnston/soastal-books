@@ -10,7 +10,7 @@ Working tabs (left nav):
 
 - **Inbox** — Keith scans / uploads. Books proposes a draft on Transactions.
 - **Review** — only rows Keith flags. Foster answers. Not a gate to post.
-- **Transactions** — Enter a transaction (bill, check, ACH, payroll, deposit, …). Payment Method sets the offset. Override Account is derived from what it is + payment method + cost type — visible before Post, editable. Add splits on one invoice / check (sewer vs water, or a 4-way bill). Keith posts.
+- **Transactions** — Enter a transaction (bill, check, ACH, payroll, deposit, …). One line is enough: Invoice total is the amount. Add a split only when the same invoice or check goes more than one place. Payment Method sets the offset. Override Account is derived before Post. Keith posts.
 - **Equipment Allocation** — working tab for field hours by machine and job. Memo only — not a report, not a second Transactions expense. The copy had no hour rows yet.
 - **Job Line Items** — pick a job, then upload the whole bid Excel/CSV. Every row is added to that job. Contract value = qty × unit price. Unmapped names have **ADD TO MAP**.
 - **Cost Codes** — pick a job; Labor / Equipment / Materials accounts autofill from the Line Item Map (the cost-code / crosscode map). Add missing names here.

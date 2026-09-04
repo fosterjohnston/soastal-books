@@ -10,6 +10,29 @@ import { canPost, emptyDraft, upsertTransactions } from './posting'
 import { createMasterDataOnly } from '../seed'
 
 describe('account mapping (offset + override)', () => {
+  it('a one-line document uses Invoice Total as the only amount — no split required', () => {
+    const books = createMasterDataOnly()
+    const parts = buildSplitDocument(
+      books,
+      {
+        sourceType: 'Check',
+        paymentMethod: 'Check',
+        postingDate: '2026-09-04',
+        vendor: 'Seacoast',
+        invoiceNumber: 'CHK-1',
+        invoiceDate: '2026-09-04',
+        dueDate: '',
+        checkRef: '1001',
+        invoiceTotal: 10000,
+      },
+      [{ jobName: 'Fern Hill', costType: 'Materials', lineItem: 'Water 8" DIP', allocationAmount: 10000 }],
+    )
+    expect(parts).toHaveLength(1)
+    expect(parts[0].invoiceTotal).toBe(10000)
+    expect(parts[0].allocationAmount).toBe(10000)
+    expect(documentDifference(10000, [10000])).toBe(0)
+  })
+
   it('sets payment method from what it is, same as the offset story', () => {
     expect(paymentForSource('Bill / Invoice')).toBe('Unpaid / AP')
     expect(paymentForSource('Check')).toBe('Check')

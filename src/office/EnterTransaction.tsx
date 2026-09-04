@@ -67,7 +67,10 @@ export function EnterTransaction() {
   const showDue = method === 'Unpaid / AP' || method === 'Billed / AR'
   const showRef = method === 'Check' || method === 'ACH / Wire' || method === 'Deposit' || method === 'Auto-Pay'
   const control = Number(invoiceTotal)
-  const allocations = splits.map((s) => Number(s.amount) || 0)
+  const splitMode = splits.length > 1
+  const allocations = splitMode
+    ? splits.map((s) => Number(s.amount) || 0)
+    : [Number.isFinite(control) ? control : 0]
   const difference = documentDifference(Number.isFinite(control) ? control : 0, allocations)
   const offset = method ? offsetLabel(books, method) : ''
   const direction = moneyDirection({
@@ -93,19 +96,25 @@ export function EnterTransaction() {
   }
 
   function addSplit() {
-    const last = splits[splits.length - 1]
-    setSplits((prev) => [
-      ...prev,
-      {
-        key: newKey(),
-        jobName: last?.jobName || defaultJob,
-        costType: last?.costType || 'Materials',
-        lineItem: '',
-        amount: '',
-        overrideAccount: '',
-        overrideTouched: false,
-      },
-    ])
+    setSplits((prev) => {
+      const last = prev[prev.length - 1]
+      const seeded =
+        prev.length === 1 && !prev[0].amount.trim() && invoiceTotal.trim()
+          ? [{ ...prev[0], amount: invoiceTotal }]
+          : prev
+      return [
+        ...seeded,
+        {
+          key: newKey(),
+          jobName: last?.jobName || defaultJob,
+          costType: last?.costType || 'Materials',
+          lineItem: '',
+          amount: '',
+          overrideAccount: '',
+          overrideTouched: false,
+        },
+      ]
+    })
   }
 
   function removeSplit(key: string) {
@@ -124,18 +133,19 @@ export function EnterTransaction() {
     if (method === 'Check' && !checkRef.trim()) list.push('A check needs the check number.')
     const totalSign = signMismatchMessage(control, direction, 'Invoice total')
     if (totalSign) list.push(totalSign)
-    if (Number.isFinite(control) && control !== 0 && Math.abs(difference) > 0.005) {
+    if (splitMode && Number.isFinite(control) && control !== 0 && Math.abs(difference) > 0.005) {
       list.push(`Difference must be 0 (now ${difference.toFixed(2)}). Split amounts have to add up to the invoice total.`)
     }
     if (!sourceType || !method) return list
     for (const [i, split] of splits.entries()) {
-      const amt = Number(split.amount)
-      if (!split.amount.trim() || !Number.isFinite(amt) || amt === 0) {
-        list.push(`Split ${i + 1} needs an allocation amount.`)
+      const amt = splitMode ? Number(split.amount) : control
+      const label = splitMode ? `Split ${i + 1}` : 'This transaction'
+      if (splitMode && (!split.amount.trim() || !Number.isFinite(amt) || amt === 0)) {
+        list.push(`${label} needs an allocation amount.`)
       }
       const splitDir = moneyDirection({ sourceType, paymentMethod: method, costType: split.costType })
-      const splitSign = signMismatchMessage(amt, splitDir, 'Split')
-      if (splitSign) list.push(`Split ${i + 1}: ${splitSign}`)
+      const splitSign = signMismatchMessage(amt, splitDir, splitMode ? 'Split' : 'Invoice total')
+      if (splitMode && splitSign) list.push(`${label}: ${splitSign}`)
       const d = deriveAccount(books, {
         sourceType,
         paymentMethod: method,
@@ -151,11 +161,11 @@ export function EnterTransaction() {
           ? d.suggested
           : d.account
       if (d.required && !d.shouldBeBlank && !shown.trim()) {
-        list.push(`Split ${i + 1}: pick Override Account — ${d.reason}`)
+        list.push(`${label}: pick Override Account — ${d.reason}`)
       }
     }
     return list
-  }, [books, checkRef, control, difference, direction, invoice, invoiceTotal, method, sourceType, splits, vendor])
+  }, [books, checkRef, control, difference, direction, invoice, invoiceTotal, method, sourceType, splitMode, splits, vendor])
 
   function postRow() {
     setMessage('')
@@ -182,7 +192,7 @@ export function EnterTransaction() {
         jobName: s.jobName,
         costType: s.costType,
         lineItem: s.lineItem,
-        allocationAmount: money(Number(s.amount) || 0),
+        allocationAmount: money(splitMode ? Number(s.amount) || 0 : control),
         overrideAccount: s.overrideTouched ? s.overrideAccount : undefined,
         overrideTouched: s.overrideTouched,
       })),
@@ -223,10 +233,9 @@ export function EnterTransaction() {
       <div>
         <h2 className="font-serif text-xl">Enter a transaction</h2>
         <p className="mt-1 max-w-3xl text-sm text-ink-2">
-          Same rules as the Transaction cheat sheet. Invoice total is the control total — money out is positive, money
-          in is negative. Add a split for each place the money goes (sewer vs water, or four $50k lines on a $200k
-          bill). Payment method sets the offset. Account is derived before you post; change it if it is wrong. Keith
-          posts.
+          Same rules as the Transaction cheat sheet. One line is enough: Invoice total is the amount. Money out is
+          positive, money in is negative. Add a split only when the same invoice or check goes more than one place
+          (sewer vs water, or four $50k lines on a $200k bill). Payment method sets the offset. Keith posts.
         </p>
         <details className="mt-3 rounded-lg border border-line bg-paper p-3">
           <summary className="cursor-pointer text-sm font-semibold">Transaction cheat sheet</summary>
@@ -300,16 +309,20 @@ export function EnterTransaction() {
 
       <div className="mt-4">
         <div className="mb-2 flex flex-wrap items-end justify-between gap-2">
-          <h3 className="font-serif text-lg">Splits</h3>
+          <h3 className="font-serif text-lg">{splitMode ? 'Splits' : 'Where it goes'}</h3>
           <Button variant="ghost" onClick={addSplit}>
             Add split
           </Button>
         </div>
-        <p className="mb-2 text-sm text-ink-2">
-          Standing rules: same invoice / check number on every split. Invoice total on the document once, same sign as
-          the money (out +, in −). Difference must be 0. A $200,000 check that is $100,000 sewer and $100,000 water is
-          two rows. A $200,000 invoice split four ways is four rows.
-        </p>
+        {splitMode ? (
+          <p className="mb-2 text-sm text-ink-2">
+            Same invoice / check number on every split. Invoice total on the document once. Difference must be 0.
+          </p>
+        ) : (
+          <p className="mb-2 text-sm text-ink-2">
+            This is one transaction. Invoice total is the amount. Use Add split only if you need a second line.
+          </p>
+        )}
         <div className="space-y-3">
           {splits.map((split, index) => {
             const d = sourceType && method
@@ -341,14 +354,16 @@ export function EnterTransaction() {
             return (
               <div key={split.key} className="rounded-lg border border-line bg-paper p-3">
                 <div className="mb-2 flex items-center justify-between gap-2">
-                  <span className="text-xs font-semibold uppercase tracking-wide text-ink-2">Split {index + 1}</span>
-                  {splits.length > 1 ? (
+                  <span className="text-xs font-semibold uppercase tracking-wide text-ink-2">
+                    {splitMode ? `Split ${index + 1}` : 'Coding'}
+                  </span>
+                  {splitMode ? (
                     <button type="button" className="text-xs text-danger underline-offset-2 hover:underline" onClick={() => removeSplit(split.key)}>
                       Remove
                     </button>
                   ) : null}
                 </div>
-                <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-5">
+                <div className={`grid gap-3 md:grid-cols-2 ${splitMode ? 'lg:grid-cols-5' : 'lg:grid-cols-4'}`}>
                   <Field label="Job name">
                     <Select
                       value={split.jobName}
@@ -384,6 +399,7 @@ export function EnterTransaction() {
                       </optgroup>
                     </Select>
                   </Field>
+                  {splitMode ? (
                   <Field label="Amount" hint={allocationHint(moneyDirection({ sourceType, paymentMethod: method, costType: split.costType }))}>
                     <Input
                       type="number"
@@ -393,6 +409,7 @@ export function EnterTransaction() {
                       onChange={(e) => patchSplit(split.key, { amount: e.target.value })}
                     />
                   </Field>
+                  ) : null}
                   <Field
                     label="Override Account"
                     hint={overrideHint(d?.reason)}
@@ -422,9 +439,11 @@ export function EnterTransaction() {
       </div>
 
       <div className="mt-3 flex flex-wrap items-center gap-3">
-        <p className={`text-sm font-semibold ${Math.abs(difference) > 0.005 ? 'text-danger' : 'text-teal'}`}>
-          Difference {difference.toFixed(2)}
-        </p>
+        {splitMode ? (
+          <p className={`text-sm font-semibold ${Math.abs(difference) > 0.005 ? 'text-danger' : 'text-teal'}`}>
+            Difference {difference.toFixed(2)}
+          </p>
+        ) : null}
         <Button onClick={postRow} disabled={!canSubmit}>
           Post transaction
         </Button>
