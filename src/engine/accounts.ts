@@ -267,11 +267,11 @@ export function deriveAccount(
 
   return {
     account: '',
-    suggested: suggestedLabel,
-    via: suggestedLabel ? 'line-item-map' : 'none',
-    required: !suggestedLabel,
+    suggested: mapHit ? suggestedLabel : '',
+    via: mapHit ? 'line-item-map' : 'none',
+    required: !mapHit,
     shouldBeBlank: false,
-    reason: suggestedLabel
+    reason: mapHit
       ? 'Account comes from the Line Item Map.'
       : 'Pick the job line item so the map can fill Labor / Equipment / Materials, or choose an account.',
   }
@@ -282,7 +282,7 @@ export function displayAccount(books: CompanyBooks, row: Pick<TransactionDraft, 
   if (row.overrideAccount.trim()) return labelFor(books, row.overrideAccount)
   const d = deriveAccount(books, row)
   if (d.shouldBeBlank) return d.suggested
-  return d.account || d.suggested
+  return d.account
 }
 
 export function offsetLabel(books: CompanyBooks, method: PaymentMethod): string {

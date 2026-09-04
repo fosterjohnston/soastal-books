@@ -126,7 +126,11 @@ export function EnterTransaction() {
         lineItem: split.lineItem,
         invoiceNumber: invoice,
       })
-      const shown = split.overrideTouched ? split.overrideAccount : d.shouldBeBlank ? d.suggested : d.account
+      const shown = split.overrideTouched
+        ? split.overrideAccount
+        : d.shouldBeBlank
+          ? d.suggested
+          : d.account
       if (d.required && !d.shouldBeBlank && !shown.trim()) {
         list.push(`Split ${i + 1}: pick Override Account — ${d.reason}`)
       }
