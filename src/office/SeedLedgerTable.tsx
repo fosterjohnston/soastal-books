@@ -16,7 +16,7 @@ export function SeedLedgerTable() {
           Liability, override 2000.
         </p>
       </div>
-      <div className="overflow-auto rounded-xl border border-line" style={{ maxHeight: 480 }}>
+      <div className="ledger-scroll rounded-xl border border-line" style={{ maxHeight: 480 }}>
         <table className="ledger-table w-full">
           <thead>
             <tr>

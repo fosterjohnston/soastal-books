@@ -146,7 +146,7 @@ export function Ledger() {
         </label>
       </div>
 
-      <div className="overflow-auto rounded-xl border border-line" style={{ maxHeight: 360 }}>
+      <div className="ledger-scroll rounded-xl border border-line">
         <table className="ledger-table w-full">
           <thead>
             <tr>
