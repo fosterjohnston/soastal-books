@@ -1,6 +1,6 @@
 'use client'
 
-import { emptyEquipment, newId, patchEquipment, type Job, type Vendor } from '../engine'
+import { addEquipment, newId, patchEquipment, type Job, type Vendor } from '../engine'
 import { FUEL_USD_PER_GALLON, WORKING_DAYS_PER_MONTH } from '../engine/types'
 import {
   EQUIPMENT_TYPE_LIST,
@@ -11,6 +11,7 @@ import {
 } from '../engine/lists'
 import { useBooks } from '../store/BooksContext'
 import { Button, Card, Field, Input } from '../components/ui'
+import { EquipmentAddForm } from '../components/EquipmentAddForm'
 import { AccountPick, LineItemMapEditor } from '../components/LineItemMapEditor'
 import { SheetTitle } from '../components/Sheet'
 
@@ -161,17 +162,21 @@ export function Setup() {
       </Card>
 
       <Card
+        id="equipment-master"
         title="Equipment Master"
         action={
-          <Button variant="ghost" onClick={() => setBooks({ ...books, equipment: [...books.equipment, emptyEquipment()] })}>
+          <Button
+            onClick={() => setBooks((prev) => addEquipment(prev))}
+          >
             Add equipment
           </Button>
         }
       >
         <p className="mb-2 text-sm text-ink-2">
-          Monthly cost / internal rate is the owned-machine cost. Allocation divides it by {books.settings.workingDaysPerMonth || WORKING_DAYS_PER_MONTH} working days. Fuel ~$
+          Type a name below and click Add equipment. The new machine lands at the top of this list. Monthly cost is the owned-machine cost. Allocation divides it by {books.settings.workingDaysPerMonth || WORKING_DAYS_PER_MONTH} working days. Fuel ~$
           {(books.settings.fuelPricePerGallon || FUEL_USD_PER_GALLON).toFixed(2)}/gal. Hours belong on Equipment Allocation (memo).
         </p>
+        <EquipmentAddForm />
         <div className="mb-3 grid gap-3 md:grid-cols-2">
           <Field label="Working days / month">
             <Input
@@ -217,21 +222,21 @@ export function Setup() {
                       <input
                         className="min-w-[120px] border-0 bg-transparent"
                         value={e.name}
-                        onChange={(ev) => setBooks(patchEquipment(books, e.id, { name: ev.target.value }))}
+                        onChange={(ev) => setBooks((prev) => patchEquipment(prev, e.id, { name: ev.target.value }))}
                       />
                     </td>
                     <td>
                       <input
                         className="w-20 border-0 bg-transparent"
                         value={e.unitNumber}
-                        onChange={(ev) => setBooks(patchEquipment(books, e.id, { unitNumber: ev.target.value }))}
+                        onChange={(ev) => setBooks((prev) => patchEquipment(prev, e.id, { unitNumber: ev.target.value }))}
                       />
                     </td>
                     <td>
                       <select
                         className="border-0 bg-transparent"
                         value={e.type}
-                        onChange={(ev) => setBooks(patchEquipment(books, e.id, { type: ev.target.value }))}
+                        onChange={(ev) => setBooks((prev) => patchEquipment(prev, e.id, { type: ev.target.value }))}
                       >
                         {EQUIPMENT_TYPE_LIST.map((t) => (
                           <option key={t}>{t}</option>
@@ -244,7 +249,7 @@ export function Setup() {
                         className="border-0 bg-transparent"
                         value={e.ownership}
                         onChange={(ev) =>
-                          setBooks(patchEquipment(books, e.id, { ownership: ev.target.value as typeof e.ownership }))
+                          setBooks((prev) => patchEquipment(prev, e.id, { ownership: ev.target.value as typeof e.ownership }))
                         }
                       >
                         {OWNERSHIP_LIST.map((o) => (
@@ -257,7 +262,7 @@ export function Setup() {
                         type="number"
                         className="w-24 border-0 bg-transparent"
                         value={e.monthlyRate}
-                        onChange={(ev) => setBooks(patchEquipment(books, e.id, { monthlyRate: Number(ev.target.value) }))}
+                        onChange={(ev) => setBooks((prev) => patchEquipment(prev, e.id, { monthlyRate: Number(ev.target.value) }))}
                       />
                     </td>
                     <td>
@@ -265,13 +270,13 @@ export function Setup() {
                         type="number"
                         className="w-20 border-0 bg-transparent"
                         value={e.burnGalPerHour}
-                        onChange={(ev) => setBooks(patchEquipment(books, e.id, { burnGalPerHour: Number(ev.target.value) }))}
+                        onChange={(ev) => setBooks((prev) => patchEquipment(prev, e.id, { burnGalPerHour: Number(ev.target.value) }))}
                       />
                     </td>
                     <td>
                       <AccountPick
                         value={e.defaultAccount}
-                        onChange={(defaultAccount) => setBooks(patchEquipment(books, e.id, { defaultAccount }))}
+                        onChange={(defaultAccount) => setBooks((prev) => patchEquipment(prev, e.id, { defaultAccount }))}
                       />
                     </td>
                   </tr>

@@ -1,13 +1,16 @@
 'use client'
 
-import { computeEquipmentAllocations, newId, type EquipmentAllocation } from '@/engine'
+import { addEquipment, computeEquipmentAllocations, newId, type EquipmentAllocation } from '@/engine'
 import { useBooks } from '@/store/BooksContext'
+import { EquipmentAddForm } from '@/components/EquipmentAddForm'
 import { Button, Card } from '@/components/ui'
 import { Money } from '@/components/Money'
 import { EmptyNote, SheetTitle } from '@/components/Sheet'
+import { useState } from 'react'
 
 export function EquipmentAllocationSheet() {
   const { books, setBooks } = useBooks()
+  const [status, setStatus] = useState('')
   const rows = computeEquipmentAllocations(books)
 
   function add() {
@@ -36,9 +39,28 @@ export function EquipmentAllocationSheet() {
     <div className="flex flex-col gap-4">
       <SheetTitle
         title="Equipment Allocation"
-        blurb="Working tab — one row per machine per stay on a job. Days = working days (Mon–Fri). Daily cost = monthly rate ÷ working days. Fuel = avg engine hrs/day × days × burn × fuel price. Total is a memo, not a second Transactions expense. The copy had no field-hour rows yet."
-        action={<Button onClick={add}>Add row</Button>}
+        blurb="Working tab — one row per machine per stay on a job. Add a new machine here or on Setup → Equipment Master. Days = working days (Mon–Fri). Daily cost = monthly rate ÷ working days. Fuel = avg engine hrs/day × days × burn × fuel price. Total is a memo, not a second Transactions expense."
+        action={
+          <div className="flex flex-wrap gap-2">
+            <Button
+              variant="ghost"
+              onClick={() => {
+                setBooks((prev) => addEquipment(prev))
+                setStatus('Added a machine to Equipment Master. Rename it below, then Add hours to put it on a job.')
+              }}
+            >
+              Add equipment
+            </Button>
+            <Button onClick={add}>Add hours</Button>
+          </div>
+        }
       />
+      <EquipmentAddForm
+        onAdded={(name) =>
+          setStatus(`Added “${name}” to Equipment Master. It will show in the Equipment dropdown on hour rows.`)
+        }
+      />
+      {status ? <p className="text-sm text-teal">{status}</p> : null}
       <Card>
       {rows.length === 0 ? (
         <EmptyNote>No field hours entered yet.</EmptyNote>

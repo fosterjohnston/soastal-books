@@ -20,10 +20,12 @@ export type BidScheduleMergeResult = {
 
 export type BidScheduleOptions = {
   defaultJobName?: string
+  /** Put every imported row on this job. Ignores a Job column in the file. */
+  forceJobName?: string
   knownJobNames?: string[]
 }
 
-type ColKind = 'job' | 'itemNumber' | 'description' | 'unit' | 'qty' | 'price' | 'cost'
+type ColKind = 'job' | 'itemNumber' | 'description' | 'unit' | 'qty' | 'price' | 'cost' | 'amount'
 
 const PREFERRED_SHEETS = [
   'job line items',
@@ -74,6 +76,10 @@ function classifyHeader(value: unknown): ColKind | null {
     n === 'work' ||
     n === 'work item' ||
     n === 'pay item' ||
+    n === 'payitem' ||
+    n === 'desc' ||
+    n === 'scope' ||
+    n === 'scope of work' ||
     n === 'cost code' ||
     n === 'costcode' ||
     n === 'crosscode' ||
@@ -106,6 +112,17 @@ function classifyHeader(value: unknown): ColKind | null {
   }
   if (n === 'unit price' || n === 'unitprice' || n === 'price' || n === 'bid price' || n === 'rate' || n === 'unit rate') {
     return 'price'
+  }
+  if (
+    n === 'amount' ||
+    n === 'total' ||
+    n === 'extension' ||
+    n === 'extended' ||
+    n === 'contract value' ||
+    n === 'bid amount' ||
+    n === 'lump sum'
+  ) {
+    return 'amount'
   }
   if (
     n === 'estimated cost' ||
@@ -147,18 +164,23 @@ function scoreHeaderRow(row: unknown[]): { score: number; map: Partial<Record<Co
   let score = Object.keys(map).length
   if (map.description != null) score += 3
   if (map.job != null) score += 1
-  if (map.qty != null || map.price != null) score += 1
+  if (map.qty != null || map.price != null || map.amount != null) score += 1
   return { score, map }
 }
 
-function findHeader(grid: unknown[][]): { index: number; map: Partial<Record<ColKind, number>> } | null {
+function findHeader(
+  grid: unknown[][],
+  options: BidScheduleOptions = {},
+): { index: number; map: Partial<Record<ColKind, number>> } | null {
+  const lenient = !!(options.forceJobName || options.defaultJobName)
+  const minScore = lenient ? 3 : 4
   const limit = Math.min(grid.length, 25)
   let best: { index: number; map: Partial<Record<ColKind, number>>; score: number } | null = null
   for (let i = 0; i < limit; i++) {
     if (rowIsEmpty(grid[i] || [])) continue
     const { score, map } = scoreHeaderRow(grid[i] || [])
     if (map.description == null) continue
-    if (score < 4) continue
+    if (score < minScore) continue
     if (!best || score > best.score) best = { index: i, map, score }
   }
   return best ? { index: best.index, map: best.map } : null
@@ -189,49 +211,58 @@ export function matchKnownJob(value: string, known: string[] | undefined): strin
 
 export function parseBidScheduleTable(grid: unknown[][], options: BidScheduleOptions = {}): BidScheduleParseResult {
   const warnings: string[] = []
-  const header = findHeader(grid)
+  const header = findHeader(grid, options)
   if (!header) {
     throw new Error(
-      'Could not find a bid-schedule header row. Need a Line item / Description / Cost code column, plus job, quantity, or unit price.',
+      'Could not find a bid-schedule header row. Need a Line item / Description / Cost code column. Pick the job first if the file has no Job column.',
     )
   }
   const { map } = header
   const rows: BidScheduleIncoming[] = []
-  let lastJob = options.defaultJobName?.trim() || ''
+  const forced = options.forceJobName?.trim() || ''
+  let lastJob = forced || options.defaultJobName?.trim() || ''
   for (let r = header.index + 1; r < grid.length; r++) {
     const row = grid[r] || []
     if (rowIsEmpty(row)) continue
     const rawDesc = map.description != null ? cellText(row[map.description]) : ''
     if (!rawDesc || looksLikeTotal(rawDesc)) continue
     if (classifyHeader(rawDesc) === 'description') continue
-    let job = map.job != null ? cellText(row[map.job]) : ''
-    if (job) {
-      const matched = matchKnownJob(job, options.knownJobNames)
-      if (matched !== job && normLabel(matched) !== normLabel(job)) {
-        const note = `Used job “${matched}” for “${job}”.`
-        if (!warnings.includes(note)) warnings.push(note)
-      } else if (options.knownJobNames?.length && !options.knownJobNames.some((j) => normLabel(j) === normLabel(matched))) {
-        const note = `Job “${job}” is not on Setup — add it there, or pick the job on each row.`
-        if (!warnings.includes(note)) warnings.push(note)
+    let job = forced
+    if (!job) {
+      job = map.job != null ? cellText(row[map.job]) : ''
+      if (job) {
+        const matched = matchKnownJob(job, options.knownJobNames)
+        if (matched !== job && normLabel(matched) !== normLabel(job)) {
+          const note = `Used job “${matched}” for “${job}”.`
+          if (!warnings.includes(note)) warnings.push(note)
+        } else if (options.knownJobNames?.length && !options.knownJobNames.some((j) => normLabel(j) === normLabel(matched))) {
+          const note = `Job “${job}” is not on Setup — add it there, or pick the job on each row.`
+          if (!warnings.includes(note)) warnings.push(note)
+        }
+        job = matched
+        lastJob = job
+      } else {
+        job = lastJob
       }
-      job = matched
-      lastJob = job
-    } else {
-      job = lastJob
     }
     if (!job) {
-      warnings.push(`Row ${r + 1} (${rawDesc}) has no job name — skipped. Pick a job filter or add a Job column.`)
+      warnings.push(`Row ${r + 1} (${rawDesc}) has no job name — skipped. Pick the job, then upload.`)
       continue
     }
     const itemNumber = map.itemNumber != null ? cellText(row[map.itemNumber]) : ''
     const unit = map.unit != null ? cellText(row[map.unit]) : 'LS'
+    const qty = map.qty != null ? parseMoney(row[map.qty]) : 0
+    let unitPrice = map.price != null ? parseMoney(row[map.price]) : 0
+    const amount = map.amount != null ? parseMoney(row[map.amount]) : 0
+    const bidQuantity = map.qty != null ? qty : amount && !unitPrice ? 1 : qty || 1
+    if (!unitPrice && amount) unitPrice = bidQuantity ? amount / bidQuantity : amount
     rows.push({
       jobName: job,
       itemNumber,
       description: rawDesc,
       unit: unit || 'LS',
-      bidQuantity: map.qty != null ? parseMoney(row[map.qty]) : 1,
-      unitPrice: map.price != null ? parseMoney(row[map.price]) : 0,
+      bidQuantity,
+      unitPrice,
       estimatedCost: map.cost != null ? parseMoney(row[map.cost]) : 0,
       activity: rawDesc,
     })

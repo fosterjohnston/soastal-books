@@ -78,11 +78,23 @@ export function Badge({
   )
 }
 
-export function Card({ title, action, children, className }: { title?: string; action?: ReactNode; children: ReactNode; className?: string }) {
+export function Card({
+  title,
+  action,
+  children,
+  className,
+  id,
+}: {
+  title?: string
+  action?: ReactNode
+  children: ReactNode
+  className?: string
+  id?: string
+}) {
   return (
-    <section className={cn('rounded-xl border border-line bg-white p-5 shadow-sm', className)}>
+    <section id={id} className={cn('rounded-xl border border-line bg-white p-5 shadow-sm', className)}>
       {title ? (
-        <header className="mb-3 flex items-center justify-between gap-3">
+        <header className="mb-3 flex flex-wrap items-center justify-between gap-3">
           <h2 className="font-serif text-lg text-ink">{title}</h2>
           {action}
         </header>

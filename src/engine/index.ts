@@ -98,6 +98,7 @@ export {
   DEFAULT_EQUIPMENT_ACCOUNT,
   DEFAULT_LABOR_ACCOUNT,
   DEFAULT_MATERIALS_ACCOUNT,
+  addEquipment,
   addLineItemToMap,
   emptyEquipment,
   emptyLineItemMapRow,

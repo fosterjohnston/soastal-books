@@ -7,7 +7,7 @@ import {
   parseBidScheduleTable,
   parseDelimitedText,
 } from './bid-schedule'
-import { addLineItemToMap, emptyEquipment, emptyLineItemMapRow, lineItemAlreadyMapped } from './masters'
+import { addEquipment, addLineItemToMap, emptyEquipment, emptyLineItemMapRow, lineItemAlreadyMapped } from './masters'
 import { createMasterDataOnly } from '../seed'
 
 const HEADERS = ['Job', 'Item #', 'Line item', 'Unit', 'Qty', 'Unit price', 'Est. cost']
@@ -40,6 +40,29 @@ describe('bid schedule import', () => {
     })
     expect(parsed.rows.map((r) => r.jobName)).toEqual(['Craig Farm', 'Craig Farm'])
     expect(parsed.warnings.some((w) => /Craig Farm/.test(w))).toBe(true)
+  })
+
+  it('puts every row on the picked job even if the file names another job', () => {
+    const csv = [
+      'Description,Unit,Qty,Unit price',
+      'Mobilization,LS,1,18500',
+      'Silt Fence,LF,1200,3.75',
+    ].join('\n')
+    const parsed = parseBidScheduleSource('bid.csv', csv, { forceJobName: 'Craig Farm' })
+    expect(parsed.rows).toHaveLength(2)
+    expect(parsed.rows.every((r) => r.jobName === 'Craig Farm')).toBe(true)
+    expect(parsed.rows[1].description).toBe('Silt Fence')
+  })
+
+  it('fills unit price from an Amount column when the bid has no unit price', () => {
+    const grid = [
+      ['Line item', 'Qty', 'Amount'],
+      ['Pump Station', 1, 44000],
+    ]
+    const parsed = parseBidScheduleTable(grid, { forceJobName: 'Fern Hill' })
+    expect(parsed.rows[0].bidQuantity).toBe(1)
+    expect(parsed.rows[0].unitPrice).toBe(44000)
+    expect(parsed.rows[0].jobName).toBe('Fern Hill')
   })
 
   it('uses the job filter when the Excel has no Job column', () => {
@@ -127,5 +150,17 @@ describe('line item map and equipment helpers', () => {
     expect(eq.defaultAccount).toMatch(/^5190/)
     expect(eq.ownership).toBe('Owned')
     expect(emptyLineItemMapRow('Curb').activity).toBe('Curb')
+  })
+
+  it('adds a machine at the top of the equipment master', () => {
+    const books = createMasterDataOnly()
+    const first = addEquipment(books, { name: 'Mini 35', type: 'Mini Excavator', monthlyRate: 3500 })
+    expect(first.equipment[0].name).toBe('Mini 35')
+    expect(first.equipment[0].monthlyRate).toBe(3500)
+    expect(first.equipment.length).toBe(books.equipment.length + 1)
+    const second = addEquipment(first)
+    expect(second.equipment[0].name).toBe('New equipment')
+    const third = addEquipment(second)
+    expect(third.equipment[0].name).toBe('New equipment 2')
   })
 })

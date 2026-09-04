@@ -2,18 +2,21 @@
 
 import { addLineItemToMap, findLineItemMap, mergeJobLineItems, newId, parseBidScheduleFile, sovContractValue } from '../engine'
 import { useBooks } from '../store/BooksContext'
-import { Button, Card, Select } from '../components/ui'
+import { Button, Card, Field, Select } from '../components/ui'
 import { Money } from '../components/Money'
 import { SheetTitle } from '../components/Sheet'
 import { useMemo, useRef, useState } from 'react'
 
 export function JobLineItems() {
   const { books, setBooks } = useBooks()
-  const [jobFilter, setJobFilter] = useState('')
+  const activeJobs = books.jobs.filter((j) => j.slot !== 30 && j.jobName)
+  const [jobFilter, setJobFilter] = useState(activeJobs[0]?.jobName || '')
   const [status, setStatus] = useState('')
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
+  const [dragOver, setDragOver] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
+  const targetJob = jobFilter || activeJobs[0]?.jobName || ''
 
   const rows = useMemo(() => {
     const list = jobFilter ? books.jobLineItems.filter((s) => s.jobName === jobFilter) : books.jobLineItems
@@ -32,19 +35,22 @@ export function JobLineItems() {
   }, [books, jobFilter])
 
   function patch(id: string, next: Partial<(typeof books.jobLineItems)[number]>) {
-    setBooks({ ...books, jobLineItems: books.jobLineItems.map((s) => (s.id === id ? { ...s, ...next } : s)) })
+    setBooks((prev) => ({
+      ...prev,
+      jobLineItems: prev.jobLineItems.map((s) => (s.id === id ? { ...s, ...next } : s)),
+    }))
   }
 
   function addRow() {
-    const jobName = jobFilter || books.jobs.find((j) => j.slot === 1)?.jobName || 'Fern Hill'
-    setBooks({
-      ...books,
+    const jobName = targetJob || 'Fern Hill'
+    setBooks((prev) => ({
+      ...prev,
       jobLineItems: [
-        ...books.jobLineItems,
+        ...prev.jobLineItems,
         {
           id: newId('sov'),
           jobName,
-          itemNumber: String(books.jobLineItems.filter((s) => s.jobName === jobName).length + 1),
+          itemNumber: String(prev.jobLineItems.filter((s) => s.jobName === jobName).length + 1),
           description: 'New item',
           unit: 'LS',
           bidQuantity: 1,
@@ -53,26 +59,36 @@ export function JobLineItems() {
           activity: 'New item',
         },
       ],
-    })
-    setStatus('Added one blank line item. Upload a bid Excel to add a whole schedule at once.')
+    }))
+    setStatus(`Added one blank line item on ${jobName}. To add a whole bid at once, upload the Excel below.`)
     setError('')
   }
 
   async function onUpload(file: File) {
+    if (!targetJob) {
+      setError('Pick the job first, then upload the bid Excel.')
+      return
+    }
     setBusy(true)
     setError('')
     setStatus('')
     try {
       const parsed = await parseBidScheduleFile(file, {
-        defaultJobName: jobFilter,
+        defaultJobName: targetJob,
+        forceJobName: targetJob,
         knownJobNames: books.jobs.map((j) => j.jobName),
       })
-      const merged = mergeJobLineItems(books.jobLineItems, parsed.rows)
-      setBooks({ ...books, jobLineItems: merged.next })
-      const bits = [`Added ${merged.added} line item${merged.added === 1 ? '' : 's'} from ${file.name}`]
+      let added = 0
+      let skipped = 0
+      setBooks((prev) => {
+        const merged = mergeJobLineItems(prev.jobLineItems, parsed.rows)
+        added = merged.added
+        skipped = merged.skippedDuplicates
+        return { ...prev, jobLineItems: merged.next }
+      })
+      const bits = [`Added ${added} line item${added === 1 ? '' : 's'} to ${targetJob} from ${file.name}`]
       if (parsed.sheetName && parsed.sheetName !== 'csv') bits.push(`(sheet “${parsed.sheetName}”)`)
-      if (merged.skippedDuplicates) bits.push(`skipped ${merged.skippedDuplicates} already on the books`)
-      if (parsed.warnings.length) bits.push(parsed.warnings[0])
+      if (skipped) bits.push(`skipped ${skipped} already on that job`)
       setStatus(`${bits.join(' — ')}.`)
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err))
@@ -81,48 +97,86 @@ export function JobLineItems() {
     }
   }
 
+  function takeFile(file: File | undefined) {
+    if (!file) return
+    void onUpload(file)
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <SheetTitle
         title="Job Line Items"
-        blurb="One row per line item per job — this is the schedule of values. Upload a whole bid Excel (or CSV) to add every row at once. Job name fill-down: leave Job blank on later rows of the same job. Line items are not chart of accounts. The Line Item Map on Setup is the cost-code / crosscode map — it points each name to Labor / Equipment / Materials."
-        action={
-          <div className="flex flex-wrap gap-2">
-            <Button variant="ghost" onClick={() => fileRef.current?.click()} disabled={busy}>
-              {busy ? 'Reading Excel…' : 'Upload bid Excel'}
-            </Button>
-            <Button onClick={addRow}>Add line item</Button>
-          </div>
-        }
+        blurb="Schedule of values — one row per line item on a job. Pick the job, then upload the whole bid Excel. Every row in the file is added to that job. You do not type them one by one. Line items are not chart of accounts. The Line Item Map on Setup is the cost-code / crosscode map."
+        action={<Button variant="ghost" onClick={addRow}>Add one line item</Button>}
       />
-      <input
-        ref={fileRef}
-        type="file"
-        accept=".xlsx,.xls,.csv,.tsv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,text/csv"
-        className="hidden"
-        onChange={(e) => {
-          const f = e.target.files?.[0]
-          e.target.value = ''
-          if (f) void onUpload(f)
-        }}
-      />
-      <div className="flex flex-wrap gap-2">
-        <Select value={jobFilter} onChange={(e) => setJobFilter(e.target.value)}>
-          <option value="">All jobs</option>
-          {books.jobs.filter((j) => j.slot !== 30).map((j) => (
-            <option key={j.id} value={j.jobName}>
-              {j.jobName}
-            </option>
-          ))}
-        </Select>
-      </div>
-      {status ? <p className="text-sm text-teal">{status}</p> : null}
-      {error ? <p className="text-sm text-danger">{error}</p> : null}
-      <Card>
+
+      <Card title="Upload a bid Excel for this job">
+        <p className="mb-3 text-sm text-ink-2">
+          Use a sheet with columns like Line item (or Description / Cost code), Unit, Qty, and Unit price. A Job column
+          is optional — everything goes on the job you pick here. CSV works too. Keith’s live workbook is refused.
+        </p>
+        <div className="mb-3 max-w-md">
+          <Field label="Job">
+            <Select value={jobFilter} onChange={(e) => setJobFilter(e.target.value)}>
+              <option value="">All jobs — pick one to upload</option>
+              {activeJobs.map((j) => (
+                <option key={j.id} value={j.jobName}>
+                  {j.jobName}
+                </option>
+              ))}
+            </Select>
+          </Field>
+        </div>
+        <input
+          ref={fileRef}
+          type="file"
+          accept=".xlsx,.xls,.csv,.tsv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,text/csv"
+          className="hidden"
+          onChange={(e) => {
+            const f = e.target.files?.[0]
+            e.target.value = ''
+            takeFile(f)
+          }}
+        />
+        <div
+          onDragEnter={(e) => {
+            e.preventDefault()
+            setDragOver(true)
+          }}
+          onDragOver={(e) => {
+            e.preventDefault()
+            setDragOver(true)
+          }}
+          onDragLeave={() => setDragOver(false)}
+          onDrop={(e) => {
+            e.preventDefault()
+            setDragOver(false)
+            takeFile(e.dataTransfer.files?.[0])
+          }}
+          className={`flex min-h-36 w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed px-4 py-8 text-center ${
+            dragOver ? 'border-teal bg-teal/5' : 'border-line bg-paper'
+          } ${busy || !targetJob ? 'opacity-60' : ''}`}
+        >
+          <p className="font-serif text-xl text-ink">
+            {busy ? 'Reading the bid…' : targetJob ? `Drop the ${targetJob} bid here` : 'Pick a job first'}
+          </p>
+          <p className="text-sm text-ink-2">
+            {targetJob
+              ? 'Excel or CSV — all line items are added to this job at once.'
+              : 'Choose the job above, then upload.'}
+          </p>
+          <Button disabled={busy || !targetJob} onClick={() => fileRef.current?.click()}>
+            {busy ? 'Reading Excel…' : 'Choose Excel or CSV'}
+          </Button>
+        </div>
+        {status ? <p className="mt-3 text-sm text-teal">{status}</p> : null}
+        {error ? <p className="mt-3 text-sm text-danger">{error}</p> : null}
+      </Card>
+
+      <Card title={jobFilter ? `Line items on ${jobFilter}` : 'All job line items'}>
         {rows.length === 0 ? (
           <p className="text-sm text-ink-2">
-            No schedule of values yet{jobFilter ? ` for ${jobFilter}` : ''}. Upload a bid Excel to add every line item
-            at once, or add one by hand.
+            No schedule of values yet{jobFilter ? ` for ${jobFilter}` : ''}. Upload the bid Excel above.
           </p>
         ) : (
           <div className="overflow-x-auto" style={{ maxHeight: 640 }}>
@@ -199,7 +253,7 @@ export function JobLineItems() {
                           type="button"
                           className="font-semibold text-danger underline-offset-2 hover:underline"
                           onClick={() => {
-                            setBooks(addLineItemToMap(books, s.description || s.activity))
+                            setBooks((prev) => addLineItemToMap(prev, s.description || s.activity))
                             setStatus(`Added “${s.description || s.activity}” to the Line Item Map (cost-code / crosscode map). Set the three accounts on Setup if they are not Other.`)
                             setError('')
                           }}

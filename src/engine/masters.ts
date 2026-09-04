@@ -6,6 +6,14 @@ export const DEFAULT_LABOR_ACCOUNT = '5090 - Job Labor - Other'
 export const DEFAULT_EQUIPMENT_ACCOUNT = '5190 - Job Equipment - Other'
 export const DEFAULT_MATERIALS_ACCOUNT = '5290 - Job Materials - Other'
 
+export function nextEquipmentName(existing: { name: string }[]): string {
+  const have = new Set(existing.map((e) => e.name.trim().toLowerCase()))
+  if (!have.has('new equipment')) return 'New equipment'
+  let n = 2
+  while (have.has(`new equipment ${n}`)) n++
+  return `New equipment ${n}`
+}
+
 export function emptyEquipment(partial: Partial<EquipmentUnit> = {}): EquipmentUnit {
   return {
     id: newId('eq'),
@@ -21,6 +29,16 @@ export function emptyEquipment(partial: Partial<EquipmentUnit> = {}): EquipmentU
     notes: '',
     active: true,
     ...partial,
+  }
+}
+
+/** Newest machine first so Add equipment is visible without scrolling the master list. */
+export function addEquipment(books: CompanyBooks, partial: Partial<EquipmentUnit> = {}): CompanyBooks {
+  const typed = (partial.name || '').replace(/\s+/g, ' ').trim()
+  const name = typed || nextEquipmentName(books.equipment)
+  return {
+    ...books,
+    equipment: [emptyEquipment({ ...partial, name }), ...books.equipment],
   }
 }
 
