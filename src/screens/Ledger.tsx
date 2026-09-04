@@ -117,9 +117,8 @@ export function Ledger() {
         <div>
           <h1 className="font-serif text-3xl">Transactions</h1>
           <p className="max-w-2xl text-sm text-ink-2">
-            Keith’s ledger. Money out +, money in −. Client bill = Revenue / 4000. Client then pays = Asset / 1100
-            (same number + -PMT), not a second sale. Invoice Total on the first split only. Foster does not have to
-            approve.
+            Keith’s ledger. Money out +, money in −. Second step (pay, collect, reimburse) is never a second cost or
+            sale — same number + -PMT. Recipes are on Enter a transaction. Invoice Total on the first split only.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">

@@ -56,6 +56,9 @@ export {
   CHEAT_SHEET_QUESTIONS,
   CHEAT_SHEET_RULES,
   CLIENT_BILL_THEN_PAY,
+  matchingRecipeIds,
+  RECIPE_GROUPS,
+  TWO_STEP_RECIPES,
   invoiceNumberHint,
   invoiceTotalHint,
   moneyDirection,
@@ -63,6 +66,7 @@ export {
   paymentMethodHint,
   signMismatchMessage,
   type MoneyDirection,
+  type TwoStepRecipe,
 } from './cheat-sheet'
 export {
   askFosterReview,

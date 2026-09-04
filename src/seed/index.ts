@@ -234,8 +234,8 @@ export const WALKTHROUGH = [
     body: '1. Which direction is the money going? Out is positive, in is negative. 2. How did it move? Payment Method sets the offset. 3. Is it a job cost? If yes, Job + Line Item; Override stays blank. If no, pick Override Account. 4. Does Difference read zero?',
   },
   {
-    heading: 'Client billed you, then paid',
-    body: 'Send the bill: Revenue, Billed / AR, negative Invoice total, 4000. When they pay: same number + -PMT, Asset, Deposit, negative again, 1100. That payment is not a second sale.',
+    heading: 'Two-step entries (both sides of the books)',
+    body: 'Client bill = Revenue / 4000. Client pays = Asset / 1100 + -PMT. Vendor bill = job cost / 2000; pay = Liability / 2000 + -PMT. Card charge then pay 2100. Loan = principal 2500/2510 + interest 7000. Skipped payroll = accrue then -PMT, do not hit Labor twice. Out of pocket = cost + AP to the person, reimburse clears 2000 — not a draw. Owner draw (rare) = 3100. Buy a machine = Asset. Rental = Transactions; Equipment Allocation is memo. Sub retainage = full invoice then −2050. Vendor credit = same coding, negative.',
   },
   ...master.walkthrough,
 ]

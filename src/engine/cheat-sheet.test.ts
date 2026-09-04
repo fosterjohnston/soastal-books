@@ -3,6 +3,8 @@ import {
   amountHasExpectedSign,
   CHEAT_SHEET_RULES,
   CLIENT_BILL_THEN_PAY,
+  matchingRecipeIds,
+  TWO_STEP_RECIPES,
   invoiceTotalHint,
   moneyDirection,
   signMismatchMessage,
@@ -38,5 +40,32 @@ describe('transaction cheat sheet signs', () => {
     expect(CLIENT_BILL_THEN_PAY.collect).toMatch(/1100/)
     expect(CLIENT_BILL_THEN_PAY.collect).toMatch(/-PMT/)
     expect(CLIENT_BILL_THEN_PAY.collect).toMatch(/not post Revenue a second time/)
+  })
+
+  it('covers every two-step trap with a Never line', () => {
+    const ids = TWO_STEP_RECIPES.map((r) => r.id)
+    expect(ids).toEqual([
+      'client-bill',
+      'client-collect',
+      'client-cash-no-bill',
+      'vendor-bill',
+      'card-then-pay',
+      'loan-payment',
+      'payroll-skip',
+      'out-of-pocket',
+      'owner-draw',
+      'buy-machine',
+      'rent-vs-alloc',
+      'retainage',
+      'vendor-credit',
+    ])
+    for (const r of TWO_STEP_RECIPES) {
+      expect(r.never.length).toBeGreaterThan(20)
+      expect(r.step1.length).toBeGreaterThan(20)
+    }
+    expect(TWO_STEP_RECIPES.find((r) => r.id === 'payroll-skip')?.never).toMatch(/Labor/)
+    expect(TWO_STEP_RECIPES.find((r) => r.id === 'out-of-pocket')?.never).toMatch(/Draw/)
+    expect(matchingRecipeIds({ paymentMethod: 'Deposit', costType: 'Asset' })).toContain('client-collect')
+    expect(matchingRecipeIds({ sourceType: 'Payroll' })).toContain('payroll-skip')
   })
 })
